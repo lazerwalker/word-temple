@@ -1,17 +1,12 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 
+import { BoardTile } from '../Tile';
 import TileView from './TileView';
 
 interface BoardProps {
   size: number;
-  tiles: Tile[];
-}
-
-interface Tile {
-  x: number;
-  y: number;
-  letter: string;
+  tiles: BoardTile[];
 }
 
 class BoardView extends React.Component<BoardProps> {
@@ -31,7 +26,7 @@ class BoardView extends React.Component<BoardProps> {
       <div className='board'>
         {tiles}
       </div>
-    )
+    );
   }
 }
 

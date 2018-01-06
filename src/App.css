@@ -35,3 +35,11 @@
   grid-gap: 0px;
   grid-auto-rows: minmax(80px, auto);
 }
+
+.rack {
+  margin-top: 20px;
+}
+
+.rack .tile {
+  display: inline-block;
+}
