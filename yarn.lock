@@ -10,12 +10,6 @@
   version "8.5.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.7.tgz#9c498c35af354dcfbca3790fb2e81129e93cf0e2"
 
-"@types/peerjs@^0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@types/peerjs/-/peerjs-0.0.29.tgz#b139590fec4d1a0bf78b8835f9be603323d197b1"
-  dependencies:
-    "@types/webrtc" "*"
-
 "@types/react-dom@^16.0.3":
   version "16.0.3"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.3.tgz#8accad7eabdab4cca3e1a56f5ccb57de2da0ff64"
@@ -26,10 +20,6 @@
 "@types/react@*", "@types/react@^16.0.34":
   version "16.0.34"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.34.tgz#7a8f795afd8a404a9c4af9539b24c75d3996914e"
-
-"@types/webrtc@*":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@types/webrtc/-/webrtc-0.0.22.tgz#45ed47a59a7cbffa545b44679390466c112f4843"
 
 abab@^1.0.3:
   version "1.0.4"
@@ -3822,13 +3812,14 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-peerjs@^0.3.14:
-  version "0.3.14"
-  resolved "https://registry.yarnpkg.com/peerjs/-/peerjs-0.3.14.tgz#5f934eb09a04ce237a47d52f4766c9373da2511e"
+"pearjs@https://github.com/Simplici/pearjs/tarball/master":
+  version "0.3.16"
+  resolved "https://github.com/Simplici/pearjs/tarball/master#f03d1147fd35fdbbdfb7c9017fe0ddf1b94216d6"
   dependencies:
     eventemitter3 "^0.1.5"
     js-binarypack "0.0.9"
     reliable "git+https://github.com/michelle/reliable.git"
+    webrtc-adapter "^5.0.4"
 
 performance-now@^0.2.0:
   version "0.2.0"
@@ -4697,6 +4688,12 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
+rtcpeerconnection-shim@^1.1.13:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/rtcpeerconnection-shim/-/rtcpeerconnection-shim-1.2.4.tgz#5b178f57d35fe88e423c50d28d7507ececc9f3b2"
+  dependencies:
+    sdp "^2.2.0"
+
 run-async@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
@@ -4738,6 +4735,10 @@ schema-utils@^0.3.0:
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
   dependencies:
     ajv "^5.0.0"
+
+sdp@^2.2.0, sdp@^2.3.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/sdp/-/sdp-2.5.0.tgz#b15a0b1dfd0a38f6a8c780e58f8c8fe73c29ffe5"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -5654,6 +5655,13 @@ webpack@3.5.1:
     watchpack "^1.4.0"
     webpack-sources "^1.0.1"
     yargs "^8.0.2"
+
+webrtc-adapter@^5.0.4:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-5.0.6.tgz#7946fca194dadf869bb6c8cae1011dfda03f40c7"
+  dependencies:
+    rtcpeerconnection-shim "^1.1.13"
+    sdp "^2.3.0"
 
 websocket-driver@>=0.5.1:
   version "0.7.0"
