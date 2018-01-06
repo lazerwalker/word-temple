@@ -15,7 +15,7 @@ class BoardView extends React.Component<BoardProps> {
       return _.range(this.props.size).map((x) => {
         const tile = _(this.props.tiles).find((t) => t.x === x && t.y === y);
         if (tile) {
-          return <TileView letter={tile.letter} key={`tile-${x}-${y}`} />;
+          return <TileView letter={tile.letter} value={tile.value} key={`tile-${x}-${y}`} />;
         } else {
           return <TileView key={`tile-${x}-${y}`} />;
         }

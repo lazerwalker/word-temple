@@ -2,6 +2,7 @@ import * as React from 'react';
 
 interface TileViewProps {
   letter?: string;
+  value?: number;
 }
 
 class TileView extends React.Component<TileViewProps> {
@@ -9,7 +10,7 @@ class TileView extends React.Component<TileViewProps> {
     if (this.props.letter) {
       return (
         <div className='tile'>
-          {this.props.letter}
+          {this.props.letter}-{this.props.value}
         </div>
       );
     } else {

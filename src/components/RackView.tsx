@@ -10,7 +10,7 @@ interface RackProps {
 class RackView extends React.Component<RackProps> {
   render() {
     const tiles = this.props.tiles.map((tile, idx) => {
-      return <TileView letter={tile.letter} key={`rack-${idx}`} />;
+      return <TileView letter={tile.letter} value={tile.value} key={`rack-${idx}`} />;
     });
 
     return (
