@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.4",
     "pearjs": "https://github.com/Simplici/pearjs/tarball/master",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@types/jest": "^22.0.1",
+    "@types/lodash": "^4.14.92",
     "@types/node": "^8.5.7",
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3"
