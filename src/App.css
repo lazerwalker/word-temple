@@ -22,3 +22,16 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.tile {
+  border: 1px solid red;
+  width: 80px;
+  height: 80px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 0px;
+  grid-auto-rows: minmax(80px, auto);
+}

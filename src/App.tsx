@@ -1,20 +1,20 @@
 import * as React from 'react';
 import './App.css';
-import './network';
-
-const logo = require('./logo.svg');
+import Board from './components/BoardView';
 
 class App extends React.Component {
   render() {
+    const tiles = [
+      {x: 1, y: 1, letter: 'A'},
+      {x: 3, y: 5, letter: 'Z'}
+    ];
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Board
+          tiles={tiles}
+          size={7}
+        />
       </div>
     );
   }
