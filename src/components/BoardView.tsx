@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as _ from 'lodash';
 
 import { BoardTile } from '../Tile';
-import TileView from './TileView';
+import BoardTileView from './BoardTileView';
 
 interface BoardProps {
   size: number;
@@ -15,9 +15,9 @@ class BoardView extends React.Component<BoardProps> {
       return _.range(this.props.size).map((x) => {
         const tile = _(this.props.tiles).find((t) => t.x === x && t.y === y);
         if (tile) {
-          return <TileView letter={tile.letter} value={tile.value} key={`tile-${x}-${y}`} />;
+          return <BoardTileView tile={tile} key={`tile-${x}-${y}`} />;
         } else {
-          return <TileView key={`tile-${x}-${y}`} />;
+          return <BoardTileView key={`tile-${x}-${y}`} />;
         }
       });
     });
