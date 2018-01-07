@@ -10,7 +10,8 @@ class TileView extends React.Component<TileViewProps> {
     if (this.props.letter) {
       return (
         <div className='tile'>
-          {this.props.letter}-{this.props.value}
+          {this.props.letter}
+          <div className='value'>{this.props.value}</div>
         </div>
       );
     } else {

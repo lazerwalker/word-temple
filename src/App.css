@@ -24,9 +24,31 @@
 }
 
 .tile {
-  border: 1px solid red;
+  background-color: #fbb;
+  border: 1px solid black;
+  font-size: 24px;
+  line-height: 80px;
+  position: relative;
   width: 80px;
   height: 80px;
+}
+
+.tile .value {
+  position: absolute;
+  font-size: 13px;
+  line-height: 1em;
+  bottom: 10px;
+  right: 10px;
+}
+
+.board-tile {
+  border: 1px solid black;
+  width: 80px;
+  height: 80px;
+}
+
+.board-tile .tile {
+  border: 0;
 }
 
 .board {
