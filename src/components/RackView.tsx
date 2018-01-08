@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Tile } from '../Tile';
-import TileView from './TileView';
+import RackTileView from './RackTileView';
 
 interface RackProps {
   tiles: Tile[];
@@ -10,7 +10,7 @@ interface RackProps {
 class RackView extends React.Component<RackProps> {
   render() {
     const tiles = this.props.tiles.map((tile, idx) => {
-      return <TileView letter={tile.letter} value={tile.value} key={`rack-${idx}`} />;
+      return <RackTileView letter={tile.letter} value={tile.value} key={`rack-${idx}`} />;
     });
 
     return (
