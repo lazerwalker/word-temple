@@ -41,3 +41,26 @@ describe("finding all words on a board", () => {
     expect(words).toHaveLength(2);
   });
 });
+
+describe("checking if a word is a valid word", () => {
+  it("should say if a word is valid", () => {
+    const cat = [
+      {x: 0, y: 1, letter: 'C', value: 3},
+      {x: 1, y: 1, letter: 'A', value: 1},
+      {x: 2, y: 1, letter: 'T', value: 1}
+    ];
+
+    const isValid = Board.checkWord(cat);
+    expect(isValid).toBeTruthy();
+  });
+
+  it("should say if a word is invalid", () => {
+    const aj = [
+      {x: 1, y: 1, letter: 'A', value: 1},
+      {x: 1, y: 2, letter: 'J', value: 1}
+    ];
+
+    const isValid = Board.checkWord(aj);
+    expect(isValid).toBeFalsy();
+  });
+});

@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 
 import { BoardTile } from './Tile';
+const Dictionary = require('./dictionary');
 
 export interface Board {
   tiles: BoardTile[];
@@ -63,15 +64,11 @@ export function findWords(board: Board): BoardTile[][] {
 
 export function checkWord(tiles: BoardTile[]): boolean {
   const word = _(tiles).chain()
-    .sortBy((tile) => tile.y * 10 + tile.x)
     .map((tile) => tile.letter)
     .value()
     .join('');
 
-  console.log(word);
-
-  const dict = ['cat', 'dog'];
-  return _.includes(dict, word.toLowerCase());
+  return _.includes(Dictionary, word.toLowerCase());
 }
 
 // TODO: Return something more complex
