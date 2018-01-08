@@ -64,3 +64,34 @@ describe("checking if a word is a valid word", () => {
     expect(isValid).toBeFalsy();
   });
 });
+
+describe("checking if a board is valid", () => {
+  describe("when the board is valid", () => {
+    it("should pass", () => {
+      const tiles = [
+        {x: 0, y: 1, letter: 'C', value: 3},
+        {x: 1, y: 1, letter: 'A', value: 1},
+        {x: 2, y: 1, letter: 'T', value: 1},
+        {x: 1, y: 2, letter: 'B', value: 1},
+        {x: 3, y: 5, letter: 'Z', value: 10}
+      ];
+
+      expect(Board.checkBoard(tiles)).toBeTruthy();
+    });
+  });
+
+  describe("when the board is invalid", () => {
+    it("should fail", () => {
+      const tiles = [
+        {x: 0, y: 1, letter: 'C', value: 3},
+        {x: 1, y: 1, letter: 'A', value: 1},
+        {x: 2, y: 1, letter: 'T', value: 1},
+        {x: 1, y: 2, letter: 'J', value: 1},
+        {x: 3, y: 5, letter: 'Z', value: 10}
+      ];
+
+      const board = { tiles, size: 7 };
+      expect(Board.checkBoard(board)).toBeFalsy();
+    });
+  });
+});
