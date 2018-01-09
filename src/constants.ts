@@ -1,12 +1,14 @@
 import { Tile } from './Tile';
 
-export enum Actions {
+export enum ActionID {
   SELECT_RACK_TILE = "SELECT_RACK_TILE"
 }
 
-export interface ActionSelectRackTile {
-  type: Actions.SELECT_RACK_TILE;
-  value: Tile;
+export namespace Action {
+  export interface SelectRackTile {
+    type: ActionID.SELECT_RACK_TILE;
+    value: Tile;
+  }
 }
 
-export type Action = ActionSelectRackTile;
+export type Action = Action.SelectRackTile;

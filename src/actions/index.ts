@@ -1,9 +1,9 @@
 import { Tile } from '../Tile';
-import { Actions, ActionSelectRackTile } from '../constants';
+import { ActionID, Action } from '../constants';
 
-export const selectRackTile = (tile: Tile): ActionSelectRackTile => {
+export const selectRackTile = (tile: Tile): Action.SelectRackTile => {
   return {
-    type: Actions.SELECT_RACK_TILE,
+    type: ActionID.SELECT_RACK_TILE,
     value: tile
   };
 };
