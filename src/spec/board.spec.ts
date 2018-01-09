@@ -76,7 +76,7 @@ describe("checking if a board is valid", () => {
         {x: 3, y: 5, letter: 'Z', value: 10}
       ];
 
-      expect(Board.checkBoard(tiles)).toBeTruthy();
+      expect(Board.checkBoard({tiles, size: 7})).toBeTruthy();
     });
   });
 

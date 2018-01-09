@@ -1,35 +1,36 @@
 import * as React from 'react';
 
+import { Tile } from '../Tile';
+
 import TileView from './TileView';
 
 interface Props {
-  letter?: string;
-  value?: number;
-}
-
-interface State {
+  tile?: Tile;
   isSelected: boolean;
-  isInRack: boolean;
+  onTapTile: (tile: Tile) => void;
 }
 
-class RackTileView extends React.Component<Props, State> {
-  getInitialState() {
-    return { isSelected: false, isInRack: false };
+class RackTileView extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
   }
 
-  didTap() {
-    if (!this.state.isInRack) { return; }
-
-    this.setState({isSelected: !this.state.isSelected});
+  onClick() {
+    if (this.props.tile) {
+      this.props.onTapTile(this.props.tile);
+    }
   }
 
   render() {
-    if (!this.state) { this.state = this.getInitialState(); }
-
-    if (this.props.letter) {
+    if (this.props.tile) {
       return (
-        <div className={this.state.isSelected ? "tile selected" : "tile"} onClick={this.didTap}>
-          <TileView letter={this.props.letter} value={this.props.value} />
+        <div className="tile" onClick={this.onClick}>
+          <TileView
+            letter={this.props.tile.letter}
+            value={this.props.tile.value}
+            isSelected={this.props.isSelected}
+          />
         </div>
       );
     } else {
