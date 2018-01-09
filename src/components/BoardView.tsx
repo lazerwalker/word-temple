@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import * as _ from 'lodash';
+
+import { State } from '../types';
 
 import { BoardTile } from '../Tile';
 import BoardTileView from './BoardTileView';
@@ -30,4 +33,15 @@ class BoardView extends React.Component<BoardProps> {
   }
 }
 
-export default BoardView;
+const mapStateToProps = (state: State, ownProps: any) => {
+  return state.board;
+};
+
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BoardView);

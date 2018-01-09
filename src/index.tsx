@@ -19,8 +19,15 @@ const rack = {
   tiles: hand
 };
 
-let store = createStore(reducer, {rack});
-console.log(store.getState());
+const tiles = [
+  {x: 0, y: 1, letter: 'R', value: 3},
+  {x: 1, y: 1, letter: 'A', value: 1},
+  {x: 2, y: 1, letter: 'T', value: 1},
+  {x: 3, y: 5, letter: 'Z', value: 10}
+];
+const board = { tiles, size: 7 };
+
+let store = createStore(reducer, {rack, board});
 
 ReactDOM.render(
   <Provider store={store}>
