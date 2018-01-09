@@ -7,7 +7,8 @@ import TileView from './TileView';
 interface Props {
   tile?: Tile;
   isSelected: boolean;
-  onTapTile: (tile: Tile) => void;
+  onSelectTile: (tile: Tile) => void;
+  onDeselectTile: () => void;
 }
 
 class RackTileView extends React.Component<Props> {
@@ -18,7 +19,11 @@ class RackTileView extends React.Component<Props> {
 
   onClick() {
     if (this.props.tile) {
-      this.props.onTapTile(this.props.tile);
+      if (this.props.isSelected) {
+        this.props.onDeselectTile();
+      } else {
+        this.props.onSelectTile(this.props.tile);
+      }
     }
   }
 

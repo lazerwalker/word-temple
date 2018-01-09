@@ -4,12 +4,15 @@ import { State } from '../types';
 export default (state: State, action: Action) => {
   switch (action.type) {
     case ActionID.SELECT_RACK_TILE:
-      const newState = Object.assign({}, state, {rack: {
+      return Object.assign({}, state, {rack: {
         tiles: state.rack.tiles,
         selectedTile: action.value}
       });
-      console.log(newState);
-      return newState;
+    case ActionID.DESELECT_RACK_TILE:
+      return Object.assign({}, state, {rack: {
+        tiles: state.rack.tiles,
+        selectedTile: undefined}
+      });
     default:
       return state;
   }

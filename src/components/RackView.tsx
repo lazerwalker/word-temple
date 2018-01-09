@@ -5,12 +5,13 @@ import { Tile } from '../Tile';
 import RackTileView from './RackTileView';
 import { State } from '../types';
 
-import { selectRackTile } from '../actions';
+import { selectRackTile, deselectRackTile } from '../actions';
 
 interface RackProps {
   tiles: Tile[];
   selectedTile?: Tile;
-  onTapTile: (tile: Tile) => void;
+  onSelectTile: (tile: Tile) => void;
+  onDeselectTile: () => void;
 }
 
 class RackView extends React.Component<RackProps> {
@@ -22,7 +23,8 @@ class RackView extends React.Component<RackProps> {
         <RackTileView
           tile={tile}
           isSelected={isSelected}
-          onTapTile={this.props.onTapTile}
+          onSelectTile={this.props.onSelectTile}
+          onDeselectTile={this.props.onDeselectTile}
           key={`rack-${idx}`}
         />
       );
@@ -42,8 +44,12 @@ const mapStateToProps = (state: State, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    onTapTile: (tile: Tile) => {
+    onSelectTile: (tile: Tile) => {
       dispatch(selectRackTile(tile));
+    },
+
+    onDeselectTile: () => {
+      dispatch(deselectRackTile());
     }
   };
 };

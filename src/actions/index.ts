@@ -7,3 +7,9 @@ export const selectRackTile = (tile: Tile): Action.SelectRackTile => {
     value: tile
   };
 };
+
+export const deselectRackTile = (): Action.DeselectRackTile => {
+  return {
+    type: ActionID.DESELECT_RACK_TILE,
+  };
+};
