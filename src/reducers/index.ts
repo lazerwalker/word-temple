@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { Action, ActionID } from '../constants';
 import { State } from '../types';
 
@@ -22,6 +24,7 @@ export default (state: State, action: Action) => {
         board.tiles.push(newTile);
 
         let rack = Object.assign({}, state.rack);
+        rack.tiles = _.without(rack.tiles, rack.selectedTile!);
         delete rack.selectedTile;
 
         return Object.assign({}, state, {board, rack});
