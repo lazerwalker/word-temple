@@ -13,3 +13,10 @@ export const deselectRackTile = (): Action.DeselectRackTile => {
     type: ActionID.DESELECT_RACK_TILE,
   };
 };
+
+export const placeTile = (x: number, y: number): Action.PlaceTile => {
+  return {
+    type: ActionID.PLACE_TILE,
+    value: {x, y}
+  };
+};

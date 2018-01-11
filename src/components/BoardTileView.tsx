@@ -5,6 +5,7 @@ import { Tile } from '../Tile';
 
 interface BoardTileViewProps {
   tile?: Tile;
+  onTap?: () => void;
 }
 
 class BoardTileView extends React.Component<BoardTileViewProps> {
@@ -16,7 +17,7 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
         </div>
       );
     } else {
-      return <div className="board-tile empty"/>;
+      return <div className="board-tile empty" onClick={this.props.onTap}/>;
     }
   }
 }
