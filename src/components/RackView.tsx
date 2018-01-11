@@ -5,7 +5,7 @@ import { Tile } from '../Tile';
 import RackTileView from './RackTileView';
 import State from '../state';
 
-import { selectRackTile, deselectRackTile } from '../actions';
+import { chooseRackTile, deselectRackTile } from '../actions';
 
 interface RackProps {
   tiles: Tile[];
@@ -45,12 +45,12 @@ const mapStateToProps = (state: State, ownProps: any) => {
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     onSelectTile: (tile: Tile) => {
-      dispatch(selectRackTile(tile));
+      dispatch(chooseRackTile(tile));
     },
 
     onDeselectTile: () => {
       dispatch(deselectRackTile());
-    }
+    },
   };
 };
 
