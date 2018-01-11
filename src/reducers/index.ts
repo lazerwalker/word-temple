@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 import { Action, ActionID } from '../constants';
 import State from '../state';
 
@@ -24,7 +22,9 @@ export default (state: State, action: Action) => {
         board.tiles.push(newTile);
 
         var rack = Object.assign({}, state.rack);
-        rack.tiles = _.without(rack.tiles, rack.selectedTile!);
+
+        const pos = rack.tiles.indexOf(state.rack.selectedTile);
+        rack.tiles[pos] = null;
         delete rack.selectedTile;
 
         return Object.assign({}, state, {board, rack});
@@ -33,10 +33,18 @@ export default (state: State, action: Action) => {
     case ActionID.DRAW_TILES:
       const [tiles, newBag] = state.bag.sampleN(action.value);
 
-      let newTiles = state.rack.tiles.concat(tiles);
-      var theRack = Object.assign({}, state.rack, {tiles: newTiles});
+      var newRack = Object.assign({}, state.rack);
 
-      return Object.assign({}, state, {rack: theRack, bag: newBag});
+      tiles.forEach((tile) => {
+        const nullPos = state.rack.tiles.indexOf(null);
+        if (nullPos !== void 0) {
+          newRack.tiles[nullPos] = tile;
+        } else {
+          newRack.tiles.push(tile);
+        }
+      });
+
+      return Object.assign({}, state, {rack: newRack, bag: newBag});
     default:
       return state;
   }

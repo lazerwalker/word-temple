@@ -46,6 +46,10 @@
   background-color: #080;
 }
 
+.tile.empty {
+  background-color: #fdd;
+}
+
 .board-tile {
   border: 1px solid black;
   width: 80px;

@@ -4,7 +4,7 @@ import TileBag from './TileBag';
 
 export default interface State {
   rack: {
-    tiles: Tile[];
+    tiles: (Tile|null)[];
     selectedTile?: Tile;
   };
 
