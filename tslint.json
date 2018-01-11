@@ -45,7 +45,7 @@
         "no-consecutive-blank-lines": true,
         "no-construct": true,
         "no-debugger": true,
-        "no-duplicate-variable": true,
+        "no-duplicate-variable": false,
         "no-empty": true,
         "no-eval": true,
         "no-shadowed-variable": true,

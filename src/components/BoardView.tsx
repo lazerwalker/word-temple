@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 
-import { State } from '../types';
-import { placeTile } from '../actions';
+import State from '../state';
+import { placeTile, drawTiles } from '../actions';
 
 import { BoardTile } from '../Tile';
 import BoardTileView from './BoardTileView';
@@ -49,6 +49,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     onTap: (x: number, y: number) => {
       dispatch(placeTile(x, y));
+      dispatch(drawTiles(1));
     }
   };
 };

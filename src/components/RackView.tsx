@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Tile } from '../Tile';
 import RackTileView from './RackTileView';
-import { State } from '../types';
+import State from '../state';
 
 import { selectRackTile, deselectRackTile } from '../actions';
 

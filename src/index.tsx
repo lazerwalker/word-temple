@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import reducer from './reducers';
 import App from './App';
@@ -27,7 +28,9 @@ const tiles = [
 ];
 const board = { tiles, size: 7 };
 
-let store = createStore(reducer, {rack, board});
+let store = createStore(reducer,
+                        {rack, board, bag},
+                        applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
