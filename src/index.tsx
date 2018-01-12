@@ -10,17 +10,12 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 import TileBag from './TileBag';
-import { Tile } from './Tile';
+import { drawTiles } from './actions';
 
 import NetworkClient from './networking';
 
 let bag = new TileBag();
-let hand: Tile[];
-[hand, bag] = bag.drawHand();
-
-const rack = {
-  tiles: hand
-};
+let rack = {tiles: []};
 
 const tiles = [
   {x: 0, y: 1, letter: 'R', value: 3},
@@ -31,11 +26,13 @@ const tiles = [
 const board = { tiles, size: 7 };
 
 const network = NetworkClient(!!window.location.hash);
-console.log(network)
+console.log(network);
 
 let store = createStore(reducer,
                         {rack, board, bag},
                         applyMiddleware(thunk));
+
+store.dispatch(drawTiles(7));
 
 ReactDOM.render(
   <Provider store={store}>

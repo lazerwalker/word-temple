@@ -34,12 +34,11 @@ export default (state: State, action: Action) => {
       return state;
     case ActionID.DRAW_TILES:
       const [tiles, newBag] = state.bag.sampleN(action.value);
-
       rack = Object.assign({}, state.rack);
 
       tiles.forEach((tile) => {
         const nullPos = state.rack.tiles.indexOf(null);
-        if (nullPos !== void 0) {
+        if (nullPos !== -1) {
           rack.tiles[nullPos] = tile;
         } else {
           rack.tiles.push(tile);
