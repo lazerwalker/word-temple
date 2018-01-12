@@ -44,6 +44,7 @@ export default (state: State, action: Action) => {
           rack.tiles.push(tile);
         }
       });
+      console.log(rack)
 
       return Object.assign({}, state, {rack, bag: newBag});
     case ActionID.SWAP_TILE_POSITION:

@@ -71,9 +71,42 @@ export function checkWord(tiles: BoardTile[]): boolean {
   return _.includes(Dictionary, word.toLowerCase());
 }
 
-// TODO: Return something more complex
-export function checkBoard(board: Board): boolean {
-  return findWords(board)
-    .map(checkWord)
-    .reduce(((prev, current) => prev && current), true);
+export interface BoardValidity {
+  isValid: boolean;
+  validTiles: BoardTile[];
+  invalidTiles: BoardTile[];
+  disconnectedTiles: BoardTile[];
+}
+
+export function checkBoard(board: Board): BoardValidity {
+  const words = findWords(board);
+  let wordTiles = _.chain(words)
+    .flatten()
+    .uniq()
+    .value();
+
+  let disconnectedTiles = _.difference(board.tiles, wordTiles);
+
+  let isValid = true;
+  let validTiles: BoardTile[] = [];
+  let invalidTiles: BoardTile[] = [];
+
+  words.forEach((word) => {
+    const result = checkWord(word);
+
+    if (result) {
+      validTiles = validTiles.concat(word);
+    } else {
+      invalidTiles = invalidTiles.concat(word);
+    }
+
+    isValid = isValid && result;
+  });
+
+  invalidTiles = _.uniq(invalidTiles);
+
+  validTiles = _.uniq(validTiles);
+  validTiles = _.difference(validTiles, invalidTiles);
+
+  return { validTiles, invalidTiles, disconnectedTiles, isValid };
 }
