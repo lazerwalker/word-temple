@@ -1,6 +1,8 @@
 import { Action, ActionID } from '../constants';
 import State from '../state';
 
+import { boardByAddingTile } from '../Board';
+
 let rack: any;
 
 export default (state: State, action: Action) => {
@@ -17,11 +19,7 @@ export default (state: State, action: Action) => {
       });
     case ActionID.PLACE_TILE:
       if (state.rack.selectedTile) {
-        let newTile = Object.assign({}, state.rack.selectedTile, action.value);
-
-        let board = Object.assign({}, state.board);
-        board.tiles = board.tiles.slice(0);
-        board.tiles.push(newTile);
+        const board = boardByAddingTile(state.board, state.rack.selectedTile, action.value);
 
         rack = Object.assign({}, state.rack);
 

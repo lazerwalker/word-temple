@@ -4,6 +4,7 @@ interface TileViewProps {
   letter?: string;
   value?: number;
   isSelected?: boolean;
+  validity?: string;
 }
 
 class TileView extends React.Component<TileViewProps> {
@@ -13,8 +14,16 @@ class TileView extends React.Component<TileViewProps> {
 
   render() {
     if (this.props.letter) {
+      let classes = ["tile"];
+      if (this.props.isSelected) {
+        classes.push("selected");
+      }
+      if (this.props.validity) {
+        classes.push(this.props.validity);
+      }
+
       return (
-        <div className={this.props.isSelected ? "tile selected" : "tile"}>
+        <div className={classes.join(" ")}>
           {this.props.letter}
           <div className='value'>{this.props.value}</div>
         </div>

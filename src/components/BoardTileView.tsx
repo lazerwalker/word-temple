@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import TileView from './TileView';
-import { Tile } from '../Tile';
+import { BoardTile } from '../Tile';
 
 interface BoardTileViewProps {
-  tile?: Tile;
+  tile?: BoardTile;
   onTap?: () => void;
 }
 
@@ -13,7 +13,7 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
     if (this.props.tile) {
       return (
         <div className="board-tile">
-          <TileView letter={this.props.tile.letter} value={this.props.tile.value}/>
+          <TileView letter={this.props.tile.letter} value={this.props.tile.value} validity={this.props.tile.validity}/>
         </div>
       );
     } else {

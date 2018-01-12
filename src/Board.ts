@@ -1,11 +1,33 @@
 import * as _ from 'lodash';
 
-import { BoardTile } from './Tile';
+import { Tile, BoardTile, BoardTileState } from './Tile';
 const Dictionary = require('./dictionary');
 
 export interface Board {
   tiles: BoardTile[];
   size: number;
+}
+
+export function boardByAddingTile(board: Board, tile: Tile, position: {x: number, y: number}) {
+  let newTile = Object.assign({}, tile, position);
+
+  let newBoard = Object.assign({}, board);
+  newBoard.tiles = board.tiles.slice(0);
+  newBoard.tiles.push(newTile);
+
+  let validity = checkBoard(newBoard);
+
+  newBoard.tiles.forEach((t) => {
+    if (_.includes(validity.validTiles, t)) {
+      t.validity = BoardTileState.Valid;
+    } else if (_.includes(validity.invalidTiles, t)) {
+      t.validity = BoardTileState.Invalid;
+    } else if (_.includes(validity.disconnectedTiles, t)) {
+      t.validity = BoardTileState.Disconnected;
+    }
+  });
+
+  return newBoard;
 }
 
 export function findWords(board: Board): BoardTile[][] {
