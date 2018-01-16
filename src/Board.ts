@@ -30,6 +30,12 @@ export function boardByAddingTile(board: Board, tile: Tile, position: {x: number
   return newBoard;
 }
 
+export function boardWithoutTile(board: Board, tile: BoardTile) {
+  let newBoard = Object.assign({}, board);
+  newBoard.tiles = _.without(newBoard.tiles, tile);
+  return newBoard;
+}
+
 export function findWords(board: Board): BoardTile[][] {
   // This can probably be WAY more efficient, but I bet it also doesn't matter.
   // N will always be small (until we make InifiniScrabble!)

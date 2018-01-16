@@ -12,7 +12,7 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
   render() {
     if (this.props.tile) {
       return (
-        <div className="board-tile">
+        <div className="board-tile" onClick={this.props.onTap}>
           <TileView letter={this.props.tile.letter} value={this.props.tile.value} validity={this.props.tile.validity}/>
         </div>
       );

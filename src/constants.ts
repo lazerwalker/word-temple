@@ -5,7 +5,8 @@ export enum ActionID {
   DESELECT_RACK_TILE = "DESELECT_RACK_TILE",
   PLACE_TILE = "PLACE_TILE",
   DRAW_TILES = "DRAW_TILES",
-  SWAP_TILE_POSITION = "SWAP_TILE_POSITION"
+  SWAP_TILE_POSITION = "SWAP_TILE_POSITION",
+  SWAP_BOARD_TILE = "SWAP_BOARD_TILE"
 }
 
 export namespace Action {
@@ -32,10 +33,16 @@ export namespace Action {
     type: ActionID.SWAP_TILE_POSITION;
     value: Tile;
   }
+
+  export interface SwapBoardTile {
+    type: ActionID.SWAP_BOARD_TILE;
+    value: {x: number, y: number};
+  }
 }
 
 export type Action =  Action.SelectRackTile |
                       Action.DeselectRackTile |
                       Action.PlaceTile |
                       Action.DrawTiles |
-                      Action.SwapTilePosition;
+                      Action.SwapTilePosition |
+                      Action.SwapBoardTile;

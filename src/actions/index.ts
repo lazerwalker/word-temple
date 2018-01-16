@@ -15,7 +15,6 @@ export const chooseRackTile = (tile: Tile) => {
 };
 
 const selectRackTile = (tile: Tile) => {
-  console.log("SelectRackTile")
   return {
     type: ActionID.SELECT_RACK_TILE,
     value: tile
@@ -23,7 +22,6 @@ const selectRackTile = (tile: Tile) => {
 };
 
 const swapTilePosition = (tile: Tile) => {
-  console.log("SwapTilePosition")
   return {
     type: ActionID.SWAP_TILE_POSITION,
     value: tile
@@ -47,5 +45,12 @@ export const drawTiles = (n: number = 1): Action.DrawTiles => {
   return {
     type: ActionID.DRAW_TILES,
     value: n
+  };
+};
+
+export const swapBoardTile = (x: number, y: number): Action.SwapBoardTile => {
+  return {
+    type: ActionID.SWAP_BOARD_TILE,
+    value: {x, y}
   };
 };

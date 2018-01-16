@@ -1,9 +1,12 @@
 import { Action, ActionID } from '../constants';
-import State from '../state';
+import { State, Rack } from '../state';
+import { Board } from '../Board';
 
-import { boardByAddingTile } from '../Board';
+import { boardByAddingTile, boardWithoutTile } from '../Board';
 
-let rack: any;
+let rack: Rack;
+let pos: number;
+let board: Board;
 
 export default (state: State, action: Action) => {
   switch (action.type) {
@@ -19,11 +22,11 @@ export default (state: State, action: Action) => {
       });
     case ActionID.PLACE_TILE:
       if (state.rack.selectedTile) {
-        const board = boardByAddingTile(state.board, state.rack.selectedTile, action.value);
+        board = boardByAddingTile(state.board, state.rack.selectedTile, action.value);
 
         rack = Object.assign({}, state.rack);
 
-        const pos = rack.tiles.indexOf(state.rack.selectedTile);
+        pos = rack.tiles.indexOf(state.rack.selectedTile);
         rack.tiles[pos] = null;
         delete rack.selectedTile;
 
@@ -42,7 +45,6 @@ export default (state: State, action: Action) => {
           rack.tiles.push(tile);
         }
       });
-      console.log(rack)
 
       return Object.assign({}, state, {rack, bag: newBag});
     case ActionID.SWAP_TILE_POSITION:
@@ -57,6 +59,25 @@ export default (state: State, action: Action) => {
       delete rack.selectedTile;
 
       return Object.assign({}, state, {rack});
+    case ActionID.SWAP_BOARD_TILE:
+      if (!state.rack.selectedTile) { return state; }
+
+      const boardTile = state.board.tiles.find((tile) => {
+        return (tile.x === action.value.x && tile.y === action.value.y);
+      });
+      if (!boardTile) { return state; }
+
+      rack = Object.assign({}, state.rack);
+      pos = rack.tiles.indexOf(rack.selectedTile!);
+
+      rack.tiles = rack.tiles.slice(0);
+      rack.tiles[pos] = boardTile;
+      delete rack.selectedTile;
+
+      board = boardWithoutTile(state.board, boardTile);
+      board = boardByAddingTile(board, state.rack.selectedTile, action.value);
+
+      return Object.assign({}, state, {rack, board});
     default:
       return state;
   }
