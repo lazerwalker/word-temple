@@ -26,6 +26,8 @@ const tiles = [
 const board = { tiles, size: 7 };
 
 const network = NetworkClient(!!window.location.hash);
+(window as any).network = network;
+
 console.log(network);
 
 let store = createStore(reducer,
