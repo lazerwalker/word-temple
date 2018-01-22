@@ -8,6 +8,7 @@ import State from '../state';
 import { chooseRackTile, deselectRackTile } from '../actions';
 
 interface RackProps {
+  player: string;
   tiles: Tile[];
   selectedTile?: Tile;
   onSelectTile: (tile: Tile) => void;
@@ -39,17 +40,17 @@ class RackView extends React.Component<RackProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: any) => {
-  return state.rack;
+  return state.racks[ownProps.player];
 };
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     onSelectTile: (tile: Tile) => {
-      dispatch(chooseRackTile(tile));
+      dispatch(chooseRackTile(ownProps.player, tile));
     },
 
     onDeselectTile: () => {
-      dispatch(deselectRackTile());
+      dispatch(deselectRackTile(ownProps.player));
     },
   };
 };

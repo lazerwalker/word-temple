@@ -6,10 +6,11 @@ import RackView from './components/RackView';
 
 class App extends React.Component {
   render() {
+
     return (
       <div className="App">
-        <BoardView />
-        <RackView />
+        <BoardView player="host"/>
+        <RackView player="host"/>
       </div>
     );
   }

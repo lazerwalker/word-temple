@@ -10,12 +10,11 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 import TileBag from './TileBag';
-import { drawTiles } from './actions';
+import { createNewRack } from './actions';
 
 import NetworkClient from './networking';
 
 let bag = new TileBag();
-let rack = {tiles: []};
 
 const tiles = [
   {x: 0, y: 1, letter: 'R', value: 3},
@@ -26,12 +25,10 @@ const tiles = [
 const board = { tiles, size: 7 };
 
 let store = createStore(reducer,
-                        {rack, board, bag},
+                        {racks: {}, board, bag},
                         applyMiddleware(thunk));
 
-store.dispatch(drawTiles(7));
-
-const isHost = (!!window.location.hash);
+const isHost = (!window.location.hash);
 const network = NetworkClient(isHost, store);
 (window as any).network = network;
 (window as any).isHost = isHost;
@@ -41,6 +38,8 @@ if (isHost) {
     console.log("NEW STATE", store.getState());
     (network as any).sendNewState(store.getState());
   });
+
+  store.dispatch(createNewRack("host"));
 }
 
 console.log(network);

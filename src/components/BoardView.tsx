@@ -9,6 +9,7 @@ import { BoardTile } from '../Tile';
 import BoardTileView from './BoardTileView';
 
 interface BoardProps {
+  player: string;
   size: number;
   tiles: BoardTile[];
   onEmptyTileTap: (x: number, y: number) => void;
@@ -54,11 +55,11 @@ const mapStateToProps = (state: State, ownProps: any) => {
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     onEmptyTileTap: (x: number, y: number) => {
-      dispatch(placeTile(x, y));
-      dispatch(drawTiles(1));
+      dispatch(placeTile(ownProps.player, x, y));
+      dispatch(drawTiles(ownProps.player, 1));
     },
     onExistingTileTap: (x: number, y: number) => {
-      dispatch(swapBoardTile(x, y));
+      dispatch(swapBoardTile(ownProps.player, x, y));
     }
   };
 };

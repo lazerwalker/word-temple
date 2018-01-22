@@ -8,42 +8,49 @@ export enum ActionID {
   DRAW_TILES = "DRAW_TILES",
   SWAP_TILE_POSITION = "SWAP_TILE_POSITION",
   SWAP_BOARD_TILE = "SWAP_BOARD_TILE",
-  OVERWRITE_STATE = "OVERWRITE_STATE"
+  OVERWRITE_STATE = "OVERWRITE_STATE",
+  CREATE_NEW_RACK = "CREATE_NEW_RACK"
 }
 
 export namespace Action {
   export interface SelectRackTile {
     type: ActionID.SELECT_RACK_TILE;
-    value: Tile;
+    value: { tile: Tile, player: string };
   }
 
   export interface DeselectRackTile {
     type: ActionID.DESELECT_RACK_TILE;
+    value: string;
   }
 
   export interface PlaceTile {
     type: ActionID.PLACE_TILE;
-    value: {x: number, y: number};
+    value: { x: number, y: number, player: string };
   }
 
   export interface DrawTiles {
     type: ActionID.DRAW_TILES;
-    value: number;
+    value: { count: number, player: string };
   }
 
   export interface SwapTilePosition {
     type: ActionID.SWAP_TILE_POSITION;
-    value: Tile;
+    value: { tile: Tile, player: string };
   }
 
   export interface SwapBoardTile {
     type: ActionID.SWAP_BOARD_TILE;
-    value: {x: number, y: number};
+    value: { x: number, y: number, player: string };
   }
 
   export interface OverwriteState {
     type: ActionID.OVERWRITE_STATE;
     value: State;
+  }
+
+  export interface CreateNewRack {
+    type: ActionID.CREATE_NEW_RACK;
+    value: string;
   }
 }
 
@@ -53,4 +60,5 @@ export type Action =  Action.SelectRackTile |
                       Action.DrawTiles |
                       Action.SwapTilePosition |
                       Action.SwapBoardTile |
-                      Action.OverwriteState;
+                      Action.OverwriteState |
+                      Action.CreateNewRack;

@@ -45,6 +45,11 @@ class Host {
   }
 
   sendNewState(state: State) {
+    if (!this.peer.connected) {
+      console.log("Not connected, not sending state to clients");
+      return;
+    }
+
     let action = overwriteState(state);
     console.log("Sending new state action", action);
     this.peer.send(JSON.stringify(action));
