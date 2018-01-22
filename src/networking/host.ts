@@ -1,9 +1,15 @@
 const Peer = require('simple-peer');
 
+import State from '../state';
+import { Store } from 'redux';
+import { overwriteState } from '../actions';
+
 class Host {
   peer: any;
+  store: Store<any>;
 
-  constructor() {
+  constructor(store: Store<any>) {
+    this.store = store;
     this.peer = new Peer({ initiator: true, trickle: false });
 
     this.peer.on('error', (err: String) => console.log('error', err));
@@ -24,18 +30,24 @@ class Host {
 
     this.peer.on('connect', () => {
       console.log("CONNECTED");
-      this.peer.send("HI MOM");
     });
 
     this.peer.on('data', (data: any) => {
-      (window as any).data = data
-      console.log("DATA", data)
+      let action = JSON.parse(data.toString());
+      console.log("Received action", action)
+      this.store.dispatch(action);
     });
 
     (window as any).signal = (s: any) => {
       console.log("SIGNALLING", s);
       this.peer.signal(s);
     };
+  }
+
+  sendNewState(state: State) {
+    let action = overwriteState(state);
+    console.log("Sending new state action", action);
+    this.peer.send(JSON.stringify(action));
   }
 }
 

@@ -1,4 +1,5 @@
 import { Tile } from './Tile';
+import { State } from './state';
 
 export enum ActionID {
   SELECT_RACK_TILE = "SELECT_RACK_TILE",
@@ -6,7 +7,8 @@ export enum ActionID {
   PLACE_TILE = "PLACE_TILE",
   DRAW_TILES = "DRAW_TILES",
   SWAP_TILE_POSITION = "SWAP_TILE_POSITION",
-  SWAP_BOARD_TILE = "SWAP_BOARD_TILE"
+  SWAP_BOARD_TILE = "SWAP_BOARD_TILE",
+  OVERWRITE_STATE = "OVERWRITE_STATE"
 }
 
 export namespace Action {
@@ -38,6 +40,11 @@ export namespace Action {
     type: ActionID.SWAP_BOARD_TILE;
     value: {x: number, y: number};
   }
+
+  export interface OverwriteState {
+    type: ActionID.OVERWRITE_STATE;
+    value: State;
+  }
 }
 
 export type Action =  Action.SelectRackTile |
@@ -45,4 +52,5 @@ export type Action =  Action.SelectRackTile |
                       Action.PlaceTile |
                       Action.DrawTiles |
                       Action.SwapTilePosition |
-                      Action.SwapBoardTile;
+                      Action.SwapBoardTile |
+                      Action.OverwriteState;

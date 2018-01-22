@@ -2,6 +2,8 @@ import { Action, ActionID } from '../constants';
 import { State, Rack } from '../state';
 import { Board } from '../Board';
 
+import { sampleN } from '../TileBag';
+
 import { boardByAddingTile, boardWithoutTile } from '../Board';
 
 let rack: Rack;
@@ -9,7 +11,16 @@ let pos: number;
 let board: Board;
 
 export default (state: State, action: Action) => {
+  if (!(window as any).isHost && (window as any).network && action.type !== ActionID.OVERWRITE_STATE) {
+    console.log("Not the host!");
+    (window as any).network.dispatch(action);
+  }
+
   switch (action.type) {
+    case ActionID.OVERWRITE_STATE:
+      if ((window as any).isHost) { return; }
+      // TODO: Be smart about multiple tile racks
+      return Object.assign({}, state, action.value);
     case ActionID.SELECT_RACK_TILE:
       return Object.assign({}, state, {rack: {
         tiles: state.rack.tiles,
@@ -34,7 +45,7 @@ export default (state: State, action: Action) => {
       }
       return state;
     case ActionID.DRAW_TILES:
-      const [tiles, newBag] = state.bag.sampleN(action.value);
+      const [tiles, newBag] = sampleN(state.bag, action.value);
       rack = Object.assign({}, state.rack);
 
       tiles.forEach((tile) => {

@@ -56,26 +56,26 @@ export default class TileBag {
         }).flatten().value();
     }
   }
+}
 
-  sampleN(n: number): [Tile[], TileBag] {
-    const tiles = _.sampleSize(this.tiles, n);
-    if (tiles) {
-      const newTiles = _.difference(this.tiles, tiles);
-      return [tiles, new TileBag(newTiles)];
-    }
-    return [[], this];
+export function sampleN(bag: TileBag, n: number): [Tile[], TileBag] {
+  const tiles = _.sampleSize(bag.tiles, n);
+  if (tiles) {
+    const newTiles = _.difference(bag.tiles, tiles);
+    return [tiles, new TileBag(newTiles)];
   }
+  return [[], bag];
+}
 
-  drawHand(): [Tile[], TileBag] {
-    return this.sampleN(7);
-  }
+export function drawHand(bag: TileBag): [Tile[], TileBag] {
+  return sampleN(bag, 7);
+}
 
-  pick(): [Tile|undefined, TileBag] {
-    const result = this.sampleN(1);
-    if (result[0].length === 0) {
-      return [undefined, result[1]];
-    } else {
-      return [result[0][1], result[1]];
-    }
+export function pick(bag: TileBag): [Tile|undefined, TileBag] {
+  const result = sampleN(bag, 1);
+  if (result[0].length === 0) {
+    return [undefined, result[1]];
+  } else {
+    return [result[0][1], result[1]];
   }
 }

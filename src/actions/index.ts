@@ -54,3 +54,11 @@ export const swapBoardTile = (x: number, y: number): Action.SwapBoardTile => {
     value: {x, y}
   };
 };
+
+export const overwriteState = (state: State): Action.OverwriteState => {
+  console.log(state)
+  return {
+    type: ActionID.OVERWRITE_STATE,
+    value: state
+  };
+};

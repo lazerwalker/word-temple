@@ -25,16 +25,25 @@ const tiles = [
 ];
 const board = { tiles, size: 7 };
 
-const network = NetworkClient(!!window.location.hash);
-(window as any).network = network;
-
-console.log(network);
-
 let store = createStore(reducer,
                         {rack, board, bag},
                         applyMiddleware(thunk));
 
 store.dispatch(drawTiles(7));
+
+const isHost = (!!window.location.hash);
+const network = NetworkClient(isHost, store);
+(window as any).network = network;
+(window as any).isHost = isHost;
+
+if (isHost) {
+  store.subscribe(() => {
+    console.log("NEW STATE", store.getState());
+    (network as any).sendNewState(store.getState());
+  });
+}
+
+console.log(network);
 
 ReactDOM.render(
   <Provider store={store}>

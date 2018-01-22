@@ -1,10 +1,12 @@
 import Host from './host';
 import Client from './client';
 
-export default function instantiate(isHost: boolean) {
+import { Store } from 'redux';
+
+export default function instantiate(isHost: boolean, store: Store<any>) {
   if (isHost) {
-    return new Host();
+    return new Host(store);
   } else {
-    return new Client();
+    return new Client(store);
   }
 }
