@@ -46,7 +46,7 @@ console.log(network);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App rackName={isHost ? "host" : "client"}/>
   </Provider>,
   document.getElementById('root') as HTMLElement
 );

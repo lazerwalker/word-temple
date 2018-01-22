@@ -4,13 +4,17 @@ import './App.css';
 import BoardView from './components/BoardView';
 import RackView from './components/RackView';
 
-class App extends React.Component {
+interface AppProps {
+  rackName: string;
+}
+
+class App extends React.Component<AppProps> {
   render() {
 
     return (
       <div className="App">
-        <BoardView player="host"/>
-        <RackView player="host"/>
+        <BoardView player={this.props.rackName}/>
+        <RackView player={this.props.rackName} />
       </div>
     );
   }

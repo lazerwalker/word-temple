@@ -131,7 +131,7 @@ export default (state: State, action: Action) => {
       board = boardWithoutTile(state.board, boardTile);
       board = boardByAddingTile(board, previouslySelectedTile, action.value);
 
-      return Object.assign({}, state, {rack, board});
+      return Object.assign({}, state, {racks, board});
     default:
       return state;
   }

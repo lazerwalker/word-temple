@@ -1,5 +1,7 @@
 const Peer = require('simple-peer');
 
+import { createNewRack } from '../actions';
+
 import { Action } from '../constants';
 import { Store } from 'redux';
 
@@ -30,6 +32,7 @@ class Client {
 
     this.peer.on('connect', () => {
       console.log("CONNECTED");
+      this.dispatch(createNewRack("client"));
     });
 
     this.peer.on('data', (data: any) => {

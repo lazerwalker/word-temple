@@ -18,8 +18,10 @@ interface RackProps {
 class RackView extends React.Component<RackProps> {
   render() {
     const tiles = this.props.tiles.map((tile, idx) => {
-      const isSelected = (tile === this.props.selectedTile);
-
+      // TODO: We probably unique tile IDs?
+      const isSelected = (this.props.selectedTile !== undefined &&
+        tile.letter === this.props.selectedTile.letter &&
+        tile.value === this.props.selectedTile.value);
       return (
         <RackTileView
           tile={tile}
@@ -40,7 +42,7 @@ class RackView extends React.Component<RackProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: any) => {
-  return state.racks[ownProps.player];
+  return state.racks[ownProps.player] || {tiles: []};
 };
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
