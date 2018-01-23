@@ -30,6 +30,7 @@ class Host {
 
     this.peer.on('connect', () => {
       console.log("CONNECTED");
+      this.peer.send("connect");
     });
 
     this.peer.on('data', (data: any) => {

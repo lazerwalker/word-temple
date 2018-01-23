@@ -9,6 +9,8 @@ class Client {
   peer: any;
   store: Store<any>;
 
+  createdNewRack: boolean;
+
   constructor(store: Store<any>) {
     this.store = store;
 
@@ -32,10 +34,21 @@ class Client {
 
     this.peer.on('connect', () => {
       console.log("CONNECTED");
-      this.dispatch(createNewRack("client"));
+      if (!this.createdNewRack) {
+        this.dispatch(createNewRack("client"));
+        this.createdNewRack = true;
+      }
     });
 
     this.peer.on('data', (data: any) => {
+      if (data.toString() === "connect") {
+        if (!this.createdNewRack) {
+          this.dispatch(createNewRack("client"));
+          this.createdNewRack = true;
+          return;
+        }
+      }
+
       console.log(data.toString());
       let action = JSON.parse(data.toString());
       this.store.dispatch(action);
@@ -48,7 +61,9 @@ class Client {
   }
 
   dispatch(action: Action) {
-    this.peer.send(JSON.stringify(action));
+    setTimeout(() => {
+      this.peer.send(JSON.stringify(action));
+    }, 0);
   }
 }
 export default Client;
