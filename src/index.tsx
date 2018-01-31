@@ -12,7 +12,8 @@ import './index.css';
 import TileBag from './TileBag';
 import { createNewRack } from './actions';
 
-import NetworkClient from './networking';
+import * as firebase from './firebase';
+firebase.initializeFirebase();
 
 let bag = new TileBag();
 
@@ -29,20 +30,20 @@ let store = createStore(reducer,
                         applyMiddleware(thunk));
 
 const isHost = (!window.location.hash);
-const network = NetworkClient(isHost, store);
-(window as any).network = network;
-(window as any).isHost = isHost;
 
 if (isHost) {
   store.subscribe(() => {
     console.log("NEW STATE", store.getState());
-    (network as any).sendNewState(store.getState());
+    const state = store.getState();
+    if (state) {
+      firebase.sendNewState(state);
+    }
   });
 
   store.dispatch(createNewRack("host"));
+} else {
+  firebase.subscribeToState(store.dispatch);
 }
-
-console.log(network);
 
 ReactDOM.render(
   <Provider store={store}>

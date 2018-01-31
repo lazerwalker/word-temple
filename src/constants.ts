@@ -1,6 +1,8 @@
 import { Tile } from './Tile';
 import { State } from './state';
 
+export type Dispatch = (action: Action) => void;
+
 export enum ActionID {
   SELECT_RACK_TILE = "SELECT_RACK_TILE",
   DESELECT_RACK_TILE = "DESELECT_RACK_TILE",
