@@ -57,7 +57,6 @@ export const swapBoardTile = (player: string, x: number, y: number): Action.Swap
 };
 
 export const overwriteState = (state: State): Action.OverwriteState => {
-  console.log(state);
   return {
     type: ActionID.OVERWRITE_STATE,
     value: state

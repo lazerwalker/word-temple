@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import reducer from './reducers';
+import createReducer from './reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
@@ -25,15 +25,16 @@ const tiles = [
 ];
 const board = { tiles, size: 7 };
 
+const isHost = (!window.location.hash);
+const reducer = createReducer(isHost, firebase.dispatch);
+
 let store = createStore(reducer,
                         {racks: {}, board, bag},
                         applyMiddleware(thunk));
 
-const isHost = (!window.location.hash);
-
 if (isHost) {
+  firebase.wireQueueToDispatch(store.dispatch);
   store.subscribe(() => {
-    console.log("NEW STATE", store.getState());
     const state = store.getState();
     if (state) {
       firebase.sendNewState(state);
@@ -42,6 +43,8 @@ if (isHost) {
 
   store.dispatch(createNewRack("host"));
 } else {
+  console.log("Is client");
+  firebase.dispatch(createNewRack("client"));
   firebase.subscribeToState(store.dispatch);
 }
 
