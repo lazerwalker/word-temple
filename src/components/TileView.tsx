@@ -24,7 +24,7 @@ class TileView extends React.Component<TileViewProps> {
 
       return (
         <div className={classes.join(" ")}>
-          {this.props.letter}
+          <div className='letter'>{this.props.letter}</div>
           <div className='value'>{this.props.value}</div>
         </div>
       );

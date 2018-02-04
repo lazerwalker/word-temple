@@ -17,7 +17,11 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
         </div>
       );
     } else {
-      return <div className="board-tile empty" onClick={this.props.onTap}/>;
+      return (
+        <div className="board-tile empty" onClick={this.props.onTap}>
+            <TileView />
+        </div>
+      );
     }
   }
 }

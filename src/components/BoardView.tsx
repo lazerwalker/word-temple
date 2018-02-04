@@ -40,9 +40,17 @@ class BoardView extends React.Component<BoardProps> {
       });
     });
 
+    const tileRows = tiles.map((row, i) => {
+      return (
+        <div className='tile-row' key={i}>
+          {row}
+        </div>
+      );
+    })
+
     return (
       <div className='board'>
-        {tiles}
+        {tileRows}
       </div>
     );
   }

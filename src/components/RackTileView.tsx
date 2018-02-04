@@ -30,7 +30,7 @@ class RackTileView extends React.Component<Props> {
   render() {
     if (this.props.tile) {
       return (
-        <div className="tile" onClick={this.onClick}>
+        <div className="rack-tile" onClick={this.onClick}>
           <TileView
             letter={this.props.tile.letter}
             value={this.props.tile.value}
