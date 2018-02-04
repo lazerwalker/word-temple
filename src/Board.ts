@@ -9,9 +9,9 @@ export interface Board {
 }
 
 export function boardByAddingTile(board: Board, tile: Tile, position: {x: number, y: number}) {
-  let newTile = Object.assign({}, tile, position);
+  let newTile = {...tile, ...position};
 
-  let newBoard = Object.assign({}, board);
+  let newBoard = {...board};
   newBoard.tiles = board.tiles.slice(0);
   newBoard.tiles.push(newTile);
 

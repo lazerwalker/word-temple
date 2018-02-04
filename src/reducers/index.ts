@@ -28,30 +28,30 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
       case ActionID.OVERWRITE_STATE:
         if (isHost) { return; }
         // TODO: Be smart about multiple tile racks
-        return Object.assign({}, state, action.value);
+        return {...state, ...action.value};
       case ActionID.SELECT_RACK_TILE:
         player = action.value.player;
         tileID = action.value.tile;
 
-        racks = Object.assign({}, state.racks);
-        racks[player] = Object.assign({}, racks[player], {selectedTileID: tileID});
+        racks = {...state.racks};
+        racks[player] = {...racks[player], selectedTileID: tileID};
 
-        return Object.assign({}, state, {racks});
+        return {...state, racks};
       case ActionID.DESELECT_RACK_TILE:
         player = action.value;
 
-        racks = Object.assign({}, state.racks);
+        racks = {...state.racks};
 
-        rack = Object.assign({}, racks[player]);
+        rack = {...racks[player]};
         delete rack.selectedTileID;
         racks[player] = rack;
 
-        return Object.assign({}, state, {racks});
+        return {...state, racks};
       case ActionID.PLACE_TILE:
         player = action.value.player;
         if (state.racks[player].selectedTileID) {
-          racks = Object.assign({}, state.racks);
-          rack = Object.assign({}, racks[player]);
+          racks = {...state.racks};
+          rack = {...racks[player]};
 
           let pos = _.findIndex(rack.tiles, (t) => t && t.id === tileID);
           let tile = rack.tiles[pos]!;
@@ -64,23 +64,23 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
 
           racks[player] = rack;
           console.log(rack);
-          return Object.assign({}, state, {board, racks});
+          return {...state, board, racks};
         }
         return state;
       case ActionID.CREATE_NEW_RACK:
         [tiles, newBag] = sampleN(state.bag, 7);
         rack = {tiles};
 
-        racks = Object.assign({}, state.racks);
+        racks = {...state.racks};
         racks[action.value] = rack;
-        return Object.assign({}, state, {racks, bag: newBag});
+        return {...state, racks, bag: newBag};
       case ActionID.DRAW_TILES:
         player = action.value.player;
         const count = action.value.count;
         [tiles, newBag] = sampleN(state.bag, count);
 
-        racks = Object.assign({}, state.racks);
-        rack = Object.assign({}, racks[player]);
+        racks = {...state.racks};
+        rack = {...racks[player]};
 
         tiles.forEach((t) => {
           const nullPos = rack.tiles.indexOf(null);
@@ -92,15 +92,15 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         });
 
         racks[player] = rack;
-        return Object.assign({}, state, {racks, bag: newBag});
+        return {...state, racks, bag: newBag};
       case ActionID.SWAP_TILE_POSITION:
         player = action.value.player;
         tileID = action.value.tile;
 
         if (!state.racks[player].selectedTileID) { return state; }
 
-        racks = Object.assign({}, state.racks);
-        rack = Object.assign({}, racks[player]);
+        racks = {...state.racks};
+        rack = {...racks[player]};
 
         const pos1 = _.findIndex(rack.tiles, (t) => t && t.id === tileID);
         const pos2 = _.findIndex(rack.tiles, (t) => t && t.id === rack.selectedTileID);
@@ -112,7 +112,7 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         delete rack.selectedTileID;
 
         racks[player] = rack;
-        return Object.assign({}, state, {racks});
+        return {...state, racks};
       case ActionID.SWAP_BOARD_TILE:
         player = action.value.player;
         let {x, y} = action.value;
@@ -124,8 +124,8 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         });
         if (!boardTile) { return state; }
 
-        racks = Object.assign({}, state.racks);
-        rack = Object.assign({}, racks[player]);
+        racks = {...state.racks};
+        rack = {...racks[player]};
         const pos = _.findIndex(rack.tiles, (t) => t && t.id === rack.selectedTileID);
 
         let previouslySelectedTile = rack.tiles[pos]!;
@@ -138,7 +138,7 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         board = boardWithoutTile(state.board, boardTile);
         board = boardByAddingTile(board, previouslySelectedTile, action.value);
 
-        return Object.assign({}, state, {racks, board});
+        return {...state, racks, board};
       default:
         return state;
     }
