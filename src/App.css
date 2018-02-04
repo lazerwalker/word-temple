@@ -21,7 +21,7 @@
   background-color: #fbb;
 }
 
-.tile .value {
+.value {
   position: absolute;
   font-size: 13px;
   line-height: 1em;
@@ -29,7 +29,7 @@
   right: 10px;
 }
 
-.tile .letter {
+.letter {
   height: 80px;
   line-height: 80px;
   position: absolute;
@@ -61,4 +61,16 @@
 
 .tile-row {
   height: 80px;
+}
+
+@media (max-width: 560px) {
+  .tile, .board-tile, .rack-tile, .letter {
+    width: 14vw;
+    height: 14vw;
+    line-height: 14vw;
+  }
+
+  .tile-row {
+    height: 14vw;
+  }
 }
