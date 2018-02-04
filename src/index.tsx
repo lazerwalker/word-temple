@@ -15,6 +15,9 @@ import { createNewRack } from './actions';
 import * as firebase from './firebase';
 firebase.initializeFirebase();
 
+var initReactFastclick = require('react-fastclick');
+initReactFastclick();
+
 let bag = new TileBag();
 
 const tiles = [
