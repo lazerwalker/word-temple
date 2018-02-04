@@ -50,7 +50,8 @@ export default class TileBag {
           return _.range(tile.count).map(i => {
             return {
               letter: tile.tile,
-              value: tile.value
+              value: tile.value,
+              id: `${tile.tile}${i}`
             };
           });
         }).flatten().value();

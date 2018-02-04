@@ -1,4 +1,3 @@
-import { Tile } from './Tile';
 import { State } from './state';
 
 export type Dispatch = (action: Action) => void;
@@ -17,7 +16,7 @@ export enum ActionID {
 export namespace Action {
   export interface SelectRackTile {
     type: ActionID.SELECT_RACK_TILE;
-    value: { tile: Tile, player: string };
+    value: { tile: string, player: string };
   }
 
   export interface DeselectRackTile {
@@ -37,7 +36,7 @@ export namespace Action {
 
   export interface SwapTilePosition {
     type: ActionID.SWAP_TILE_POSITION;
-    value: { tile: Tile, player: string };
+    value: { tile: string, player: string };
   }
 
   export interface SwapBoardTile {

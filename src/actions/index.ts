@@ -5,7 +5,7 @@ import State from '../state';
 export const chooseRackTile = (player: string, tile: Tile) => {
   return (dispatch: any, getState: (() => State)) => {
     const state = getState();
-    if (state.racks[player].selectedTile) {
+    if (state.racks[player].selectedTileID) {
       dispatch(swapTilePosition(player, tile));
     } else {
       dispatch(selectRackTile(player, tile));
@@ -17,14 +17,14 @@ export const chooseRackTile = (player: string, tile: Tile) => {
 const selectRackTile = (player: string, tile: Tile) => {
   return {
     type: ActionID.SELECT_RACK_TILE,
-    value: { tile, player }
+    value: { tile: tile.id, player }
   };
 };
 
 const swapTilePosition = (player: string, tile: Tile) => {
   return {
     type: ActionID.SWAP_TILE_POSITION,
-    value: { tile, player }
+    value: { tile: tile.id, player }
   };
 };
 

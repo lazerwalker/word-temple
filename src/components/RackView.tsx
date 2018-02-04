@@ -10,7 +10,7 @@ import { chooseRackTile, deselectRackTile } from '../actions';
 interface RackProps {
   player: string;
   tiles: Tile[];
-  selectedTile?: Tile;
+  selectedTileID?: string;
   onSelectTile: (tile: Tile) => void;
   onDeselectTile: () => void;
 }
@@ -18,10 +18,8 @@ interface RackProps {
 class RackView extends React.Component<RackProps> {
   render() {
     const tiles = this.props.tiles.map((tile, idx) => {
-      // TODO: We probably unique tile IDs?
-      const isSelected = (this.props.selectedTile !== undefined &&
-        tile.letter === this.props.selectedTile.letter &&
-        tile.value === this.props.selectedTile.value);
+      const isSelected = (this.props.selectedTileID !== undefined &&
+        tile.id === this.props.selectedTileID);
       return (
         <RackTileView
           tile={tile}

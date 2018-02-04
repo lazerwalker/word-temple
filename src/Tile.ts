@@ -1,6 +1,7 @@
 export interface Tile {
   letter: string;
   value: number;
+  id: string;
 }
 
 export enum BoardTileState {

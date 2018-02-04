@@ -6,7 +6,7 @@ export type RackList = {[player: string]: Rack};
 
 export interface Rack {
   tiles: (Tile|null)[];
-  selectedTile?: Tile;
+  selectedTileID?: string;
 }
 
 export interface State {

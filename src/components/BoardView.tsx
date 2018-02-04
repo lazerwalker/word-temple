@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as _ from 'lodash';
 
 import State from '../state';
-import { placeTile, drawTiles, swapBoardTile } from '../actions';
+import { drawTiles, placeTile, swapBoardTile } from '../actions';
 
 import { BoardTile } from '../Tile';
 import BoardTileView from './BoardTileView';

@@ -1,20 +1,22 @@
 import { Action, ActionID, Dispatch } from '../constants';
 import { State, Rack, RackList } from '../state';
 import { Board } from '../Board';
-import { Tile } from '../Tile';
 
 import { sampleN } from '../TileBag';
 
 import { boardByAddingTile, boardWithoutTile } from '../Board';
 
+import * as _ from 'lodash';
+
+// TODO: This blob of definitions has led me to errors that the type system should have caught.
+// Remove this, and probably change tslint?
 let rack: Rack;
 let racks: RackList;
-let pos: number;
 let board: Board;
 let tiles;
 let newBag;
 let player: string;
-let tile: Tile;
+let tileID: string;
 
 export default function createReducer(isHost: boolean, networkDispatch: Dispatch) {
   return (state: State, action: Action) => {
@@ -29,10 +31,10 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         return Object.assign({}, state, action.value);
       case ActionID.SELECT_RACK_TILE:
         player = action.value.player;
-        tile = action.value.tile;
+        tileID = action.value.tile;
 
         racks = Object.assign({}, state.racks);
-        racks[player] = Object.assign({}, racks[player], {selectedTile: tile});
+        racks[player] = Object.assign({}, racks[player], {selectedTileID: tileID});
 
         return Object.assign({}, state, {racks});
       case ActionID.DESELECT_RACK_TILE:
@@ -41,23 +43,27 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         racks = Object.assign({}, state.racks);
 
         rack = Object.assign({}, racks[player]);
-        delete rack.selectedTile;
+        delete rack.selectedTileID;
         racks[player] = rack;
 
         return Object.assign({}, state, {racks});
       case ActionID.PLACE_TILE:
         player = action.value.player;
-        if (state.racks[player].selectedTile) {
-          board = boardByAddingTile(state.board, state.racks[player].selectedTile!, action.value);
-
+        if (state.racks[player].selectedTileID) {
           racks = Object.assign({}, state.racks);
           rack = Object.assign({}, racks[player]);
 
-          pos = rack.tiles.indexOf(rack.selectedTile!);
+          let pos = _.findIndex(rack.tiles, (t) => t && t.id === tileID);
+          let tile = rack.tiles[pos]!;
+
+          board = boardByAddingTile(state.board, tile, action.value);
+
+          // TODO: We should probably just store selectedTile as (id, pos)
           rack.tiles[pos] = null;
-          delete rack.selectedTile;
+          delete rack.selectedTileID;
 
           racks[player] = rack;
+          console.log(rack);
           return Object.assign({}, state, {board, racks});
         }
         return state;
@@ -89,19 +95,21 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         return Object.assign({}, state, {racks, bag: newBag});
       case ActionID.SWAP_TILE_POSITION:
         player = action.value.player;
-        tile = action.value.tile;
+        tileID = action.value.tile;
 
-        if (!state.racks[player].selectedTile) { return state; }
+        if (!state.racks[player].selectedTileID) { return state; }
 
         racks = Object.assign({}, state.racks);
         rack = Object.assign({}, racks[player]);
 
-        const pos1 = rack.tiles.indexOf(rack.selectedTile!);
-        const pos2 = rack.tiles.indexOf(tile);
+        const pos1 = _.findIndex(rack.tiles, (t) => t && t.id === tileID);
+        const pos2 = _.findIndex(rack.tiles, (t) => t && t.id === rack.selectedTileID);
 
-        rack.tiles[pos2] = rack.selectedTile!;
-        rack.tiles[pos1] = tile;
-        delete rack.selectedTile;
+        const selectedTile = rack.tiles[pos2];
+
+        rack.tiles[pos2] = rack.tiles[pos1];
+        rack.tiles[pos1] = selectedTile;
+        delete rack.selectedTileID;
 
         racks[player] = rack;
         return Object.assign({}, state, {racks});
@@ -109,7 +117,7 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
         player = action.value.player;
         let {x, y} = action.value;
 
-        if (!state.racks[player].selectedTile) { return state; }
+        if (!state.racks[player].selectedTileID) { return state; }
 
         const boardTile = state.board.tiles.find((t) => {
           return (t.x === x && t.y === y);
@@ -118,13 +126,13 @@ export default function createReducer(isHost: boolean, networkDispatch: Dispatch
 
         racks = Object.assign({}, state.racks);
         rack = Object.assign({}, racks[player]);
-        pos = rack.tiles.indexOf(rack.selectedTile!);
+        const pos = _.findIndex(rack.tiles, (t) => t && t.id === rack.selectedTileID);
 
-        let previouslySelectedTile = rack.selectedTile!;
+        let previouslySelectedTile = rack.tiles[pos]!;
 
         rack.tiles = rack.tiles.slice(0);
         rack.tiles[pos] = boardTile;
-        delete rack.selectedTile;
+        delete rack.selectedTileID;
         racks[player] = rack;
 
         board = boardWithoutTile(state.board, boardTile);
