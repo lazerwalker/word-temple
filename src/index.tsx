@@ -32,22 +32,21 @@ let store = createStore(reducer,
                         {racks: {}, board, bag},
                         applyMiddleware(thunk));
 
-// if (isHost) {
-//   firebase.wireQueueToDispatch(store.dispatch);
-//   store.subscribe(() => {
-//     const state = store.getState();
-//     if (state) {
-//       firebase.sendNewState(state);
-//     }
-//   });
+if (isHost) {
+  firebase.wireQueueToDispatch(store.dispatch);
+  store.subscribe(() => {
+    const state = store.getState();
+    if (state) {
+      firebase.sendNewState(state);
+    }
+  });
 
-//   store.dispatch(createNewRack("host"));
-// } else {
-//   console.log("Is client");
-//   firebase.dispatch(createNewRack("client"));
-//   firebase.subscribeToState(store.dispatch);
-// }
-store.dispatch(createNewRack("host"))
+  store.dispatch(createNewRack("host"));
+} else {
+  console.log("Is client");
+  firebase.dispatch(createNewRack("client"));
+  firebase.subscribeToState(store.dispatch);
+}
 
 ReactDOM.render(
   <Provider store={store}>
