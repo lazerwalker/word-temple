@@ -33,6 +33,8 @@
     "@types/react-redux": "^5.0.14",
     "@types/redux-thunk": "^2.1.0",
     "@types/ws": "^4.0.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.0",
     "prettier": "1.10.2",
     "redux-devtools": "^3.4.1"
   }
