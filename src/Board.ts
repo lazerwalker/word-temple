@@ -23,16 +23,10 @@ export enum Side {
   Bottom = 'bottom',
 }
 
-export function boardByAddingTile(
-  board: Board,
-  tile: Tile,
-  position: { x: number; y: number }
-) {
-  const newTile = { ...tile, ...position }
-
+export function boardByAddingBoardTile(board: Board, tile: BoardTile): Board {
   const newBoard = { ...board }
   newBoard.tiles = board.tiles.slice(0)
-  newBoard.tiles.push(newTile)
+  newBoard.tiles.push(tile)
 
   const validity = checkBoard(newBoard)
 
@@ -47,6 +41,15 @@ export function boardByAddingTile(
   })
 
   return newBoard
+}
+
+export function boardByAddingTile(
+  board: Board,
+  tile: Tile,
+  position: { x: number; y: number }
+) {
+  const newTile = { ...tile, ...position }
+  return boardByAddingBoardTile(board, newTile)
 }
 
 export function boardWithoutTile(board: Board, tile: BoardTile) {

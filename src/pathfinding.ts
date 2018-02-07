@@ -1,5 +1,5 @@
 import { Board, Portal, Side } from './Board'
-import { BoardTile } from './Tile'
+import { BoardTile, BoardTileState } from './Tile'
 
 import * as _ from 'lodash'
 
@@ -27,7 +27,7 @@ export function hasCompletePath(board: Board): boolean {
     }
 
     const tile = findTile(x, y)
-    if (!tile) {
+    if (!(tile && tile.validity === BoardTileState.Valid)) {
       return false
     }
 

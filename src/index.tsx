@@ -12,7 +12,7 @@ import registerServiceWorker from './registerServiceWorker'
 import { createNewRack } from './actions'
 import TileBag from './TileBag'
 
-import { Side, boardByAddingTile } from './Board'
+import { boardByAddingBoardTile, Side } from './Board'
 import * as firebase from './firebase'
 firebase.initializeFirebase()
 
@@ -39,10 +39,9 @@ const exit = {
 }
 
 // We do this manually here to trigger a validity check
-const board = boardByAddingTile(
+const board = boardByAddingBoardTile(
   { tiles, entrance, exit, size: 7 },
-  { letter: 'Z', value: 10, id: 'ZX' },
-  { x: 3, y: 5 }
+  { x: 3, y: 5, letter: 'Z', value: 10, id: 'ZX' }
 )
 
 const isHost = !window.location.hash
