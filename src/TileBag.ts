@@ -39,7 +39,7 @@ const tileData = [
 ]
 
 export default class TileBag {
-  tiles: Tile[]
+  public tiles: Tile[]
 
   constructor(tiles?: Tile[]) {
     if (tiles) {
@@ -49,9 +49,9 @@ export default class TileBag {
         .map((tile: TileData) => {
           return _.range(tile.count).map(i => {
             return {
+              id: `${tile.tile}${i}`,
               letter: tile.tile,
               value: tile.value,
-              id: `${tile.tile}${i}`,
             }
           })
         })

@@ -1,24 +1,25 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 
-import createReducer from './reducers'
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
 import './index.css'
+import createReducer from './reducers'
+import registerServiceWorker from './registerServiceWorker'
 
-import TileBag from './TileBag'
 import { createNewRack } from './actions'
+import TileBag from './TileBag'
 
 import * as firebase from './firebase'
 firebase.initializeFirebase()
 
-var initReactFastclick = require('react-fastclick')
+// tslint:disable-next-line:no-var-requires
+const initReactFastclick = require('react-fastclick')
 initReactFastclick()
 
-let bag = new TileBag()
+const bag = new TileBag()
 
 const tiles = [
   { x: 0, y: 1, letter: 'R', value: 3, id: 'RX' },
@@ -31,7 +32,7 @@ const board = { tiles, size: 7 }
 const isHost = !window.location.hash
 const reducer = createReducer(isHost, firebase.dispatch)
 
-let store = createStore(
+const store = createStore(
   reducer,
   { racks: {}, board, bag },
   applyMiddleware(thunk)

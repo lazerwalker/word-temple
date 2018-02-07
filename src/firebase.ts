@@ -1,16 +1,16 @@
-import { initializeApp, database } from 'firebase'
+import { database, initializeApp } from 'firebase'
 
-import { State } from './state'
-import { Dispatch, Action } from './constants'
 import { overwriteState } from './actions'
+import { Action, Dispatch } from './constants'
+import { State } from './state'
 
 const config = {
   apiKey: 'AIzaSyBCYsA0yLwjhayv7NUQ5llqUB9IEQQmPEo',
   authDomain: 'word-temple.firebaseapp.com',
   databaseURL: 'https://word-temple.firebaseio.com',
+  messagingSenderId: '285498223515',
   projectId: 'word-temple',
   storageBucket: 'word-temple.appspot.com',
-  messagingSenderId: '285498223515',
 }
 export function initializeFirebase() {
   initializeApp(config)

@@ -13,6 +13,8 @@ export enum ActionID {
   CREATE_NEW_RACK = 'CREATE_NEW_RACK',
 }
 
+// TODO
+// tslint:disable-next-line:no-namespace
 export namespace Action {
   export interface SelectRackTile {
     type: ActionID.SELECT_RACK_TILE

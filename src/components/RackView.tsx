@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
+import State from '../state'
 import { Tile } from '../Tile'
 import RackTileView from './RackTileView'
-import State from '../state'
 
 import { chooseRackTile, deselectRackTile } from '../actions'
 
@@ -16,7 +16,7 @@ interface RackProps {
 }
 
 class RackView extends React.Component<RackProps> {
-  render() {
+  public render() {
     const tiles = this.props.tiles.map((tile, idx) => {
       const isSelected =
         this.props.selectedTileID !== undefined &&
@@ -36,11 +36,11 @@ class RackView extends React.Component<RackProps> {
   }
 }
 
-const mapStateToProps = (state: State, ownProps: any) => {
+const mapStateToProps = (state: State, ownProps: RackProps) => {
   return state.racks[ownProps.player] || { tiles: [] }
 }
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+const mapDispatchToProps = (dispatch: any, ownProps: { player: string }) => {
   return {
     onSelectTile: (tile: Tile) => {
       dispatch(chooseRackTile(ownProps.player, tile))

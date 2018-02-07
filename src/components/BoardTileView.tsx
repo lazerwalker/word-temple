@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import TileView from './TileView'
 import { BoardTile } from '../Tile'
+import TileView from './TileView'
 
 interface BoardTileViewProps {
   tile?: BoardTile
@@ -9,7 +9,7 @@ interface BoardTileViewProps {
 }
 
 class BoardTileView extends React.Component<BoardTileViewProps> {
-  render() {
+  public render() {
     if (this.props.tile) {
       return (
         <div className="board-tile" onClick={this.props.onTap}>

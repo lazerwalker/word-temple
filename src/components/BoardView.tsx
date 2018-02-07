@@ -1,9 +1,9 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import * as _ from 'lodash'
 
-import State from '../state'
 import { drawTiles, placeTile, swapBoardTile } from '../actions'
+import State from '../state'
 
 import { BoardTile } from '../Tile'
 import BoardTileView from './BoardTileView'
@@ -17,7 +17,7 @@ interface BoardProps {
 }
 
 class BoardView extends React.Component<BoardProps> {
-  render() {
+  public render() {
     const tiles = _.range(this.props.size).map(y => {
       return _.range(this.props.size).map(x => {
         const tile = _(this.props.tiles).find(t => t.x === x && t.y === y)
@@ -54,11 +54,11 @@ class BoardView extends React.Component<BoardProps> {
   }
 }
 
-const mapStateToProps = (state: State, ownProps: any) => {
+const mapStateToProps = (state: State, ownProps: {}) => {
   return state.board
 }
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+const mapDispatchToProps = (dispatch: any, ownProps: BoardProps) => {
   return {
     onEmptyTileTap: (x: number, y: number) => {
       dispatch(placeTile(ownProps.player, x, y))

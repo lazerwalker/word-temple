@@ -60,6 +60,7 @@
     },
     "extends": [
         "tslint-react",
+        "tslint:latest",
         "tslint-config-prettier"
     ]
 }

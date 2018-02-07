@@ -9,7 +9,7 @@ interface AppProps {
 }
 
 class App extends React.Component<AppProps> {
-  render() {
+  public render() {
     return (
       <div className="App">
         <BoardView player={this.props.rackName} />

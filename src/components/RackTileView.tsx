@@ -17,17 +17,7 @@ class RackTileView extends React.Component<Props> {
     this.onClick = this.onClick.bind(this)
   }
 
-  onClick() {
-    if (this.props.tile) {
-      if (this.props.isSelected) {
-        this.props.onDeselectTile()
-      } else {
-        this.props.onSelectTile(this.props.tile)
-      }
-    }
-  }
-
-  render() {
+  public render() {
     if (this.props.tile) {
       return (
         <div className="rack-tile" onClick={this.onClick}>
@@ -40,6 +30,16 @@ class RackTileView extends React.Component<Props> {
       )
     } else {
       return <div className="tile empty" />
+    }
+  }
+
+  private onClick() {
+    if (this.props.tile) {
+      if (this.props.isSelected) {
+        this.props.onDeselectTile()
+      } else {
+        this.props.onSelectTile(this.props.tile)
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import * as _ from 'lodash'
 
-import { Tile, BoardTile, BoardTileState } from './Tile'
+import { BoardTile, BoardTileState, Tile } from './Tile'
+// tslint:disable-next-line:no-var-requires
 const Dictionary = require('./dictionary')
 
 export interface Board {
@@ -13,13 +14,13 @@ export function boardByAddingTile(
   tile: Tile,
   position: { x: number; y: number }
 ) {
-  let newTile = { ...tile, ...position }
+  const newTile = { ...tile, ...position }
 
-  let newBoard = { ...board }
+  const newBoard = { ...board }
   newBoard.tiles = board.tiles.slice(0)
   newBoard.tiles.push(newTile)
 
-  let validity = checkBoard(newBoard)
+  const validity = checkBoard(newBoard)
 
   newBoard.tiles.forEach(t => {
     if (_.includes(validity.validTiles, t)) {
@@ -35,7 +36,7 @@ export function boardByAddingTile(
 }
 
 export function boardWithoutTile(board: Board, tile: BoardTile) {
-  let newBoard = Object.assign({}, board)
+  const newBoard = { ...board }
   newBoard.tiles = _.without(newBoard.tiles, tile)
   return newBoard
 }
@@ -45,7 +46,7 @@ export function findWords(board: Board): BoardTile[][] {
   // N will always be small (until we make InifiniScrabble!)
 
   const tileArray = _.keyBy(board.tiles, tile => `${tile.y},${tile.x}`)
-  let words: BoardTile[][] = []
+  const words: BoardTile[][] = []
 
   const nextRightTile = (tile: BoardTile): BoardTile | null => {
     return tileArray[`${tile.y},${tile.x + 1}`]
@@ -55,20 +56,20 @@ export function findWords(board: Board): BoardTile[][] {
     return tileArray[`${tile.y + 1},${tile.x}`]
   }
 
-  for (var y = 0; y < board.size; y++) {
-    for (var x = 0; x < board.size; x++) {
+  for (let y = 0; y < board.size; y++) {
+    for (let x = 0; x < board.size; x++) {
       const tile = tileArray[`${y},${x}`]
       if (!tile) {
         continue
       }
 
-      const leftTile = tileArray[`${y},${x - 1}`],
-        rightTile = tileArray[`${y},${x + 1}`],
-        aboveTile = tileArray[`${y - 1},${x}`],
-        belowTile = tileArray[`${y + 1},${x}`]
+      const leftTile = tileArray[`${y},${x - 1}`]
+      const rightTile = tileArray[`${y},${x + 1}`]
+      const aboveTile = tileArray[`${y - 1},${x}`]
+      const belowTile = tileArray[`${y + 1},${x}`]
 
       if (rightTile && !leftTile) {
-        let word: BoardTile[] = [tile]
+        const word: BoardTile[] = [tile]
 
         let currentTile: BoardTile | null = rightTile
         while (currentTile) {
@@ -80,7 +81,7 @@ export function findWords(board: Board): BoardTile[][] {
       }
 
       if (belowTile && !aboveTile) {
-        let word: BoardTile[] = [tile]
+        const word: BoardTile[] = [tile]
 
         let currentTile: BoardTile | null = belowTile
         while (currentTile) {
@@ -115,12 +116,12 @@ export interface BoardValidity {
 
 export function checkBoard(board: Board): BoardValidity {
   const words = findWords(board)
-  let wordTiles = _.chain(words)
+  const wordTiles = _.chain(words)
     .flatten()
     .uniq()
     .value()
 
-  let disconnectedTiles = _.difference(board.tiles, wordTiles)
+  const disconnectedTiles = _.difference(board.tiles, wordTiles)
 
   let isValid = true
   let validTiles: BoardTile[] = []

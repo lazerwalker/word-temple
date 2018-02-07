@@ -1,6 +1,6 @@
-import { Tile } from '../Tile'
-import { ActionID, Action } from '../constants'
+import { Action, ActionID } from '../constants'
 import State from '../state'
+import { Tile } from '../Tile'
 
 export const chooseRackTile = (player: string, tile: Tile) => {
   return (dispatch: any, getState: (() => State)) => {

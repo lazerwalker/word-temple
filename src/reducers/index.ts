@@ -1,10 +1,8 @@
+import { Board, boardByAddingTile, boardWithoutTile } from '../Board'
 import { Action, ActionID, Dispatch } from '../constants'
-import { State, Rack, RackList } from '../state'
-import { Board } from '../Board'
+import { Rack, RackList, State } from '../state'
 
 import { sampleN } from '../TileBag'
-
-import { boardByAddingTile, boardWithoutTile } from '../Board'
 
 import * as _ from 'lodash'
 
@@ -58,8 +56,8 @@ export default function createReducer(
           racks = { ...state.racks }
           rack = { ...racks[player] }
 
-          let pos = _.findIndex(rack.tiles, t => t && t.id === tileID)
-          let tile = rack.tiles[pos]!
+          const pos = _.findIndex(rack.tiles, t => t && t.id === tileID)
+          const tile = rack.tiles[pos]!
 
           board = boardByAddingTile(state.board, tile, action.value)
 
@@ -125,7 +123,7 @@ export default function createReducer(
         return { ...state, racks }
       case ActionID.SWAP_BOARD_TILE:
         player = action.value.player
-        let { x, y } = action.value
+        const { x, y } = action.value
 
         if (!state.racks[player].selectedTileID) {
           return state
@@ -145,7 +143,7 @@ export default function createReducer(
           t => t && t.id === rack.selectedTileID
         )
 
-        let previouslySelectedTile = rack.tiles[pos]!
+        const previouslySelectedTile = rack.tiles[pos]!
 
         rack.tiles = rack.tiles.slice(0)
         rack.tiles[pos] = boardTile
