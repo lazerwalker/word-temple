@@ -2,10 +2,10 @@ import { Tile } from './Tile';
 import { Board } from './Board';
 import TileBag from './TileBag';
 
-export type RackList = {[player: string]: Rack};
+export type RackList = { [player: string]: Rack };
 
 export interface Rack {
-  tiles: (Tile|null)[];
+  tiles: (Tile | null)[];
   selectedTileID?: string;
 }
 

@@ -13,13 +13,17 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
     if (this.props.tile) {
       return (
         <div className="board-tile" onClick={this.props.onTap}>
-          <TileView letter={this.props.tile.letter} value={this.props.tile.value} validity={this.props.tile.validity}/>
+          <TileView
+            letter={this.props.tile.letter}
+            value={this.props.tile.value}
+            validity={this.props.tile.validity}
+          />
         </div>
       );
     } else {
       return (
         <div className="board-tile empty" onClick={this.props.onTap}>
-            <TileView />
+          <TileView />
         </div>
       );
     }

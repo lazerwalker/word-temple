@@ -9,29 +9,27 @@ interface TileViewProps {
 
 class TileView extends React.Component<TileViewProps> {
   defaultProps: {
-    selected: false
+    selected: false;
   };
 
   render() {
     if (this.props.letter) {
-      let classes = ["tile"];
+      let classes = ['tile'];
       if (this.props.isSelected) {
-        classes.push("selected");
+        classes.push('selected');
       }
       if (this.props.validity) {
         classes.push(this.props.validity);
       }
 
       return (
-        <div className={classes.join(" ")}>
-          <div className='letter'>{this.props.letter}</div>
-          <div className='value'>{this.props.value}</div>
+        <div className={classes.join(' ')}>
+          <div className="letter">{this.props.letter}</div>
+          <div className="value">{this.props.value}</div>
         </div>
       );
     } else {
-      return (
-        <div className='tile empty'/>
-      );
+      return <div className="tile empty" />;
     }
   }
 }

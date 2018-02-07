@@ -18,16 +18,18 @@ interface BoardProps {
 
 class BoardView extends React.Component<BoardProps> {
   render() {
-    const tiles = _.range(this.props.size).map((y) => {
-      return _.range(this.props.size).map((x) => {
-        const tile = _(this.props.tiles).find((t) => t.x === x && t.y === y);
+    const tiles = _.range(this.props.size).map(y => {
+      return _.range(this.props.size).map(x => {
+        const tile = _(this.props.tiles).find(t => t.x === x && t.y === y);
         if (tile) {
           const tapFn = () => {
             if (this.props.onExistingTileTap) {
               this.props.onExistingTileTap(x, y);
             }
           };
-          return <BoardTileView onTap={tapFn} tile={tile} key={`tile-${x}-${y}`} />;
+          return (
+            <BoardTileView onTap={tapFn} tile={tile} key={`tile-${x}-${y}`} />
+          );
         } else {
           const tapFn = () => {
             if (this.props.onEmptyTileTap) {
@@ -42,17 +44,13 @@ class BoardView extends React.Component<BoardProps> {
 
     const tileRows = tiles.map((row, i) => {
       return (
-        <div className='tile-row' key={i}>
+        <div className="tile-row" key={i}>
           {row}
         </div>
       );
-    })
+    });
 
-    return (
-      <div className='board'>
-        {tileRows}
-      </div>
-    );
+    return <div className="board">{tileRows}</div>;
   }
 }
 
@@ -72,7 +70,4 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BoardView);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardView);

@@ -5,9 +5,9 @@ export interface Tile {
 }
 
 export enum BoardTileState {
-  Valid = "valid",
-  Invalid = "invalid",
-  Disconnected = "disconnected",
+  Valid = 'valid',
+  Invalid = 'invalid',
+  Disconnected = 'disconnected'
 }
 
 export interface BoardTile extends Tile {

@@ -39,9 +39,7 @@ class RackTileView extends React.Component<Props> {
         </div>
       );
     } else {
-      return (
-        <div className='tile empty'/>
-      );
+      return <div className="tile empty" />;
     }
   }
 }

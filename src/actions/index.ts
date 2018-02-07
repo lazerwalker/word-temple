@@ -10,7 +10,6 @@ export const chooseRackTile = (player: string, tile: Tile) => {
     } else {
       dispatch(selectRackTile(player, tile));
     }
-
   };
 };
 
@@ -42,14 +41,21 @@ export const placeTile = (player: string, x: number, y: number) => {
   };
 };
 
-export const drawTiles = (player: string, count: number = 1): Action.DrawTiles => {
+export const drawTiles = (
+  player: string,
+  count: number = 1
+): Action.DrawTiles => {
   return {
     type: ActionID.DRAW_TILES,
     value: { count, player }
   };
 };
 
-export const swapBoardTile = (player: string, x: number, y: number): Action.SwapBoardTile => {
+export const swapBoardTile = (
+  player: string,
+  x: number,
+  y: number
+): Action.SwapBoardTile => {
   return {
     type: ActionID.SWAP_BOARD_TILE,
     value: { x, y, player }

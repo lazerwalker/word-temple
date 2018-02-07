@@ -18,8 +18,9 @@ interface RackProps {
 class RackView extends React.Component<RackProps> {
   render() {
     const tiles = this.props.tiles.map((tile, idx) => {
-      const isSelected = (this.props.selectedTileID !== undefined &&
-        tile.id === this.props.selectedTileID);
+      const isSelected =
+        this.props.selectedTileID !== undefined &&
+        tile.id === this.props.selectedTileID;
       return (
         <RackTileView
           tile={tile}
@@ -31,16 +32,12 @@ class RackView extends React.Component<RackProps> {
       );
     });
 
-    return (
-      <div className='rack'>
-        {tiles}
-      </div>
-    );
+    return <div className="rack">{tiles}</div>;
   }
 }
 
 const mapStateToProps = (state: State, ownProps: any) => {
-  return state.racks[ownProps.player] || {tiles: []};
+  return state.racks[ownProps.player] || { tiles: [] };
 };
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
@@ -51,11 +48,8 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
 
     onDeselectTile: () => {
       dispatch(deselectRackTile(ownProps.player));
-    },
+    }
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RackView);
+export default connect(mapStateToProps, mapDispatchToProps)(RackView);

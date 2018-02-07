@@ -64,7 +64,10 @@
 }
 
 @media (max-width: 560px) {
-  .tile, .board-tile, .rack-tile, .letter {
+  .tile,
+  .board-tile,
+  .rack-tile,
+  .letter {
     width: 14vw;
     height: 14vw;
     line-height: 14vw;

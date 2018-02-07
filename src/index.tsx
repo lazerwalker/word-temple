@@ -21,19 +21,21 @@ initReactFastclick();
 let bag = new TileBag();
 
 const tiles = [
-  {x: 0, y: 1, letter: 'R', value: 3, id: "RX"},
-  {x: 1, y: 1, letter: 'A', value: 1, id: "AX"},
-  {x: 2, y: 1, letter: 'T', value: 1, id: "TX"},
-  {x: 3, y: 5, letter: 'Z', value: 10, id: "ZX"}
+  { x: 0, y: 1, letter: 'R', value: 3, id: 'RX' },
+  { x: 1, y: 1, letter: 'A', value: 1, id: 'AX' },
+  { x: 2, y: 1, letter: 'T', value: 1, id: 'TX' },
+  { x: 3, y: 5, letter: 'Z', value: 10, id: 'ZX' }
 ];
 const board = { tiles, size: 7 };
 
-const isHost = (!window.location.hash);
+const isHost = !window.location.hash;
 const reducer = createReducer(isHost, firebase.dispatch);
 
-let store = createStore(reducer,
-                        {racks: {}, board, bag},
-                        applyMiddleware(thunk));
+let store = createStore(
+  reducer,
+  { racks: {}, board, bag },
+  applyMiddleware(thunk)
+);
 
 if (isHost) {
   firebase.wireQueueToDispatch(store.dispatch);
@@ -44,16 +46,16 @@ if (isHost) {
     }
   });
 
-  store.dispatch(createNewRack("host"));
+  store.dispatch(createNewRack('host'));
 } else {
-  console.log("Is client");
-  firebase.dispatch(createNewRack("client"));
+  console.log('Is client');
+  firebase.dispatch(createNewRack('client'));
   firebase.subscribeToState(store.dispatch);
 }
 
 ReactDOM.render(
   <Provider store={store}>
-    <App rackName={isHost ? "host" : "client"}/>
+    <App rackName={isHost ? 'host' : 'client'} />
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
