@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
@@ -5,12 +9,27 @@
 .tile {
   background-color: #ffb;
   border: 1px solid black;
+  border-bottom: 0;
+  border-right: 0;
   display: inline-block;
   font-size: 24px;
   line-height: 80px;
   position: relative;
   width: 80px;
   height: 80px;
+}
+
+.board-tile:last-of-type .tile,
+.rack-tile:last-of-type .tile {
+  border-right: solid 1px black;
+}
+
+.tile-row:last-of-type .tile {
+  border-bottom: 1px solid black;
+}
+
+.rack-tile .tile {
+  border-bottom: 1px solid black;
 }
 
 .tile.valid {
@@ -77,3 +96,19 @@
     height: 14vw;
   }
 }
+
+/* .entrance-left {
+  border-left: 5px solid #0a0 !important;
+}
+
+.entrance-right {
+  border-right: 2px solid #0a0
+}
+
+.entrance-top {
+  border-top: 2px solid #0a0
+}
+
+.entrance-bottom {
+  border-bottom: 2px solid #0a0
+} */
