@@ -18,11 +18,18 @@
     "simple-peer": "^8.2.0"
   },
   "scripts": {
+    "precommit": "lint-staged",
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
+  "lint-staged": {
+   "src/**/*.{js,jsx,json,css,ts,tsx}": [
+     "prettier --single-quote --write",
+     "git add"
+   ]
+ },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
     "@types/jest": "^22.0.1",
