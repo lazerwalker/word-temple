@@ -1,25 +1,25 @@
-import * as React from 'react';
+import * as React from 'react'
 
 interface TileViewProps {
-  letter?: string;
-  value?: number;
-  isSelected?: boolean;
-  validity?: string;
+  letter?: string
+  value?: number
+  isSelected?: boolean
+  validity?: string
 }
 
 class TileView extends React.Component<TileViewProps> {
   defaultProps: {
-    selected: false;
-  };
+    selected: false
+  }
 
   render() {
     if (this.props.letter) {
-      let classes = ['tile'];
+      let classes = ['tile']
       if (this.props.isSelected) {
-        classes.push('selected');
+        classes.push('selected')
       }
       if (this.props.validity) {
-        classes.push(this.props.validity);
+        classes.push(this.props.validity)
       }
 
       return (
@@ -27,11 +27,11 @@ class TileView extends React.Component<TileViewProps> {
           <div className="letter">{this.props.letter}</div>
           <div className="value">{this.props.value}</div>
         </div>
-      );
+      )
     } else {
-      return <div className="tile empty" />;
+      return <div className="tile empty" />
     }
   }
 }
 
-export default TileView;
+export default TileView

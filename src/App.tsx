@@ -1,11 +1,11 @@
-import * as React from 'react';
-import './App.css';
+import * as React from 'react'
+import './App.css'
 
-import BoardView from './components/BoardView';
-import RackView from './components/RackView';
+import BoardView from './components/BoardView'
+import RackView from './components/RackView'
 
 interface AppProps {
-  rackName: string;
+  rackName: string
 }
 
 class App extends React.Component<AppProps> {
@@ -15,8 +15,8 @@ class App extends React.Component<AppProps> {
         <BoardView player={this.props.rackName} />
         <RackView player={this.props.rackName} />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

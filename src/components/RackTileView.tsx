@@ -1,28 +1,28 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import { Tile } from '../Tile';
+import { Tile } from '../Tile'
 
-import TileView from './TileView';
+import TileView from './TileView'
 
 interface Props {
-  tile?: Tile;
-  isSelected: boolean;
-  onSelectTile: (tile: Tile) => void;
-  onDeselectTile: () => void;
+  tile?: Tile
+  isSelected: boolean
+  onSelectTile: (tile: Tile) => void
+  onDeselectTile: () => void
 }
 
 class RackTileView extends React.Component<Props> {
   constructor(props: Props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
+    super(props)
+    this.onClick = this.onClick.bind(this)
   }
 
   onClick() {
     if (this.props.tile) {
       if (this.props.isSelected) {
-        this.props.onDeselectTile();
+        this.props.onDeselectTile()
       } else {
-        this.props.onSelectTile(this.props.tile);
+        this.props.onSelectTile(this.props.tile)
       }
     }
   }
@@ -37,11 +37,11 @@ class RackTileView extends React.Component<Props> {
             isSelected={this.props.isSelected}
           />
         </div>
-      );
+      )
     } else {
-      return <div className="tile empty" />;
+      return <div className="tile empty" />
     }
   }
 }
 
-export default RackTileView;
+export default RackTileView

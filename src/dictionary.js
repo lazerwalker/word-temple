@@ -173140,7 +173140,7 @@ var foo = [
   'zymurgies',
   'zymurgy',
   'zyzzyva',
-  'zyzzyvas'
-];
+  'zyzzyvas',
+]
 
-module.exports = foo;
+module.exports = foo

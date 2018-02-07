@@ -1,11 +1,11 @@
-import * as _ from 'lodash';
+import * as _ from 'lodash'
 
-import { Tile } from './Tile';
+import { Tile } from './Tile'
 
 interface TileData {
-  tile: string;
-  count: number;
-  value: number;
+  tile: string
+  count: number
+  value: number
 }
 
 const tileData = [
@@ -35,15 +35,15 @@ const tileData = [
   { tile: 'W', count: 2, value: 4 },
   { tile: 'X', count: 1, value: 8 },
   { tile: 'Y', count: 2, value: 3 },
-  { tile: 'Z', count: 1, value: 10 }
-];
+  { tile: 'Z', count: 1, value: 10 },
+]
 
 export default class TileBag {
-  tiles: Tile[];
+  tiles: Tile[]
 
   constructor(tiles?: Tile[]) {
     if (tiles) {
-      this.tiles = tiles;
+      this.tiles = tiles
     } else {
       this.tiles = _(tileData)
         .map((tile: TileData) => {
@@ -51,34 +51,34 @@ export default class TileBag {
             return {
               letter: tile.tile,
               value: tile.value,
-              id: `${tile.tile}${i}`
-            };
-          });
+              id: `${tile.tile}${i}`,
+            }
+          })
         })
         .flatten()
-        .value();
+        .value()
     }
   }
 }
 
 export function sampleN(bag: TileBag, n: number): [Tile[], TileBag] {
-  const tiles = _.sampleSize(bag.tiles, n);
+  const tiles = _.sampleSize(bag.tiles, n)
   if (tiles) {
-    const newTiles = _.difference(bag.tiles, tiles);
-    return [tiles, new TileBag(newTiles)];
+    const newTiles = _.difference(bag.tiles, tiles)
+    return [tiles, new TileBag(newTiles)]
   }
-  return [[], bag];
+  return [[], bag]
 }
 
 export function drawHand(bag: TileBag): [Tile[], TileBag] {
-  return sampleN(bag, 7);
+  return sampleN(bag, 7)
 }
 
 export function pick(bag: TileBag): [Tile | undefined, TileBag] {
-  const result = sampleN(bag, 1);
+  const result = sampleN(bag, 1)
   if (result[0].length === 0) {
-    return [undefined, result[1]];
+    return [undefined, result[1]]
   } else {
-    return [result[0][1], result[1]];
+    return [result[0][1], result[1]]
   }
 }
