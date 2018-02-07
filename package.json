@@ -25,11 +25,11 @@
     "eject": "react-scripts-ts eject"
   },
   "lint-staged": {
-   "src/**/*.{js,jsx,json,css,ts,tsx}": [
-     "prettier --write",
-     "git add"
-   ]
- },
+    "src/**/*.{js,jsx,json,css,ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
     "@types/jest": "^22.0.1",
@@ -43,6 +43,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
     "prettier": "1.10.2",
-    "redux-devtools": "^3.4.1"
+    "redux-devtools": "^3.4.1",
+    "tslint-config-prettier": "^1.7.0"
   }
 }
