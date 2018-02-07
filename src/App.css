@@ -6,6 +6,10 @@
   text-align: center;
 }
 
+.board {
+  margin-top: 20px;
+}
+
 .tile {
   background-color: #ffb;
   border: 1px solid black;
@@ -97,18 +101,34 @@
   }
 }
 
-/* .entrance-left {
-  border-left: 5px solid #0a0 !important;
+.entrance-left {
+  border-left: 1px solid #0a0;
 }
 
 .entrance-right {
-  border-right: 2px solid #0a0
+  border-right: 1px solid #0a0;
 }
 
 .entrance-top {
-  border-top: 2px solid #0a0
+  border-top: 1px solid #0a0;
 }
 
 .entrance-bottom {
-  border-bottom: 2px solid #0a0
-} */
+  border-bottom: 1px solid #0a0;
+}
+
+.exit-left {
+  border-left: 1px solid #a00;
+}
+
+.exit-right {
+  border-right: 1px solid #a00;
+}
+
+.exit-top {
+  border-top: 1px solid #a00;
+}
+
+.exit-bottom {
+  border-bottom: 1px solid #a00;
+}

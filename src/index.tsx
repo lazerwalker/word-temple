@@ -12,6 +12,7 @@ import registerServiceWorker from './registerServiceWorker'
 import { createNewRack } from './actions'
 import TileBag from './TileBag'
 
+import { Side } from './Board'
 import * as firebase from './firebase'
 firebase.initializeFirebase()
 
@@ -27,7 +28,18 @@ const tiles = [
   { x: 2, y: 1, letter: 'T', value: 1, id: 'TX' },
   { x: 3, y: 5, letter: 'Z', value: 10, id: 'ZX' },
 ]
-const board = { tiles, size: 7 }
+
+const entrance = {
+  position: 1,
+  side: Side.Left,
+}
+
+const exit = {
+  position: 5,
+  side: Side.Bottom,
+}
+
+const board = { tiles, entrance, exit, size: 7 }
 
 const isHost = !window.location.hash
 const reducer = createReducer(isHost, firebase.dispatch)
