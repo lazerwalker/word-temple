@@ -63,11 +63,11 @@ function tileFromPortal(portal: Portal, board: Board): Pos {
     case Side.Left:
       return { x: 0, y: portal.position }
     case Side.Right:
-      return { x: board.size, y: portal.position }
+      return { x: board.size - 1, y: portal.position }
     case Side.Top:
       return { x: portal.position, y: 0 }
     case Side.Bottom:
     default:
-      return { x: portal.position, y: board.size }
+      return { x: portal.position, y: board.size - 1 }
   }
 }

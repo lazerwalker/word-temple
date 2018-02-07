@@ -8,6 +8,7 @@ interface BoardTileViewProps {
   onTap?: () => void
   entrance?: string
   exit?: string
+  exitIsComplete: boolean
 }
 
 class BoardTileView extends React.Component<BoardTileViewProps> {
@@ -20,6 +21,9 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
 
     if (this.props.exit) {
       classNames.push(`exit-${this.props.exit}`)
+      if (this.props.exitIsComplete) {
+        classNames.push('exit-complete')
+      }
     }
 
     if (this.props.tile) {

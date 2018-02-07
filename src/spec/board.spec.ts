@@ -1,5 +1,5 @@
 import * as Board from '../Board'
-import { BoardTile } from '../Tile'
+import { BoardTile, Tile } from '../Tile'
 
 describe('finding all words on a board', () => {
   let board: Board.Board
@@ -143,6 +143,60 @@ describe('checking if a board is valid', () => {
       expect(validity.disconnectedTiles).toEqual([
         { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
       ])
+    })
+  })
+})
+
+describe('boardByAddingTile', () => {
+  describe('when an exit has been completed', () => {
+    it('should mark the exit as completed', () => {
+      const tiles: [[Tile, { x: number; y: number }]] = [
+        [{ letter: 'T', value: 1, id: 'T1' }, { x: 0, y: 1 }],
+        [{ letter: 'A', value: 1, id: 'A1' }, { x: 1, y: 1 }],
+        [{ letter: 'T', value: 1, id: 'T2' }, { x: 1, y: 0 }],
+      ]
+
+      const entrance = {
+        position: 1,
+        side: Board.Side.Left,
+      }
+
+      const exit = {
+        position: 1,
+        side: Board.Side.Top,
+      }
+
+      let board: Board.Board = { tiles: [], size: 3, entrance, exit }
+      tiles.forEach(
+        tuple => (board = Board.boardByAddingTile(board, tuple[0], tuple[1]))
+      )
+      expect(board.exitIsComplete).toBeTruthy()
+    })
+  })
+
+  describe('when an exit has not been completed', () => {
+    it('should not mark the exit completed', () => {
+      const tiles: [[Tile, { x: number; y: number }]] = [
+        [{ letter: 'T', value: 1, id: 'T1' }, { x: 0, y: 1 }],
+        [{ letter: 'C', value: 1, id: 'C1' }, { x: 1, y: 1 }],
+        [{ letter: 'T', value: 1, id: 'T2' }, { x: 1, y: 0 }],
+      ]
+
+      const entrance = {
+        position: 1,
+        side: Board.Side.Left,
+      }
+
+      const exit = {
+        position: 1,
+        side: Board.Side.Top,
+      }
+
+      let board: Board.Board = { tiles: [], size: 3, entrance, exit }
+      tiles.forEach(
+        tuple => (board = Board.boardByAddingTile(board, tuple[0], tuple[1]))
+      )
+      expect(board.exitIsComplete).toBeFalsy()
     })
   })
 })

@@ -15,6 +15,7 @@ interface BoardProps {
   tiles: BoardTile[]
   entrance?: Portal
   exit?: Portal
+  exitIsComplete: boolean
   onEmptyTileTap: (x: number, y: number) => void
   onExistingTileTap: (x: number, y: number) => void
 }
@@ -80,7 +81,6 @@ class BoardView extends React.Component<BoardProps> {
 
         // console.log(exitPos, x, y, (this.props.exit && exitPos.x === x && exitPos.y === y))
         if (this.props.exit && exitPos.x === x && exitPos.y === y) {
-          console.log('Has exit', x, y)
           exit = this.props.exit.side
         }
 
@@ -104,6 +104,7 @@ class BoardView extends React.Component<BoardProps> {
             onTap={tapFn}
             entrance={entrance}
             exit={exit}
+            exitIsComplete={this.props.exitIsComplete}
             tile={tile}
             key={`tile-${x}-${y}`}
           />

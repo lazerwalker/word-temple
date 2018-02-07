@@ -1,5 +1,6 @@
 import * as _ from 'lodash'
 
+import { hasCompletePath } from './pathfinding'
 import { BoardTile, BoardTileState, Tile } from './Tile'
 // tslint:disable-next-line:no-var-requires
 const Dictionary = require('./dictionary')
@@ -9,6 +10,7 @@ export interface Board {
   size: number
   entrance?: Portal
   exit?: Portal
+  exitIsComplete?: boolean // TODO: Wrap into exit?
 }
 
 export interface Portal {
@@ -39,6 +41,8 @@ export function boardByAddingBoardTile(board: Board, tile: BoardTile): Board {
       t.validity = BoardTileState.Disconnected
     }
   })
+
+  newBoard.exitIsComplete = hasCompletePath(newBoard)
 
   return newBoard
 }

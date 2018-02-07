@@ -64,11 +64,11 @@ describe('finding a valid path', () => {
   })
 
   describe('when there is a valid path of valid words', () => {
-    it.only('should return true', () => {
+    it('should return true', () => {
       const tiles = [
         { x: 0, y: 1, letter: 'T', value: 1, id: 'T1' },
         { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-        { x: 1, y: 0, letter: 'T', value: 1, id: 'T2' },
+        { x: 1, y: 2, letter: 'T', value: 1, id: 'T2' },
       ]
 
       const entrance = {
@@ -78,7 +78,7 @@ describe('finding a valid path', () => {
 
       const exit = {
         position: 1,
-        side: Board.Side.Top,
+        side: Board.Side.Bottom,
       }
       board = { tiles: [], size: 3, entrance, exit }
       tiles.forEach(t => (board = Board.boardByAddingBoardTile(board, t)))
