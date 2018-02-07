@@ -12,7 +12,7 @@ import registerServiceWorker from './registerServiceWorker'
 import { createNewRack } from './actions'
 import TileBag from './TileBag'
 
-import { Side } from './Board'
+import { Side, boardByAddingTile } from './Board'
 import * as firebase from './firebase'
 firebase.initializeFirebase()
 
@@ -26,7 +26,6 @@ const tiles = [
   { x: 0, y: 1, letter: 'R', value: 3, id: 'RX' },
   { x: 1, y: 1, letter: 'A', value: 1, id: 'AX' },
   { x: 2, y: 1, letter: 'T', value: 1, id: 'TX' },
-  { x: 3, y: 5, letter: 'Z', value: 10, id: 'ZX' },
 ]
 
 const entrance = {
@@ -39,7 +38,12 @@ const exit = {
   side: Side.Bottom,
 }
 
-const board = { tiles, entrance, exit, size: 7 }
+// We do this manually here to trigger a validity check
+const board = boardByAddingTile(
+  { tiles, entrance, exit, size: 7 },
+  { letter: 'Z', value: 10, id: 'ZX' },
+  { x: 3, y: 5 }
+)
 
 const isHost = !window.location.hash
 const reducer = createReducer(isHost, firebase.dispatch)
