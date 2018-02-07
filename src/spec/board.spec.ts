@@ -100,7 +100,7 @@ describe('checking if a board is valid', () => {
 
     it('should return the disconnected tile', () => {
       expect(validity.disconnectedTiles).toEqual([
-        { x: 3, y: 5, letter: 'Z', value: 10 },
+        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
       ])
     })
   })

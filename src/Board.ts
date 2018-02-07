@@ -7,6 +7,20 @@ const Dictionary = require('./dictionary')
 export interface Board {
   tiles: BoardTile[]
   size: number
+  entrance?: Portal
+  exit?: Portal
+}
+
+export interface Portal {
+  side: Side
+  position: number
+}
+
+export enum Side {
+  Left = 'left',
+  Right = 'right',
+  Top = 'top',
+  Bottom = 'bottom',
 }
 
 export function boardByAddingTile(
