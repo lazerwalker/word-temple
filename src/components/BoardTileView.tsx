@@ -33,6 +33,7 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
             letter={this.props.tile.letter}
             value={this.props.tile.value}
             validity={this.props.tile.validity}
+            movable={this.props.tile.movable}
           />
         </div>
       )

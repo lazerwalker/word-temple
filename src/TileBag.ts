@@ -37,26 +37,24 @@ const tileData = [
   { tile: 'Z', count: 1, value: 10 },
 ]
 
+const allTiles = _(tileData)
+  .map((tile: TileData) => {
+    return _.range(tile.count).map(i => {
+      return {
+        id: `${tile.tile}${i}`,
+        letter: tile.tile,
+        value: tile.value,
+      }
+    })
+  })
+  .flatten()
+  .value()
+
 export default class TileBag {
   public tiles: Tile[]
 
   constructor(tiles?: Tile[]) {
-    if (tiles) {
-      this.tiles = tiles
-    } else {
-      this.tiles = _(tileData)
-        .map((tile: TileData) => {
-          return _.range(tile.count).map(i => {
-            return {
-              id: `${tile.tile}${i}`,
-              letter: tile.tile,
-              value: tile.value,
-            }
-          })
-        })
-        .flatten()
-        .value()
-    }
+    this.tiles = tiles || [...allTiles]
   }
 }
 
@@ -80,4 +78,8 @@ export function pick(bag: TileBag): [Tile | undefined, TileBag] {
   } else {
     return [result[0][1], result[1]]
   }
+}
+
+export function sampleAbstractTile(): Tile {
+  return _.sample(allTiles)!
 }

@@ -5,6 +5,7 @@ interface TileViewProps {
   value?: number
   isSelected?: boolean
   validity?: string
+  movable?: boolean
 }
 
 class TileView extends React.Component<TileViewProps> {
@@ -16,6 +17,9 @@ class TileView extends React.Component<TileViewProps> {
       }
       if (this.props.validity) {
         classes.push(this.props.validity)
+      }
+      if (this.props.movable === false) {
+        classes.push('immovable')
       }
 
       return (

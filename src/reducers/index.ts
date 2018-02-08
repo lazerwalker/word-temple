@@ -2,7 +2,7 @@ import { Board, boardByAddingTile, boardWithoutTile, Side } from '../Board'
 import { Action, ActionID, Dispatch } from '../constants'
 import { Rack, RackList, State } from '../state'
 
-import { sampleN } from '../TileBag'
+import { sampleAbstractTile, sampleN } from '../TileBag'
 
 import * as _ from 'lodash'
 
@@ -181,12 +181,23 @@ export default function createReducer(
           side: Side[availableSides.pop()!],
         }
 
+        tiles = []
+
+        if (_.random(1) === 0) {
+          tiles.push({
+            ...sampleAbstractTile(),
+            movable: false,
+            x: _.random(state.board.size - 1),
+            y: _.random(state.board.size - 1),
+          })
+        }
+
         board = {
           entrance,
           exit,
           exitIsComplete: false,
           size,
-          tiles: [],
+          tiles,
         }
         return { ...state, board }
       default:
