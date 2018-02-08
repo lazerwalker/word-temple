@@ -11,7 +11,6 @@ interface TileData {
 const tileData = [
   { tile: 'A', count: 9, value: 1 },
   { tile: 'B', count: 2, value: 4 },
-  { tile: '?', count: 2, value: 0 },
   { tile: 'C', count: 2, value: 4 },
   { tile: 'D', count: 5, value: 2 },
   { tile: 'E', count: 13, value: 1 },
