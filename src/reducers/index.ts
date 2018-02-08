@@ -165,12 +165,18 @@ export default function createReducer(
       case ActionID.GENERATE_BOARD:
         const size = action.value
         const availableSides: string[] = _.shuffle(Object.keys(Side))
+
+        // TODO: This is a hack to stop it so that we don't end up with an
+        // entrance/exit in the same tile (if they're at a corner).
+        // We should properly be detecting that specific condition, but this is easier
+        const availablePositions: number[] = Array.from(Array(size).keys())
+
         const entrance = {
-          position: _.random(size - 1),
+          position: availablePositions.pop()!,
           side: Side[availableSides.pop()!],
         }
         const exit = {
-          position: _.random(size - 1),
+          position: availablePositions.pop()!,
           side: Side[availableSides.pop()!],
         }
 
