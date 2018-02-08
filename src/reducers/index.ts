@@ -56,11 +56,15 @@ export default function createReducer(
           racks = { ...state.racks }
           rack = { ...racks[player] }
 
-          const pos = _.findIndex(rack.tiles, t => t && t.id === tileID)
+          const pos = _.findIndex(
+            rack.tiles,
+            t => t && t.id === rack.selectedTileID
+          )
           const tile = rack.tiles[pos]!
 
           board = boardByAddingTile(state.board, tile, action.value)
 
+          rack[pos] = null
           // TODO: We should probably just store selectedTile as (id, pos)
           delete rack.selectedTileID
 
@@ -69,8 +73,7 @@ export default function createReducer(
           // action instead of copypasta-ing here. This was moved in because we
           // were drawing in even when there was no selectedTile.
           const [newTile, bag] = sampleN(state.bag, 1)
-          rack[pos] = newTile[0]
-
+          rack.tiles[pos] = newTile[0]
           racks[player] = rack
           return { ...state, board, racks, bag }
         }
