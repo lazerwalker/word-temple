@@ -1,7 +1,6 @@
 import * as Board from '../Board'
 import { hasCompletePath } from '../pathfinding'
 import { BoardTile } from '../Tile'
-import { boardByAddingTile } from '../Board'
 
 describe('finding a valid path', () => {
   let board: Board.Board
@@ -18,9 +17,9 @@ describe('finding a valid path', () => {
       ]
 
       board = {
-        tiles,
-        size: 5,
         entrance: { side: Board.Side.Left, position: 1 },
+        size: 5,
+        tiles,
       }
       expect(hasCompletePath(board)).toBeFalsy()
     })
