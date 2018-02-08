@@ -62,12 +62,17 @@ export default function createReducer(
           board = boardByAddingTile(state.board, tile, action.value)
 
           // TODO: We should probably just store selectedTile as (id, pos)
-          rack.tiles[pos] = null
           delete rack.selectedTileID
 
+          // Draw 1 tile
+          // TODO: Would be nice if we could just dispatch that as a separate
+          // action instead of copypasta-ing here. This was moved in because we
+          // were drawing in even when there was no selectedTile.
+          const [newTile, bag] = sampleN(state.bag, 1)
+          rack[pos] = newTile[0]
+
           racks[player] = rack
-          console.log(rack)
-          return { ...state, board, racks }
+          return { ...state, board, racks, bag }
         }
         return state
       case ActionID.CREATE_NEW_RACK:

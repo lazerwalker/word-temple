@@ -132,7 +132,6 @@ const mapDispatchToProps = (dispatch: any, ownProps: BoardProps) => {
   return {
     onEmptyTileTap: (x: number, y: number) => {
       dispatch(placeTile(ownProps.player, x, y))
-      dispatch(drawTiles(ownProps.player, 1))
     },
     onExistingTileTap: (x: number, y: number) => {
       dispatch(swapBoardTile(ownProps.player, x, y))
