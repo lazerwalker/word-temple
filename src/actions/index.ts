@@ -75,3 +75,10 @@ export const createNewRack = (client: string): Action.CreateNewRack => {
     value: client,
   }
 }
+
+export const generateBoard = (size: number = 7): Action.GenerateBoard => {
+  return {
+    type: ActionID.GENERATE_BOARD,
+    value: size,
+  }
+}

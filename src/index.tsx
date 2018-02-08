@@ -9,10 +9,9 @@ import './index.css'
 import createReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker'
 
-import { createNewRack } from './actions'
+import { createNewRack, generateBoard } from './actions'
 import TileBag from './TileBag'
 
-import { boardByAddingBoardTile, Side } from './Board'
 import * as firebase from './firebase'
 firebase.initializeFirebase()
 
@@ -22,31 +21,14 @@ initReactFastclick()
 
 const bag = new TileBag()
 
-const tiles = [
-  { x: 0, y: 1, letter: 'R', value: 3, id: 'RX' },
-  { x: 1, y: 1, letter: 'A', value: 1, id: 'AX' },
-  { x: 2, y: 1, letter: 'T', value: 1, id: 'TX' },
-]
-
-const entrance = {
-  position: 1,
-  side: Side.Left,
-}
-
-const exit = {
-  position: 5,
-  side: Side.Bottom,
-}
-
-// We do this manually here to trigger a validity check
-const board = boardByAddingBoardTile(
-  { tiles, entrance, exit, size: 7 },
-  { x: 3, y: 5, letter: 'Z', value: 10, id: 'ZX' }
-)
-
 const isHost = !window.location.hash
 const reducer = createReducer(isHost, firebase.dispatch)
 
+// TODO: Time to make a constructor?
+const board = {
+  size: 7,
+  tiles: [],
+}
 const store = createStore(
   reducer,
   { racks: {}, board, bag },
@@ -63,6 +45,7 @@ if (isHost) {
   })
 
   store.dispatch(createNewRack('host'))
+  store.dispatch(generateBoard())
 } else {
   console.log('Is client')
   firebase.dispatch(createNewRack('client'))

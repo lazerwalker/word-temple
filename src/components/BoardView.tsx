@@ -2,7 +2,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { drawTiles, placeTile, swapBoardTile } from '../actions'
+import { placeTile, swapBoardTile } from '../actions'
 import State from '../state'
 
 import { Portal, Side } from '../Board'
@@ -32,10 +32,16 @@ class BoardView extends React.Component<BoardProps> {
           entrancePos = { x: 0, y: this.props.entrance.position }
           break
         case Side.Right:
-          entrancePos = { x: this.props.size, y: this.props.entrance.position }
+          entrancePos = {
+            x: this.props.size - 1,
+            y: this.props.entrance.position,
+          }
           break
         case Side.Bottom:
-          entrancePos = { x: this.props.entrance.position, y: this.props.size }
+          entrancePos = {
+            x: this.props.entrance.position,
+            y: this.props.size - 1,
+          }
           break
         case Side.Top:
           entrancePos = { x: this.props.entrance.position, y: 0 }

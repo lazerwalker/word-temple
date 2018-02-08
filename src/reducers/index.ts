@@ -1,4 +1,4 @@
-import { Board, boardByAddingTile, boardWithoutTile } from '../Board'
+import { Board, boardByAddingTile, boardWithoutTile, Side } from '../Board'
 import { Action, ActionID, Dispatch } from '../constants'
 import { Rack, RackList, State } from '../state'
 
@@ -159,6 +159,26 @@ export default function createReducer(
         board = boardByAddingTile(board, previouslySelectedTile, action.value)
 
         return { ...state, racks, board }
+      case ActionID.GENERATE_BOARD:
+        const size = action.value
+        const availableSides: string[] = _.shuffle(Object.keys(Side))
+        const entrance = {
+          position: _.random(size - 1),
+          side: Side[availableSides.pop()!],
+        }
+        const exit = {
+          position: _.random(size - 1),
+          side: Side[availableSides.pop()!],
+        }
+
+        board = {
+          entrance,
+          exit,
+          exitIsComplete: false,
+          size,
+          tiles: [],
+        }
+        return { ...state, board }
       default:
         return state
     }

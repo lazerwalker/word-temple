@@ -11,6 +11,7 @@ export enum ActionID {
   SWAP_BOARD_TILE = 'SWAP_BOARD_TILE',
   OVERWRITE_STATE = 'OVERWRITE_STATE',
   CREATE_NEW_RACK = 'CREATE_NEW_RACK',
+  GENERATE_BOARD = 'GENERATE_BOARD',
 }
 
 // TODO
@@ -55,6 +56,11 @@ export namespace Action {
     type: ActionID.CREATE_NEW_RACK
     value: string
   }
+
+  export interface GenerateBoard {
+    type: ActionID.GENERATE_BOARD
+    value: number
+  }
 }
 
 export type Action =
@@ -66,3 +72,4 @@ export type Action =
   | Action.SwapBoardTile
   | Action.OverwriteState
   | Action.CreateNewRack
+  | Action.GenerateBoard

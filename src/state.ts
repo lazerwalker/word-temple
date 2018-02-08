@@ -1,11 +1,13 @@
-import { Tile } from './Tile'
 import { Board } from './Board'
+import { Tile } from './Tile'
 import TileBag from './TileBag'
 
-export type RackList = { [player: string]: Rack }
+export interface RackList {
+  [player: string]: Rack
+}
 
 export interface Rack {
-  tiles: (Tile | null)[]
+  tiles: Array<Tile | null>
   selectedTileID?: string
 }
 
