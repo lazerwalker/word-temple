@@ -70,7 +70,7 @@ export default function createReducer(
           board = boardByAddingTile(state.board, tile, action.value)
 
           if (board.exitIsComplete) {
-            board = generateNewBoard(board.size)
+            board = generateNewBoard(board.size, board.exit)
           }
 
           rack[pos] = null
@@ -172,7 +172,7 @@ export default function createReducer(
         board = boardByAddingTile(board, previouslySelectedTile, action.value)
 
         if (board.exitIsComplete) {
-          board = generateNewBoard(board.size)
+          board = generateNewBoard(board.size, board.exit)
         }
 
         return { ...state, racks, board }

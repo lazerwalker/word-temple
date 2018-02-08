@@ -45,7 +45,7 @@ if (isHost) {
   })
 
   store.dispatch(createNewRack('host'))
-  store.dispatch(generateBoard())
+  store.dispatch(generateBoard(7))
 } else {
   console.log('Is client')
   firebase.dispatch(createNewRack('client'))

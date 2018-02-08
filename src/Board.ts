@@ -26,18 +26,27 @@ export enum Side {
   Bottom = 'bottom',
 }
 
-export function generateNewBoard(size: number = 7) {
-  const availableSides: string[] = _.shuffle(Object.keys(Side))
+export function generateNewBoard(size: number = 7, entrance?: Portal) {
+  let availableSides: string[] = _.shuffle(Object.keys(Side))
 
   // TODO: This is a hack to stop it so that we don't end up with an
   // entrance/exit in the same tile (if they're at a corner).
   // We should properly be detecting that specific condition, but this is easier
-  const availablePositions: number[] = Array.from(Array(size).keys())
+  let availablePositions: number[] = Array.from(Array(size).keys())
 
-  const entrance = {
-    position: availablePositions.pop()!,
-    side: Side[availableSides.pop()!],
+  if (entrance) {
+    availablePositions = _.without(availablePositions, entrance.position)
+    availableSides = _.without(
+      availableSides,
+      _.findKey(Side, s => s === entrance!.side)!
+    )
+  } else {
+    entrance = {
+      position: availablePositions.pop()!,
+      side: Side[availableSides.pop()!],
+    }
   }
+
   const exit = {
     position: availablePositions.pop()!,
     side: Side[availableSides.pop()!],
