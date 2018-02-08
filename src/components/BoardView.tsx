@@ -52,7 +52,6 @@ class BoardView extends React.Component<BoardProps> {
     }
 
     if (this.props.exit) {
-      console.log('Has exit', this.props.exit)
       switch (this.props.exit.side) {
         case Side.Left:
           exitPos = { x: 0, y: this.props.exit.position }
@@ -67,12 +66,9 @@ class BoardView extends React.Component<BoardProps> {
           exitPos = { x: this.props.exit.position, y: 0 }
           break
         default:
-          console.log('IN DEFAULT')
           break
       }
     }
-
-    console.log(entrancePos!, exitPos!)
 
     const tiles = _.range(this.props.size).map(y => {
       return _.range(this.props.size).map(x => {
@@ -81,11 +77,9 @@ class BoardView extends React.Component<BoardProps> {
         let entrance: string | undefined
 
         if (this.props.entrance && entrancePos.x === x && entrancePos.y === y) {
-          console.log('Has entrance', x, y)
           entrance = this.props.entrance.side
         }
 
-        // console.log(exitPos, x, y, (this.props.exit && exitPos.x === x && exitPos.y === y))
         if (this.props.exit && exitPos.x === x && exitPos.y === y) {
           exit = this.props.exit.side
         }
