@@ -2,6 +2,7 @@ import * as _ from 'lodash'
 
 import { hasCompletePath } from './pathfinding'
 import { BoardTile, BoardTileState, Tile } from './Tile'
+import { sampleAbstractTile } from './TileBag'
 // tslint:disable-next-line:no-var-requires
 const Dictionary = require('./dictionary')
 
@@ -23,6 +24,43 @@ export enum Side {
   Right = 'right',
   Top = 'top',
   Bottom = 'bottom',
+}
+
+export function generateNewBoard(size: number = 7) {
+  const availableSides: string[] = _.shuffle(Object.keys(Side))
+
+  // TODO: This is a hack to stop it so that we don't end up with an
+  // entrance/exit in the same tile (if they're at a corner).
+  // We should properly be detecting that specific condition, but this is easier
+  const availablePositions: number[] = Array.from(Array(size).keys())
+
+  const entrance = {
+    position: availablePositions.pop()!,
+    side: Side[availableSides.pop()!],
+  }
+  const exit = {
+    position: availablePositions.pop()!,
+    side: Side[availableSides.pop()!],
+  }
+
+  const tiles: BoardTile[] = []
+
+  if (_.random(1) === 0) {
+    tiles.push({
+      ...sampleAbstractTile(),
+      movable: false,
+      x: _.random(size - 1),
+      y: _.random(size - 1),
+    })
+  }
+
+  return {
+    entrance,
+    exit,
+    exitIsComplete: false,
+    size,
+    tiles,
+  }
 }
 
 export function boardByAddingBoardTile(board: Board, tile: BoardTile): Board {

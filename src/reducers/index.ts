@@ -1,8 +1,13 @@
-import { Board, boardByAddingTile, boardWithoutTile, Side } from '../Board'
+import {
+  Board,
+  boardByAddingTile,
+  boardWithoutTile,
+  generateNewBoard,
+} from '../Board'
 import { Action, ActionID, Dispatch } from '../constants'
 import { Rack, RackList, State } from '../state'
 
-import { sampleAbstractTile, sampleN } from '../TileBag'
+import { sampleN } from '../TileBag'
 
 import * as _ from 'lodash'
 
@@ -63,6 +68,10 @@ export default function createReducer(
           const tile = rack.tiles[pos]!
 
           board = boardByAddingTile(state.board, tile, action.value)
+
+          if (board.exitIsComplete) {
+            board = generateNewBoard(board.size)
+          }
 
           rack[pos] = null
           // TODO: We should probably just store selectedTile as (id, pos)
@@ -162,43 +171,14 @@ export default function createReducer(
         board = boardWithoutTile(state.board, boardTile)
         board = boardByAddingTile(board, previouslySelectedTile, action.value)
 
+        if (board.exitIsComplete) {
+          board = generateNewBoard(board.size)
+        }
+
         return { ...state, racks, board }
       case ActionID.GENERATE_BOARD:
         const size = action.value
-        const availableSides: string[] = _.shuffle(Object.keys(Side))
-
-        // TODO: This is a hack to stop it so that we don't end up with an
-        // entrance/exit in the same tile (if they're at a corner).
-        // We should properly be detecting that specific condition, but this is easier
-        const availablePositions: number[] = Array.from(Array(size).keys())
-
-        const entrance = {
-          position: availablePositions.pop()!,
-          side: Side[availableSides.pop()!],
-        }
-        const exit = {
-          position: availablePositions.pop()!,
-          side: Side[availableSides.pop()!],
-        }
-
-        tiles = []
-
-        if (_.random(1) === 0) {
-          tiles.push({
-            ...sampleAbstractTile(),
-            movable: false,
-            x: _.random(state.board.size - 1),
-            y: _.random(state.board.size - 1),
-          })
-        }
-
-        board = {
-          entrance,
-          exit,
-          exitIsComplete: false,
-          size,
-          tiles,
-        }
+        board = generateNewBoard(size)
         return { ...state, board }
       default:
         return state
