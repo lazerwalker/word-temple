@@ -140,7 +140,8 @@ export default function createReducer(
         const boardTile = state.board.tiles.find(t => {
           return t.x === x && t.y === y
         })
-        if (!boardTile) {
+
+        if (!boardTile || !boardTile.movable) {
           return state
         }
 

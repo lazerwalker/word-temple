@@ -9,11 +9,11 @@ describe('finding a valid path', () => {
   describe('when there is no exit', () => {
     it('should always return false', () => {
       const tiles = [
-        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
-        { x: 1, y: 2, letter: 'J', value: 1, id: 'J1' },
-        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
+        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
+        { x: 1, y: 2, letter: 'J', value: 1, id: 'J1', movable: true },
+        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1', movable: true },
       ]
 
       board = {
@@ -28,11 +28,11 @@ describe('finding a valid path', () => {
   describe('when there is no entrance', () => {
     it('should always return false', () => {
       const tiles = [
-        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
-        { x: 1, y: 2, letter: 'J', value: 1, id: 'J1' },
-        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
+        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
+        { x: 1, y: 2, letter: 'J', value: 1, id: 'J1', movable: true },
+        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1', movable: true },
       ]
 
       board = { tiles, size: 5, exit: { side: Board.Side.Left, position: 1 } }
@@ -43,9 +43,9 @@ describe('finding a valid path', () => {
   describe('when there is no valid path', () => {
     it('should return false', () => {
       const tiles = [
-        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-        { x: 0, y: 0, letter: 'A', value: 1, id: 'A1' },
-        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
+        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+        { x: 0, y: 0, letter: 'A', value: 1, id: 'A1', movable: true },
+        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
       ]
 
       const entrance = {
@@ -65,9 +65,9 @@ describe('finding a valid path', () => {
   describe('when there is a valid path of valid words', () => {
     it('should return true', () => {
       const tiles = [
-        { x: 0, y: 1, letter: 'T', value: 1, id: 'T1' },
-        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-        { x: 1, y: 2, letter: 'T', value: 1, id: 'T2' },
+        { x: 0, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
+        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+        { x: 1, y: 2, letter: 'T', value: 1, id: 'T2', movable: true },
       ]
 
       const entrance = {
@@ -88,9 +88,9 @@ describe('finding a valid path', () => {
   describe('when there is a valid path of invalid words', () => {
     it('should return false', () => {
       const tiles = [
-        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-        { x: 1, y: 1, letter: 'J', value: 1, id: 'A1' },
-        { x: 1, y: 0, letter: 'T', value: 1, id: 'T1' },
+        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+        { x: 1, y: 1, letter: 'J', value: 1, id: 'A1', movable: true },
+        { x: 1, y: 0, letter: 'T', value: 1, id: 'T1', movable: true },
       ]
 
       const entrance = {
@@ -110,11 +110,11 @@ describe('finding a valid path', () => {
 
   beforeEach(() => {
     const tiles = [
-      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
-      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1' },
-      { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
+      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
+      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1', movable: true },
+      { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1', movable: true },
     ]
 
     board = { tiles, size: 7 }
@@ -124,9 +124,9 @@ describe('finding a valid path', () => {
 
   it('should find horizontal words', () => {
     const cat = [
-      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
+      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
     ]
     expect(words).toContainEqual(cat)
   })

@@ -14,4 +14,5 @@ export interface BoardTile extends Tile {
   x: number
   y: number
   validity?: BoardTileState
+  movable: boolean
 }

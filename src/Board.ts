@@ -52,7 +52,7 @@ export function boardByAddingTile(
   tile: Tile,
   position: { x: number; y: number }
 ) {
-  const newTile = { ...tile, ...position }
+  const newTile = { ...tile, ...position, movable: true }
   return boardByAddingBoardTile(board, newTile)
 }
 

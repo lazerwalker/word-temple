@@ -7,11 +7,11 @@ describe('finding all words on a board', () => {
 
   beforeEach(() => {
     const tiles = [
-      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
-      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1' },
-      { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
+      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
+      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1', movable: true },
+      { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1', movable: true },
     ]
 
     board = { tiles, size: 7 }
@@ -21,17 +21,17 @@ describe('finding all words on a board', () => {
 
   it('should find horizontal words', () => {
     const cat = [
-      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
+      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
     ]
     expect(words).toContainEqual(cat)
   })
 
   it('should find vertical words', () => {
     const aj = [
-      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1' },
+      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1', movable: true },
     ]
     expect(words).toContainEqual(aj)
   })
@@ -44,9 +44,9 @@ describe('finding all words on a board', () => {
 describe('checking if a word is a valid word', () => {
   it('should say if a word is valid', () => {
     const cat = [
-      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
+      { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+      { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
     ]
 
     const isValid = Board.checkWord(cat)
@@ -55,8 +55,8 @@ describe('checking if a word is a valid word', () => {
 
   it('should say if a word is invalid', () => {
     const aj = [
-      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1' },
+      { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+      { x: 1, y: 2, letter: 'J', value: 1, id: 'J1', movable: true },
     ]
 
     const isValid = Board.checkWord(aj)
@@ -69,11 +69,11 @@ describe('checking if a board is valid', () => {
     var validity: Board.BoardValidity
     beforeEach(() => {
       const tiles = [
-        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
-        { x: 1, y: 2, letter: 'B', value: 1, id: 'B1' },
-        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
+        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
+        { x: 1, y: 2, letter: 'B', value: 1, id: 'B1', movable: true },
+        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1', movable: true },
       ]
 
       const board = { tiles, size: 7 }
@@ -87,10 +87,11 @@ describe('checking if a board is valid', () => {
     it('should return all non-solo tiles as valid', () => {
       expect(validity.validTiles).toHaveLength(4)
       expect(validity.validTiles).not.toContainEqual({
+        letter: 'Z',
+        movable: true,
+        value: 10,
         x: 3,
         y: 5,
-        letter: 'Z',
-        value: 10,
       })
     })
 
@@ -110,11 +111,11 @@ describe('checking if a board is valid', () => {
 
     beforeEach(() => {
       const tiles = [
-        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1' },
-        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1' },
-        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1' },
-        { x: 1, y: 2, letter: 'J', value: 1, id: 'J1' },
-        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1' },
+        { x: 0, y: 1, letter: 'C', value: 3, id: 'C1', movable: true },
+        { x: 1, y: 1, letter: 'A', value: 1, id: 'A1', movable: true },
+        { x: 2, y: 1, letter: 'T', value: 1, id: 'T1', movable: true },
+        { x: 1, y: 2, letter: 'J', value: 1, id: 'J1', movable: true },
+        { x: 3, y: 5, letter: 'Z', value: 10, id: 'Z1', movable: true },
       ]
 
       const board = { tiles, size: 7 }
