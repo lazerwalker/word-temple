@@ -36,9 +36,6 @@ function collectDrop(connect: any, monitor: any) {
 
 interface Props {
   tile?: Tile
-  isSelected: boolean
-  onSelectTile: (tile: Tile) => void
-  onDeselectTile: () => void
 
   onDragTile?: (origin: Tile, destination?: Tile) => void
 
@@ -47,43 +44,19 @@ interface Props {
 }
 
 class RackTileView extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props)
-    this.onClick = this.onClick.bind(this)
-  }
-
   public render() {
-    const {
-      connectDragSource,
-      connectDropTarget,
-      isSelected,
-      tile,
-    } = this.props
+    const { connectDragSource, connectDropTarget, tile } = this.props
 
     if (tile) {
       return connectDropTarget(
         connectDragSource(
-          <div className="rack-tile" onClick={this.onClick}>
-            <TileView
-              letter={tile.letter}
-              value={tile.value}
-              isSelected={isSelected}
-            />
+          <div className="rack-tile">
+            <TileView letter={tile.letter} value={tile.value} />
           </div>
         )
       )
     } else {
       return <div className="tile empty" />
-    }
-  }
-
-  private onClick() {
-    if (this.props.tile) {
-      if (this.props.isSelected) {
-        this.props.onDeselectTile()
-      } else {
-        this.props.onSelectTile(this.props.tile)
-      }
     }
   }
 }

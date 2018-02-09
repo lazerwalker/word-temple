@@ -29,7 +29,6 @@ interface BoardTileViewProps {
   exit?: string
   exitIsComplete?: boolean
 
-  onTap?: () => void
   onDrag?: (tile: Tile, boardTile?: BoardTile) => void
   connectDropTarget?: any
 
@@ -45,7 +44,6 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
       entrance,
       exit,
       exitIsComplete,
-      onTap,
       tile,
     } = this.props
 
@@ -62,7 +60,7 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
 
     if (tile) {
       return connectDropTarget(
-        <div className={classNames.join(' ')} onClick={onTap}>
+        <div className={classNames.join(' ')}>
           <TileView
             letter={tile.letter}
             value={tile.value}
@@ -74,7 +72,7 @@ class BoardTileView extends React.Component<BoardTileViewProps> {
     } else {
       classNames.push('empty')
       return connectDropTarget(
-        <div className={classNames.join(' ')} onClick={onTap}>
+        <div className={classNames.join(' ')}>
           <TileView />
         </div>
       )

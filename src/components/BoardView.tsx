@@ -2,12 +2,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import {
-  placeTile,
-  swapBoardTile,
-  placeTileByDrag,
-  swapTileByDrag,
-} from '../actions'
+import { playTile, swapWithBoardTile } from '../actions'
 import State from '../state'
 
 import { Portal, Side } from '../Board'
@@ -21,9 +16,6 @@ interface BoardProps {
   entrance?: Portal
   exit?: Portal
   exitIsComplete: boolean
-
-  onEmptyTileTap: (x: number, y: number) => void
-  onExistingTileTap: (x: number, y: number) => void
 
   onEmptyTileDrag: (tile: Tile, x: number, y: number) => void
   onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => void
@@ -81,7 +73,6 @@ class BoardView extends React.Component<BoardProps> {
 
     const tiles = _.range(this.props.size).map(y => {
       return _.range(this.props.size).map(x => {
-        let tapFn: (() => void) | undefined
         let dragFn: ((tile: Tile, boardTile?: BoardTile) => void) | undefined
         let exit: string | undefined
         let entrance: string | undefined
@@ -96,12 +87,6 @@ class BoardView extends React.Component<BoardProps> {
 
         const tile = _(this.props.tiles).find(t => t.x === x && t.y === y)
         if (tile) {
-          tapFn = () => {
-            if (this.props.onExistingTileTap) {
-              this.props.onExistingTileTap(x, y)
-            }
-          }
-
           dragFn = (tile: Tile, boardTile: BoardTile) => {
             console.log(tile)
             if (this.props.onExistingTileDrag) {
@@ -109,12 +94,6 @@ class BoardView extends React.Component<BoardProps> {
             }
           }
         } else {
-          tapFn = () => {
-            if (this.props.onEmptyTileTap) {
-              this.props.onEmptyTileTap(x, y)
-            }
-          }
-
           dragFn = (tile: Tile) => {
             if (this.props.onEmptyTileDrag) {
               this.props.onEmptyTileDrag(tile, x, y)
@@ -124,7 +103,6 @@ class BoardView extends React.Component<BoardProps> {
 
         return (
           <BoardTileView
-            onTap={tapFn}
             onDrag={dragFn}
             entrance={entrance}
             exit={exit}
@@ -156,17 +134,11 @@ const mapDispatchToProps = (dispatch: any, ownProps: BoardProps) => {
   return {
     onEmptyTileDrag: (tile: Tile, x: number, y: number) => {
       console.log('Empty drag exists', tile, x, y, ownProps.player)
-      dispatch(placeTileByDrag(tile, x, y, ownProps.player))
-    },
-    onEmptyTileTap: (x: number, y: number) => {
-      dispatch(placeTile(ownProps.player, x, y))
+      dispatch(playTile(tile, x, y, ownProps.player))
     },
     onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => {
       console.log('Existing drag exists', tile, boardTile, ownProps.player)
-      dispatch(swapTileByDrag(tile, boardTile, ownProps.player))
-    },
-    onExistingTileTap: (x: number, y: number) => {
-      dispatch(swapBoardTile(ownProps.player, x, y))
+      dispatch(swapWithBoardTile(tile, boardTile, ownProps.player))
     },
   }
 }

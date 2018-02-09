@@ -10,15 +10,12 @@ export enum DragTypes {
 export enum ActionID {
   SELECT_RACK_TILE = 'SELECT_RACK_TILE',
   DESELECT_RACK_TILE = 'DESELECT_RACK_TILE',
-  PLACE_TILE = 'PLACE_TILE',
   DRAW_TILES = 'DRAW_TILES',
-  SWAP_TILE_POSITION = 'SWAP_TILE_POSITION',
-  SWAP_BOARD_TILE = 'SWAP_BOARD_TILE',
   OVERWRITE_STATE = 'OVERWRITE_STATE',
   CREATE_NEW_RACK = 'CREATE_NEW_RACK',
   GENERATE_BOARD = 'GENERATE_BOARD',
-  PLACE_TILE_BY_DRAG = 'PLACE_TILE_BY_DRAG',
-  SWAP_TILE_BY_DRAG = 'SWAP_TILE_BY_DRAG',
+  PLAY_TILE = 'PLAY_TILE',
+  SWAP_WITH_BOARD_TILE = 'SWAP_WITH_BOARD_TILE',
   SWAP_RACK_TILES = 'SWAP_RACK_TILES',
 }
 
@@ -35,24 +32,9 @@ export namespace Action {
     value: string
   }
 
-  export interface PlaceTile {
-    type: ActionID.PLACE_TILE
-    value: { x: number; y: number; player: string }
-  }
-
   export interface DrawTiles {
     type: ActionID.DRAW_TILES
     value: { count: number; player: string }
-  }
-
-  export interface SwapTilePosition {
-    type: ActionID.SWAP_TILE_POSITION
-    value: { tile: string; player: string }
-  }
-
-  export interface SwapBoardTile {
-    type: ActionID.SWAP_BOARD_TILE
-    value: { x: number; y: number; player: string }
   }
 
   export interface OverwriteState {
@@ -70,13 +52,13 @@ export namespace Action {
     value: number
   }
 
-  export interface PlaceTileByDrag {
-    type: ActionID.PLACE_TILE_BY_DRAG
+  export interface PlayTile {
+    type: ActionID.PLAY_TILE
     value: { tile: Tile; player: string; position: { x: number; y: number } }
   }
 
-  export interface SwapTileByDrag {
-    type: ActionID.SWAP_TILE_BY_DRAG
+  export interface SwapWithBoardTile {
+    type: ActionID.SWAP_WITH_BOARD_TILE
     value: { tile: Tile; player: string; boardTile: BoardTile }
   }
 
@@ -89,13 +71,10 @@ export namespace Action {
 export type Action =
   | Action.SelectRackTile
   | Action.DeselectRackTile
-  | Action.PlaceTile
   | Action.DrawTiles
-  | Action.SwapTilePosition
-  | Action.SwapBoardTile
   | Action.OverwriteState
   | Action.CreateNewRack
   | Action.GenerateBoard
-  | Action.PlaceTileByDrag
-  | Action.SwapTileByDrag
+  | Action.PlayTile
+  | Action.SwapWithBoardTile
   | Action.SwapRackTiles

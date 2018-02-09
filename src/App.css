@@ -45,11 +45,6 @@
   width: 80px;
 }
 
-.tile.selected {
-  color: #000;
-  background-color: #080;
-}
-
 .tile.empty {
   background-color: #fff;
 }
