@@ -88,7 +88,6 @@ class BoardView extends React.Component<BoardProps> {
         const tile = _(this.props.tiles).find(t => t.x === x && t.y === y)
         if (tile) {
           dragFn = (tile: Tile, boardTile: BoardTile) => {
-            console.log(tile)
             if (this.props.onExistingTileDrag) {
               this.props.onExistingTileDrag(tile, boardTile)
             }
@@ -133,11 +132,9 @@ const mapStateToProps = (state: State, ownProps: {}) => {
 const mapDispatchToProps = (dispatch: any, ownProps: BoardProps) => {
   return {
     onEmptyTileDrag: (tile: Tile, x: number, y: number) => {
-      console.log('Empty drag exists', tile, x, y, ownProps.player)
       dispatch(playTile(tile, x, y, ownProps.player))
     },
     onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => {
-      console.log('Existing drag exists', tile, boardTile, ownProps.player)
       dispatch(swapWithBoardTile(tile, boardTile, ownProps.player))
     },
   }

@@ -92,7 +92,6 @@ export default function createReducer(
         board = generateNewBoard(size)
         return { ...state, board }
       case ActionID.PLAY_TILE:
-        console.log('PLacing by drag', action.value)
         player = action.value.player
         tile = action.value.tile
         const boardPos = action.value.position
@@ -136,8 +135,6 @@ export default function createReducer(
           letter: boardTile.letter,
           value: boardTile.value,
         }
-
-        console.log(rackPos, rack.tiles[rackPos])
 
         racks[player] = rack
 
