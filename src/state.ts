@@ -7,7 +7,7 @@ export interface RackList {
 }
 
 export interface Rack {
-  tiles: Array<Tile | null>
+  tiles: Tile[]
   selectedTileID?: string
 }
 

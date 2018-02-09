@@ -1,6 +1,8 @@
 import * as React from 'react'
 import './App.css'
 
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 import BoardView from './components/BoardView'
 import RackView from './components/RackView'
 
@@ -13,10 +15,10 @@ class App extends React.Component<AppProps> {
     return (
       <div className="App">
         <BoardView player={this.props.rackName} />
-        <RackView player={this.props.rackName} />
+        <RackView />
       </div>
     )
   }
 }
 
-export default App
+export default DragDropContext(HTML5Backend)(App)

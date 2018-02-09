@@ -2,11 +2,16 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { placeTile, swapBoardTile } from '../actions'
+import {
+  placeTile,
+  swapBoardTile,
+  placeTileByDrag,
+  swapTileByDrag,
+} from '../actions'
 import State from '../state'
 
 import { Portal, Side } from '../Board'
-import { BoardTile } from '../Tile'
+import { BoardTile, Tile } from '../Tile'
 import BoardTileView from './BoardTileView'
 
 interface BoardProps {
@@ -16,8 +21,12 @@ interface BoardProps {
   entrance?: Portal
   exit?: Portal
   exitIsComplete: boolean
+
   onEmptyTileTap: (x: number, y: number) => void
   onExistingTileTap: (x: number, y: number) => void
+
+  onEmptyTileDrag: (tile: Tile, x: number, y: number) => void
+  onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => void
 }
 
 class BoardView extends React.Component<BoardProps> {
@@ -73,6 +82,7 @@ class BoardView extends React.Component<BoardProps> {
     const tiles = _.range(this.props.size).map(y => {
       return _.range(this.props.size).map(x => {
         let tapFn: (() => void) | undefined
+        let dragFn: ((tile: Tile, boardTile?: BoardTile) => void) | undefined
         let exit: string | undefined
         let entrance: string | undefined
 
@@ -91,10 +101,23 @@ class BoardView extends React.Component<BoardProps> {
               this.props.onExistingTileTap(x, y)
             }
           }
+
+          dragFn = (tile: Tile, boardTile: BoardTile) => {
+            console.log(tile)
+            if (this.props.onExistingTileDrag) {
+              this.props.onExistingTileDrag(tile, boardTile)
+            }
+          }
         } else {
           tapFn = () => {
             if (this.props.onEmptyTileTap) {
               this.props.onEmptyTileTap(x, y)
+            }
+          }
+
+          dragFn = (tile: Tile) => {
+            if (this.props.onEmptyTileDrag) {
+              this.props.onEmptyTileDrag(tile, x, y)
             }
           }
         }
@@ -102,6 +125,7 @@ class BoardView extends React.Component<BoardProps> {
         return (
           <BoardTileView
             onTap={tapFn}
+            onDrag={dragFn}
             entrance={entrance}
             exit={exit}
             exitIsComplete={this.props.exitIsComplete}
@@ -130,8 +154,16 @@ const mapStateToProps = (state: State, ownProps: {}) => {
 
 const mapDispatchToProps = (dispatch: any, ownProps: BoardProps) => {
   return {
+    onEmptyTileDrag: (tile: Tile, x: number, y: number) => {
+      console.log('Empty drag exists', tile, x, y, ownProps.player)
+      dispatch(placeTileByDrag(tile, x, y, ownProps.player))
+    },
     onEmptyTileTap: (x: number, y: number) => {
       dispatch(placeTile(ownProps.player, x, y))
+    },
+    onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => {
+      console.log('Existing drag exists', tile, boardTile, ownProps.player)
+      dispatch(swapTileByDrag(tile, boardTile, ownProps.player))
     },
     onExistingTileTap: (x: number, y: number) => {
       dispatch(swapBoardTile(ownProps.player, x, y))

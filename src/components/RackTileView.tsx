@@ -2,13 +2,30 @@ import * as React from 'react'
 
 import { Tile } from '../Tile'
 
+import { DragSource } from 'react-dnd'
+import { DragTypes } from '../constants'
 import TileView from './TileView'
+
+const tileSource = {
+  beginDrag(props: Props): Tile {
+    return { ...props.tile! }
+  },
+}
+
+function collect(connect: any, monitor: any) {
+  return {
+    connectDragSource: connect.dragSource(),
+  }
+}
 
 interface Props {
   tile?: Tile
   isSelected: boolean
   onSelectTile: (tile: Tile) => void
   onDeselectTile: () => void
+
+  connectDragSource?: any
+  dispatch?: any
 }
 
 class RackTileView extends React.Component<Props> {
@@ -18,13 +35,15 @@ class RackTileView extends React.Component<Props> {
   }
 
   public render() {
-    if (this.props.tile) {
-      return (
+    const { connectDragSource, isSelected, tile } = this.props
+
+    if (tile) {
+      return connectDragSource(
         <div className="rack-tile" onClick={this.onClick}>
           <TileView
-            letter={this.props.tile.letter}
-            value={this.props.tile.value}
-            isSelected={this.props.isSelected}
+            letter={tile.letter}
+            value={tile.value}
+            isSelected={isSelected}
           />
         </div>
       )
@@ -44,4 +63,4 @@ class RackTileView extends React.Component<Props> {
   }
 }
 
-export default RackTileView
+export default DragSource(DragTypes.Tile, tileSource, collect)(RackTileView)

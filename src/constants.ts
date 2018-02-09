@@ -1,6 +1,11 @@
 import { State } from './state'
+import { BoardTile, Tile } from './Tile'
 
 export type Dispatch = (action: Action) => void
+
+export enum DragTypes {
+  Tile = 'tile',
+}
 
 export enum ActionID {
   SELECT_RACK_TILE = 'SELECT_RACK_TILE',
@@ -12,6 +17,8 @@ export enum ActionID {
   OVERWRITE_STATE = 'OVERWRITE_STATE',
   CREATE_NEW_RACK = 'CREATE_NEW_RACK',
   GENERATE_BOARD = 'GENERATE_BOARD',
+  PLACE_TILE_BY_DRAG = 'PLACE_TILE_BY_DRAG',
+  SWAP_TILE_BY_DRAG = 'SWAP_TILE_BY_DRAG',
 }
 
 // TODO
@@ -61,6 +68,16 @@ export namespace Action {
     type: ActionID.GENERATE_BOARD
     value: number
   }
+
+  export interface PlaceTileByDrag {
+    type: ActionID.PLACE_TILE_BY_DRAG
+    value: { tile: Tile; player: string; position: { x: number; y: number } }
+  }
+
+  export interface SwapTileByDrag {
+    type: ActionID.SWAP_TILE_BY_DRAG
+    value: { tile: Tile; player: string; boardTile: BoardTile }
+  }
 }
 
 export type Action =
@@ -73,3 +90,5 @@ export type Action =
   | Action.OverwriteState
   | Action.CreateNewRack
   | Action.GenerateBoard
+  | Action.PlaceTileByDrag
+  | Action.SwapTileByDrag

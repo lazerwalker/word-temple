@@ -10,12 +10,16 @@ import { Rack, RackList, State } from '../state'
 import { sampleN } from '../TileBag'
 
 import * as _ from 'lodash'
+import { Tile, BoardTile } from '../Tile'
 
 // TODO: This blob of definitions has led me to errors that the type system should have caught.
 // Remove this, and probably change tslint?
 let rack: Rack
 let racks: RackList
 let board: Board
+let tile: Tile
+let boardTile: BoardTile | undefined
+let rackPos: number
 let tiles
 let newBag
 let player: string
@@ -73,9 +77,8 @@ export default function createReducer(
             board = generateNewBoard(board.size, board.exit)
           }
 
-          rack[pos] = null
           // TODO: We should probably just store selectedTile as (id, pos)
-          delete rack.selectedTileID
+          // delete rack.selectedTileID
 
           // Draw 1 tile
           // TODO: Would be nice if we could just dispatch that as a separate
@@ -103,7 +106,7 @@ export default function createReducer(
         rack = { ...racks[player] }
 
         tiles.forEach(t => {
-          const nullPos = rack.tiles.indexOf(null)
+          const nullPos = rack.tiles.indexOf(null!)
           if (nullPos !== -1) {
             rack.tiles[nullPos] = t
           } else {
@@ -146,7 +149,7 @@ export default function createReducer(
           return state
         }
 
-        const boardTile = state.board.tiles.find(t => {
+        boardTile = state.board.tiles.find(t => {
           return t.x === x && t.y === y
         })
 
@@ -180,6 +183,61 @@ export default function createReducer(
         const size = action.value
         board = generateNewBoard(size)
         return { ...state, board }
+      case ActionID.PLACE_TILE_BY_DRAG:
+        console.log('PLacing by drag', action.value)
+        player = action.value.player
+        tile = action.value.tile
+        const boardPos = action.value.position
+
+        racks = { ...state.racks }
+        rack = { ...racks[player] }
+
+        board = boardByAddingTile(state.board, tile, boardPos)
+
+        // TODO: Would be nice if the drag action passed in the index
+        rackPos = _.findIndex(rack.tiles, t => t && t.id === tile.id)
+
+        const [newTile, bag] = sampleN(state.bag, 1)
+        rack.tiles[rackPos] = newTile[0]
+        racks[player] = rack
+
+        if (board.exitIsComplete) {
+          board = generateNewBoard(board.size, board.exit)
+        }
+
+        return { ...state, board, racks, bag }
+      case ActionID.SWAP_TILE_BY_DRAG:
+        player = action.value.player
+        tile = action.value.tile
+        boardTile = action.value.boardTile
+
+        racks = { ...state.racks }
+        rack = { ...racks[player] }
+
+        board = boardWithoutTile(state.board, boardTile)
+        board = boardByAddingTile(board, tile, {
+          x: boardTile.x,
+          y: boardTile.y,
+        })
+
+        // TODO: Would be nice if the drag action passed in the index
+        rackPos = _.findIndex(rack.tiles, t => t && t.id === tile.id)
+
+        rack.tiles[rackPos] = {
+          id: boardTile.id,
+          letter: boardTile.letter,
+          value: boardTile.value,
+        }
+
+        console.log(rackPos, rack.tiles[rackPos])
+
+        racks[player] = rack
+
+        if (board.exitIsComplete) {
+          board = generateNewBoard(board.size, board.exit)
+        }
+
+        return { ...state, board, racks }
       default:
         return state
     }

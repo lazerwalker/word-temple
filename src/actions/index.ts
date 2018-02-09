@@ -1,6 +1,6 @@
 import { Action, ActionID } from '../constants'
 import State from '../state'
-import { Tile } from '../Tile'
+import { Tile, BoardTile } from '../Tile'
 
 export const chooseRackTile = (player: string, tile: Tile) => {
   return (dispatch: any, getState: (() => State)) => {
@@ -80,5 +80,32 @@ export const generateBoard = (size: number = 7): Action.GenerateBoard => {
   return {
     type: ActionID.GENERATE_BOARD,
     value: size,
+  }
+}
+
+export const placeTileByDrag = (
+  tile: Tile,
+  x: number,
+  y: number,
+  player: string
+): Action.PlaceTileByDrag => {
+  return {
+    type: ActionID.PLACE_TILE_BY_DRAG,
+    value: {
+      player,
+      position: { x, y },
+      tile,
+    },
+  }
+}
+
+export const swapTileByDrag = (
+  tile: Tile,
+  boardTile: BoardTile,
+  player: string
+): Action.SwapTileByDrag => {
+  return {
+    type: ActionID.SWAP_TILE_BY_DRAG,
+    value: { tile, boardTile, player },
   }
 }

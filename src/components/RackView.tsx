@@ -8,15 +8,16 @@ import RackTileView from './RackTileView'
 import { chooseRackTile, deselectRackTile } from '../actions'
 
 interface RackProps {
-  player: string
+  player?: string
   tiles: Tile[]
   selectedTileID?: string
-  onSelectTile: (tile: Tile) => void
-  onDeselectTile: () => void
+  onSelectTile?: (tile: Tile) => void
+  onDeselectTile?: () => void
 }
 
 class RackView extends React.Component<RackProps> {
   public render() {
+    console.log(this.props.tiles)
     const tiles = this.props.tiles.map((tile, idx) => {
       const isSelected =
         this.props.selectedTileID !== undefined &&
@@ -25,8 +26,8 @@ class RackView extends React.Component<RackProps> {
         <RackTileView
           tile={tile}
           isSelected={isSelected}
-          onSelectTile={this.props.onSelectTile}
-          onDeselectTile={this.props.onDeselectTile}
+          onSelectTile={this.props.onSelectTile!}
+          onDeselectTile={this.props.onDeselectTile!}
           key={`rack-${idx}`}
         />
       )
@@ -37,19 +38,25 @@ class RackView extends React.Component<RackProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: RackProps) => {
-  return state.racks[ownProps.player] || { tiles: [] }
+  // TODO: This array stuff is a smell.
+  const player = ownProps.player || 'host'
+  return {
+    selectedTileID: state.racks[player].selectedTileID,
+    tiles: [...state.racks[player].tiles] || [],
+  }
 }
 
-const mapDispatchToProps = (dispatch: any, ownProps: { player: string }) => {
+const mapDispatchToProps = (dispatch: any, ownProps: RackProps) => {
+  const player = ownProps.player || 'host'
   return {
     onSelectTile: (tile: Tile) => {
-      dispatch(chooseRackTile(ownProps.player, tile))
+      dispatch(chooseRackTile(player, tile))
     },
 
     onDeselectTile: () => {
-      dispatch(deselectRackTile(ownProps.player))
+      dispatch(deselectRackTile(player))
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RackView)
+export default connect<RackProps>(mapStateToProps, mapDispatchToProps)(RackView)
