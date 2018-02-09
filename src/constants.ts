@@ -19,6 +19,7 @@ export enum ActionID {
   GENERATE_BOARD = 'GENERATE_BOARD',
   PLACE_TILE_BY_DRAG = 'PLACE_TILE_BY_DRAG',
   SWAP_TILE_BY_DRAG = 'SWAP_TILE_BY_DRAG',
+  SWAP_RACK_TILES = 'SWAP_RACK_TILES',
 }
 
 // TODO
@@ -78,6 +79,11 @@ export namespace Action {
     type: ActionID.SWAP_TILE_BY_DRAG
     value: { tile: Tile; player: string; boardTile: BoardTile }
   }
+
+  export interface SwapRackTiles {
+    type: ActionID.SWAP_RACK_TILES
+    value: { player: string; tile1: string; tile2: string }
+  }
 }
 
 export type Action =
@@ -92,3 +98,4 @@ export type Action =
   | Action.GenerateBoard
   | Action.PlaceTileByDrag
   | Action.SwapTileByDrag
+  | Action.SwapRackTiles

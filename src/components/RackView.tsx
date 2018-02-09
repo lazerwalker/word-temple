@@ -5,7 +5,7 @@ import State from '../state'
 import { Tile } from '../Tile'
 import RackTileView from './RackTileView'
 
-import { chooseRackTile, deselectRackTile } from '../actions'
+import { chooseRackTile, deselectRackTile, swapRackTiles } from '../actions'
 
 interface RackProps {
   player?: string
@@ -13,6 +13,7 @@ interface RackProps {
   selectedTileID?: string
   onSelectTile?: (tile: Tile) => void
   onDeselectTile?: () => void
+  onDragTile?: (tile1: Tile, tile2: Tile) => void
 }
 
 class RackView extends React.Component<RackProps> {
@@ -28,6 +29,7 @@ class RackView extends React.Component<RackProps> {
           isSelected={isSelected}
           onSelectTile={this.props.onSelectTile!}
           onDeselectTile={this.props.onDeselectTile!}
+          onDragTile={this.props.onDragTile}
           key={`rack-${idx}`}
         />
       )
@@ -55,6 +57,9 @@ const mapDispatchToProps = (dispatch: any, ownProps: RackProps) => {
 
     onDeselectTile: () => {
       dispatch(deselectRackTile(player))
+    },
+    onDragTile: (tile1: Tile, tile2: Tile) => {
+      dispatch(swapRackTiles(tile1, tile2, player))
     },
   }
 }

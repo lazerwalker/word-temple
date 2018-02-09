@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Tile } from '../Tile'
 
-import { DragSource } from 'react-dnd'
+import { DragSource, DropTarget } from 'react-dnd'
 import { DragTypes } from '../constants'
 import TileView from './TileView'
 
@@ -12,9 +12,25 @@ const tileSource = {
   },
 }
 
-function collect(connect: any, monitor: any) {
+const tileTarget = {
+  drop(props: Props, monitor: any) {
+    const destination = props.tile
+    const origin = monitor.getItem()
+    if (props.onDragTile) {
+      props.onDragTile(origin, destination)
+    }
+  },
+}
+
+function collectDrag(connect: any, monitor: any) {
   return {
     connectDragSource: connect.dragSource(),
+  }
+}
+
+function collectDrop(connect: any, monitor: any) {
+  return {
+    connectDropTarget: connect.dropTarget(),
   }
 }
 
@@ -24,8 +40,10 @@ interface Props {
   onSelectTile: (tile: Tile) => void
   onDeselectTile: () => void
 
+  onDragTile?: (origin: Tile, destination?: Tile) => void
+
   connectDragSource?: any
-  dispatch?: any
+  connectDropTarget?: any
 }
 
 class RackTileView extends React.Component<Props> {
@@ -35,17 +53,24 @@ class RackTileView extends React.Component<Props> {
   }
 
   public render() {
-    const { connectDragSource, isSelected, tile } = this.props
+    const {
+      connectDragSource,
+      connectDropTarget,
+      isSelected,
+      tile,
+    } = this.props
 
     if (tile) {
-      return connectDragSource(
-        <div className="rack-tile" onClick={this.onClick}>
-          <TileView
-            letter={tile.letter}
-            value={tile.value}
-            isSelected={isSelected}
-          />
-        </div>
+      return connectDropTarget(
+        connectDragSource(
+          <div className="rack-tile" onClick={this.onClick}>
+            <TileView
+              letter={tile.letter}
+              value={tile.value}
+              isSelected={isSelected}
+            />
+          </div>
+        )
       )
     } else {
       return <div className="tile empty" />
@@ -63,4 +88,6 @@ class RackTileView extends React.Component<Props> {
   }
 }
 
-export default DragSource(DragTypes.Tile, tileSource, collect)(RackTileView)
+export default DropTarget(DragTypes.Tile, tileTarget, collectDrop)(
+  DragSource(DragTypes.Tile, tileSource, collectDrag)(RackTileView)
+)

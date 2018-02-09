@@ -24,6 +24,8 @@ let tiles
 let newBag
 let player: string
 let tileID: string
+let pos1: number
+let pos2: number
 
 export default function createReducer(
   isHost: boolean,
@@ -127,11 +129,8 @@ export default function createReducer(
         racks = { ...state.racks }
         rack = { ...racks[player] }
 
-        const pos1 = _.findIndex(rack.tiles, t => t && t.id === tileID)
-        const pos2 = _.findIndex(
-          rack.tiles,
-          t => t && t.id === rack.selectedTileID
-        )
+        pos1 = _.findIndex(rack.tiles, t => t && t.id === tileID)
+        pos2 = _.findIndex(rack.tiles, t => t && t.id === rack.selectedTileID)
 
         const selectedTile = rack.tiles[pos2]
 
@@ -238,6 +237,24 @@ export default function createReducer(
         }
 
         return { ...state, board, racks }
+      case ActionID.SWAP_RACK_TILES:
+        player = action.value.player
+        const tileID1 = action.value.tile1
+        const tileID2 = action.value.tile2
+
+        racks = { ...state.racks }
+        rack = { ...racks[player] }
+
+        pos1 = _.findIndex(rack.tiles, t => t && t.id === tileID1)
+        pos2 = _.findIndex(rack.tiles, t => t && t.id === tileID2)
+
+        const firstTile = rack.tiles[pos1]
+
+        rack.tiles[pos1] = rack.tiles[pos2]
+        rack.tiles[pos2] = firstTile
+
+        racks[player] = rack
+        return { ...state, racks }
       default:
         return state
     }
