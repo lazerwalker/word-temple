@@ -15,6 +15,10 @@ import TileBag from './TileBag'
 import * as firebase from './firebase'
 firebase.initializeFirebase()
 
+document.ontouchmove = e => {
+  e.preventDefault()
+}
+
 // tslint:disable-next-line:no-var-requires
 const initReactFastclick = require('react-fastclick')
 initReactFastclick()
