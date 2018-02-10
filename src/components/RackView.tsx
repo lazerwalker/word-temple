@@ -37,7 +37,7 @@ const RackView = (props: StateProps & OwnProps & DispatchProps) => {
 
 const mapStateToProps = (state: State, ownProps: OwnProps): StateProps => {
   const rack = state.racks[ownProps.player]
-  if (rack) {
+  if (rack && rack.tiles) {
     return {
       tiles: [...rack.tiles],
     }
