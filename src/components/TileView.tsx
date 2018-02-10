@@ -4,7 +4,6 @@ import * as React from 'react'
 interface TileViewProps {
   letter?: string
   value?: number
-  isSelected?: boolean
   validity?: string
   movable?: boolean
 }
@@ -12,9 +11,6 @@ interface TileViewProps {
 const TileView = (props: TileViewProps) => {
   if (props.letter) {
     const classes = ['tile']
-    if (props.isSelected) {
-      classes.push('selected')
-    }
     if (props.validity) {
       classes.push(props.validity)
     }
