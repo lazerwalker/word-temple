@@ -5,47 +5,52 @@ import State from '../state'
 import { Tile } from '../Tile'
 import RackTileView from './RackTileView'
 
+import { Dispatch } from 'redux'
 import { swapRackTiles } from '../actions'
 
-interface RackProps {
-  player?: string
+interface StateProps {
   tiles: Tile[]
-  onDragTile?: (tile1: Tile, tile2: Tile) => void
 }
 
-class RackView extends React.Component<RackProps> {
-  public render() {
-    console.log(this.props.tiles)
-    const tiles = this.props.tiles.map((tile, idx) => {
-      return (
-        <RackTileView
-          tile={tile}
-          onDragTile={this.props.onDragTile}
-          key={`rack-${idx}`}
-        />
-      )
-    })
-
-    return <div className="rack">{tiles}</div>
-  }
+interface OwnProps {
+  player: string
 }
 
-const mapStateToProps = (state: State, ownProps: RackProps) => {
+interface DispatchProps {
+  onDragTile: (tile1: Tile, tile2: Tile) => void
+}
+
+const RackView = (props: StateProps & OwnProps & DispatchProps) => {
+  console.log(props.tiles)
+  const tiles = props.tiles.map((tile, idx) => {
+    return (
+      <RackTileView
+        tile={tile}
+        onDragTile={props.onDragTile}
+        key={`rack-${idx}`}
+      />
+    )
+  })
+
+  return <div className="rack">{tiles}</div>
+}
+
+const mapStateToProps = (state: State, ownProps: OwnProps): StateProps => {
   // TODO: This array stuff is a smell.
-  const player = ownProps.player || 'host'
   return {
-    selectedTileID: state.racks[player].selectedTileID,
-    tiles: [...state.racks[player].tiles] || [],
+    tiles: [...state.racks[ownProps.player].tiles] || [],
   }
 }
 
-const mapDispatchToProps = (dispatch: any, ownProps: RackProps) => {
-  const player = ownProps.player || 'host'
+const mapDispatchToProps = (
+  dispatch: Dispatch<State>,
+  ownProps: OwnProps
+): DispatchProps => {
   return {
     onDragTile: (tile1: Tile, tile2: Tile) => {
-      dispatch(swapRackTiles(tile1, tile2, player))
+      dispatch(swapRackTiles(tile1, tile2, ownProps.player))
     },
   }
 }
 
-export default connect<RackProps>(mapStateToProps, mapDispatchToProps)(RackView)
+export default connect(mapStateToProps, mapDispatchToProps)(RackView)

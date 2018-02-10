@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+// TODO: We should probably have a separate EmptyTileView so these can be not-optional
 interface TileViewProps {
   letter?: string
   value?: number
@@ -8,29 +9,27 @@ interface TileViewProps {
   movable?: boolean
 }
 
-class TileView extends React.Component<TileViewProps> {
-  public render() {
-    if (this.props.letter) {
-      const classes = ['tile']
-      if (this.props.isSelected) {
-        classes.push('selected')
-      }
-      if (this.props.validity) {
-        classes.push(this.props.validity)
-      }
-      if (this.props.movable === false) {
-        classes.push('immovable')
-      }
-
-      return (
-        <div className={classes.join(' ')}>
-          <div className="letter">{this.props.letter}</div>
-          <div className="value">{this.props.value}</div>
-        </div>
-      )
-    } else {
-      return <div className="tile empty" />
+const TileView = (props: TileViewProps) => {
+  if (props.letter) {
+    const classes = ['tile']
+    if (props.isSelected) {
+      classes.push('selected')
     }
+    if (props.validity) {
+      classes.push(props.validity)
+    }
+    if (props.movable === false) {
+      classes.push('immovable')
+    }
+
+    return (
+      <div className={classes.join(' ')}>
+        <div className="letter">{props.letter}</div>
+        <div className="value">{props.value}</div>
+      </div>
+    )
+  } else {
+    return <div className="tile empty" />
   }
 }
 

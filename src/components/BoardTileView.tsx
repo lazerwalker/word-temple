@@ -1,15 +1,18 @@
 import * as React from 'react'
 
-import { DropTarget } from 'react-dnd'
+import {
+  ConnectDropTarget,
+  DropTarget,
+  DropTargetConnector,
+  DropTargetMonitor,
+} from 'react-dnd'
 import { DragTypes } from '../constants'
 import { BoardTile, Tile } from '../Tile'
 import TileView from './TileView'
 
-// Tomorrow todo:
-// Just do a fucking 'onSwapTileByDrag' and 'onPlaceTileByDrag' fns created in the BoardView and passed in
 const tileTarget = {
-  drop(props: BoardTileViewProps, monitor: any) {
-    const tile = monitor.getItem()
+  drop(props: Props & DNDProps, monitor: DropTargetMonitor) {
+    const tile = monitor.getItem() as Tile
     const boardTile = props.tile
     if (props.onDrag) {
       props.onDrag(tile, boardTile)
@@ -17,67 +20,61 @@ const tileTarget = {
   },
 }
 
-function collect(connect: any, monitor: any) {
+function collect(connect: DropTargetConnector, monitor: DropTargetMonitor) {
   return {
     connectDropTarget: connect.dropTarget(),
   }
 }
 
-interface BoardTileViewProps {
+interface Props {
   tile?: BoardTile
   entrance?: string
   exit?: string
   exitIsComplete?: boolean
-
-  onDrag?: (tile: Tile, boardTile?: BoardTile) => void
-  connectDropTarget?: any
-
-  dispatch?: any
+  onDrag: (tile: Tile, boardTile?: BoardTile) => void
 }
 
-class BoardTileView extends React.Component<BoardTileViewProps> {
-  public render() {
-    const classNames = ['board-tile']
+interface DNDProps {
+  connectDropTarget: ConnectDropTarget
+}
 
-    const {
-      connectDropTarget,
-      entrance,
-      exit,
-      exitIsComplete,
-      tile,
-    } = this.props
+const BoardTileView = (props: Props & DNDProps) => {
+  const classNames = ['board-tile']
 
-    if (entrance) {
-      classNames.push(`entrance-${entrance}`)
+  const { connectDropTarget, entrance, exit, exitIsComplete, tile } = props
+
+  if (entrance) {
+    classNames.push(`entrance-${entrance}`)
+  }
+
+  if (exit) {
+    classNames.push(`exit-${exit}`)
+    if (exitIsComplete) {
+      classNames.push('exit-complete')
     }
+  }
 
-    if (exit) {
-      classNames.push(`exit-${exit}`)
-      if (exitIsComplete) {
-        classNames.push('exit-complete')
-      }
-    }
-
-    if (tile) {
-      return connectDropTarget(
-        <div className={classNames.join(' ')}>
-          <TileView
-            letter={tile.letter}
-            value={tile.value}
-            validity={tile.validity}
-            movable={tile.movable}
-          />
-        </div>
-      )
-    } else {
-      classNames.push('empty')
-      return connectDropTarget(
-        <div className={classNames.join(' ')}>
-          <TileView />
-        </div>
-      )
-    }
+  if (tile) {
+    return connectDropTarget(
+      <div className={classNames.join(' ')}>
+        <TileView
+          letter={tile.letter}
+          value={tile.value}
+          validity={tile.validity}
+          movable={tile.movable}
+        />
+      </div>
+    )
+  } else {
+    classNames.push('empty')
+    return connectDropTarget(
+      <div className={classNames.join(' ')}>
+        <TileView />
+      </div>
+    )
   }
 }
 
-export default DropTarget(DragTypes.Tile, tileTarget, collect)(BoardTileView)
+export default DropTarget<Props>(DragTypes.Tile, tileTarget, collect)(
+  BoardTileView
+)

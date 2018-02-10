@@ -12,15 +12,13 @@ interface AppProps {
   rackName: string
 }
 
-class App extends React.Component<AppProps> {
-  public render() {
-    return (
-      <div className="App">
-        <BoardView player={this.props.rackName} />
-        <RackView />
-      </div>
-    )
-  }
+const App = (props: AppProps) => {
+  return (
+    <div className="App">
+      <BoardView player={props.rackName} />
+      <RackView player={props.rackName} />
+    </div>
+  )
 }
 
 export default DragDropContext(MultiBackend(HTML5toTouch))(App)

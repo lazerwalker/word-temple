@@ -5,131 +5,141 @@ import { connect } from 'react-redux'
 import { playTile, swapWithBoardTile } from '../actions'
 import State from '../state'
 
+import { Dispatch } from 'redux'
 import { Portal, Side } from '../Board'
 import { BoardTile, Tile } from '../Tile'
 import BoardTileView from './BoardTileView'
 
-interface BoardProps {
+interface OwnProps {
   player: string
+}
+
+interface StateProps {
   size: number
   tiles: BoardTile[]
   entrance?: Portal
   exit?: Portal
   exitIsComplete: boolean
+}
 
+interface DispatchProps {
   onEmptyTileDrag: (tile: Tile, x: number, y: number) => void
   onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => void
 }
 
-class BoardView extends React.Component<BoardProps> {
-  public render() {
-    let entrancePos: { x: number; y: number }
-    let exitPos: { x: number; y: number }
+const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
+  let entrancePos: { x: number; y: number }
+  let exitPos: { x: number; y: number }
 
-    // TODO: Move this into mapStateToProps?
-    if (this.props.entrance) {
-      switch (this.props.entrance.side) {
-        case Side.Left:
-          entrancePos = { x: 0, y: this.props.entrance.position }
-          break
-        case Side.Right:
-          entrancePos = {
-            x: this.props.size - 1,
-            y: this.props.entrance.position,
-          }
-          break
-        case Side.Bottom:
-          entrancePos = {
-            x: this.props.entrance.position,
-            y: this.props.size - 1,
-          }
-          break
-        case Side.Top:
-          entrancePos = { x: this.props.entrance.position, y: 0 }
-          break
-        default:
-          break
-      }
+  // TODO: Move this into mapStateToProps?
+  if (props.entrance) {
+    switch (props.entrance.side) {
+      case Side.Left:
+        entrancePos = { x: 0, y: props.entrance.position }
+        break
+      case Side.Right:
+        entrancePos = {
+          x: props.size - 1,
+          y: props.entrance.position,
+        }
+        break
+      case Side.Bottom:
+        entrancePos = {
+          x: props.entrance.position,
+          y: props.size - 1,
+        }
+        break
+      case Side.Top:
+        entrancePos = { x: props.entrance.position, y: 0 }
+        break
+      default:
+        break
     }
+  }
 
-    if (this.props.exit) {
-      switch (this.props.exit.side) {
-        case Side.Left:
-          exitPos = { x: 0, y: this.props.exit.position }
-          break
-        case Side.Right:
-          exitPos = { x: this.props.size - 1, y: this.props.exit.position }
-          break
-        case Side.Bottom:
-          exitPos = { x: this.props.exit.position, y: this.props.size - 1 }
-          break
-        case Side.Top:
-          exitPos = { x: this.props.exit.position, y: 0 }
-          break
-        default:
-          break
-      }
+  if (props.exit) {
+    switch (props.exit.side) {
+      case Side.Left:
+        exitPos = { x: 0, y: props.exit.position }
+        break
+      case Side.Right:
+        exitPos = { x: props.size - 1, y: props.exit.position }
+        break
+      case Side.Bottom:
+        exitPos = { x: props.exit.position, y: props.size - 1 }
+        break
+      case Side.Top:
+        exitPos = { x: props.exit.position, y: 0 }
+        break
+      default:
+        break
     }
+  }
 
-    const tiles = _.range(this.props.size).map(y => {
-      return _.range(this.props.size).map(x => {
-        let dragFn: ((tile: Tile, boardTile?: BoardTile) => void) | undefined
-        let exit: string | undefined
-        let entrance: string | undefined
+  const tiles = _.range(props.size).map(y => {
+    return _.range(props.size).map(x => {
+      let dragFn: ((tile: Tile, boardTile?: BoardTile) => void) | undefined
+      let exit: string | undefined
+      let entrance: string | undefined
 
-        if (this.props.entrance && entrancePos.x === x && entrancePos.y === y) {
-          entrance = this.props.entrance.side
-        }
+      if (props.entrance && entrancePos.x === x && entrancePos.y === y) {
+        entrance = props.entrance.side
+      }
 
-        if (this.props.exit && exitPos.x === x && exitPos.y === y) {
-          exit = this.props.exit.side
-        }
+      if (props.exit && exitPos.x === x && exitPos.y === y) {
+        exit = props.exit.side
+      }
 
-        const tile = _(this.props.tiles).find(t => t.x === x && t.y === y)
-        if (tile) {
-          dragFn = (tile: Tile, boardTile: BoardTile) => {
-            if (this.props.onExistingTileDrag) {
-              this.props.onExistingTileDrag(tile, boardTile)
-            }
-          }
-        } else {
-          dragFn = (tile: Tile) => {
-            if (this.props.onEmptyTileDrag) {
-              this.props.onEmptyTileDrag(tile, x, y)
-            }
+      const tile = _(props.tiles).find(t => t.x === x && t.y === y)
+      if (tile) {
+        dragFn = (tile: Tile, boardTile: BoardTile) => {
+          if (props.onExistingTileDrag) {
+            props.onExistingTileDrag(tile, boardTile)
           }
         }
+      } else {
+        dragFn = (tile: Tile) => {
+          if (props.onEmptyTileDrag) {
+            props.onEmptyTileDrag(tile, x, y)
+          }
+        }
+      }
 
-        return (
-          <BoardTileView
-            onDrag={dragFn}
-            entrance={entrance}
-            exit={exit}
-            exitIsComplete={this.props.exitIsComplete}
-            tile={tile}
-            key={`tile-${x}-${y}`}
-          />
-        )
-      })
-    })
-
-    const tileRows = tiles.map((row, i) => {
       return (
-        <div className="tile-row" key={i}>
-          {row}
-        </div>
+        <BoardTileView
+          onDrag={dragFn}
+          entrance={entrance}
+          exit={exit}
+          exitIsComplete={props.exitIsComplete}
+          tile={tile}
+          key={`tile-${x}-${y}`}
+        />
       )
     })
+  })
 
-    return <div className="board">{tileRows}</div>
+  const tileRows = tiles.map((row, i) => {
+    return (
+      <div className="tile-row" key={i}>
+        {row}
+      </div>
+    )
+  })
+
+  return <div className="board">{tileRows}</div>
+}
+
+const mapStateToProps = (state: State, ownProps: OwnProps): StateProps => {
+  return {
+    ...state.board,
+    exitIsComplete: state.board.exitIsComplete || false,
   }
 }
 
-const mapStateToProps = (state: State, ownProps: {}) => {
-  return state.board
-}
-
-const mapDispatchToProps = (dispatch: any, ownProps: BoardProps) => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<State>,
+  ownProps: OwnProps
+): DispatchProps => {
   return {
     onEmptyTileDrag: (tile: Tile, x: number, y: number) => {
       dispatch(playTile(tile, x, y, ownProps.player))
