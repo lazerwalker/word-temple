@@ -9,7 +9,6 @@ import { Rack, RackList, State } from '../state'
 
 import { sampleN } from '../TileBag'
 
-import * as _ from 'lodash'
 import { BoardTile, Tile } from '../Tile'
 
 // TODO: This blob of definitions has led me to errors that the type system should have caught.
@@ -18,14 +17,11 @@ let rack: Rack
 let racks: RackList
 let board: Board
 let tile: Tile
+let tileIndex: number
 let boardTile: BoardTile
-let rackPos: number
 let tiles
 let newBag
 let player: string
-let tileID: string
-let pos1: number
-let pos2: number
 
 export default function createReducer(
   isHost: boolean,
@@ -44,24 +40,6 @@ export default function createReducer(
         }
         // TODO: Be smart about multiple tile racks
         return { ...state, ...action.value }
-      case ActionID.SELECT_RACK_TILE:
-        player = action.value.player
-        tileID = action.value.tile
-
-        racks = { ...state.racks }
-        racks[player] = { ...racks[player], selectedTileID: tileID }
-
-        return { ...state, racks }
-      case ActionID.DESELECT_RACK_TILE:
-        player = action.value
-
-        racks = { ...state.racks }
-
-        rack = { ...racks[player] }
-        delete rack.selectedTileID
-        racks[player] = rack
-
-        return { ...state, racks }
       case ActionID.CREATE_NEW_RACK:
         ;[tiles, newBag] = sampleN(state.bag, 7)
         rack = { tiles }
@@ -94,19 +72,18 @@ export default function createReducer(
         return { ...state, board }
       case ActionID.PLAY_TILE:
         player = action.value.player
-        tile = action.value.tile
+        tileIndex = action.value.tileIndex
         const boardPos = action.value.position
 
         racks = { ...state.racks }
         rack = { ...racks[player] }
 
+        tile = rack.tiles[tileIndex]
+
         board = boardByAddingTile(state.board, tile, boardPos)
 
-        // TODO: Would be nice if the drag action passed in the index
-        rackPos = _.findIndex(rack.tiles, t => t && t.id === tile.id)
-
         const [newTile, bag] = sampleN(state.bag, 1)
-        rack.tiles[rackPos] = newTile[0]
+        rack.tiles[tileIndex] = newTile[0]
         racks[player] = rack
 
         if (board.exitIsComplete) {
@@ -116,11 +93,13 @@ export default function createReducer(
         return { ...state, board, racks, bag }
       case ActionID.SWAP_WITH_BOARD_TILE:
         player = action.value.player
-        tile = action.value.tile
+        tileIndex = action.value.tileIndex
         boardTile = action.value.boardTile
 
         racks = { ...state.racks }
         rack = { ...racks[player] }
+
+        tile = rack.tiles[tileIndex]
 
         board = boardWithoutTile(state.board, boardTile)
         board = boardByAddingTile(board, tile, {
@@ -128,10 +107,7 @@ export default function createReducer(
           y: boardTile.y,
         })
 
-        // TODO: Would be nice if the drag action passed in the index
-        rackPos = _.findIndex(rack.tiles, t => t && t.id === tile.id)
-
-        rack.tiles[rackPos] = {
+        rack.tiles[tileIndex] = {
           id: boardTile.id,
           letter: boardTile.letter,
           value: boardTile.value,
@@ -146,19 +122,17 @@ export default function createReducer(
         return { ...state, board, racks }
       case ActionID.SWAP_RACK_TILES:
         player = action.value.player
-        const tileID1 = action.value.tile1
-        const tileID2 = action.value.tile2
+        const pos1 = action.value.tileIndex1
+        const pos2 = action.value.tileIndex2
 
         racks = { ...state.racks }
         rack = { ...racks[player] }
 
-        pos1 = _.findIndex(rack.tiles, t => t && t.id === tileID1)
-        pos2 = _.findIndex(rack.tiles, t => t && t.id === tileID2)
+        const tile1 = rack.tiles[pos1]
+        const tile2 = rack.tiles[pos2]
 
-        const firstTile = rack.tiles[pos1]
-
-        rack.tiles[pos1] = rack.tiles[pos2]
-        rack.tiles[pos2] = firstTile
+        rack.tiles[pos1] = tile2
+        rack.tiles[pos2] = tile1
 
         racks[player] = rack
         return { ...state, racks }

@@ -17,7 +17,7 @@ interface OwnProps {
 }
 
 interface DispatchProps {
-  onDragTile: (tile1: Tile, tile2: Tile) => void
+  onDragTile: (tileIndex1: number, tileIndex2: number) => void
 }
 
 const RackView = (props: StateProps & OwnProps & DispatchProps) => {
@@ -25,6 +25,7 @@ const RackView = (props: StateProps & OwnProps & DispatchProps) => {
   const tiles = props.tiles.map((tile, idx) => {
     return (
       <RackTileView
+        index={idx}
         tile={tile}
         onDragTile={props.onDragTile}
         key={`rack-${idx}`}
@@ -51,8 +52,8 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    onDragTile: (tile1: Tile, tile2: Tile) => {
-      dispatch(swapRackTiles(tile1, tile2, ownProps.player))
+    onDragTile: (tileIndex1: number, tileIndex2: number) => {
+      dispatch(swapRackTiles(tileIndex1, tileIndex2, ownProps.player))
     },
   }
 }

@@ -7,7 +7,7 @@ import State from '../state'
 
 import { Dispatch } from 'redux'
 import { Portal, Side } from '../Board'
-import { BoardTile, Tile } from '../Tile'
+import { BoardTile } from '../Tile'
 import BoardTileView from './BoardTileView'
 
 interface OwnProps {
@@ -23,8 +23,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  onEmptyTileDrag: (tile: Tile, x: number, y: number) => void
-  onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => void
+  onEmptyTileDrag: (tileIndex: number, x: number, y: number) => void
+  onExistingTileDrag: (tileIndex: number, boardTile: BoardTile) => void
 }
 
 const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
@@ -78,7 +78,9 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
 
   const tiles = _.range(props.size).map(y => {
     return _.range(props.size).map(x => {
-      let dragFn: ((tile: Tile, boardTile?: BoardTile) => void) | undefined
+      let dragFn:
+        | ((tileIndex: number, boardTile?: BoardTile) => void)
+        | undefined
       let exit: string | undefined
       let entrance: string | undefined
 
@@ -92,15 +94,15 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
 
       const tile = _(props.tiles).find(t => t.x === x && t.y === y)
       if (tile) {
-        dragFn = (tile: Tile, boardTile: BoardTile) => {
+        dragFn = (tileIndex: number, boardTile: BoardTile) => {
           if (props.onExistingTileDrag) {
-            props.onExistingTileDrag(tile, boardTile)
+            props.onExistingTileDrag(tileIndex, boardTile)
           }
         }
       } else {
-        dragFn = (tile: Tile) => {
+        dragFn = (tileIndex: number) => {
           if (props.onEmptyTileDrag) {
-            props.onEmptyTileDrag(tile, x, y)
+            props.onEmptyTileDrag(tileIndex, x, y)
           }
         }
       }
@@ -141,11 +143,11 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    onEmptyTileDrag: (tile: Tile, x: number, y: number) => {
-      dispatch(playTile(tile, x, y, ownProps.player))
+    onEmptyTileDrag: (tileIndex: number, x: number, y: number) => {
+      dispatch(playTile(tileIndex, x, y, ownProps.player))
     },
-    onExistingTileDrag: (tile: Tile, boardTile: BoardTile) => {
-      dispatch(swapWithBoardTile(tile, boardTile, ownProps.player))
+    onExistingTileDrag: (tileIndex: number, boardTile: BoardTile) => {
+      dispatch(swapWithBoardTile(tileIndex, boardTile, ownProps.player))
     },
   }
 }

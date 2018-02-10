@@ -16,6 +16,8 @@ const config = {
 export default class Firebase {
   protected room: string
 
+  public isDirty: boolean
+
   constructor(room: string = 'default') {
     this.room = room
     initializeApp(config)
@@ -44,15 +46,27 @@ export default class Firebase {
       if (snapshot) {
         const val: State = snapshot.val()
         console.log('New state', val)
+        this.isDirty = false
         dispatch(overwriteState(val))
       }
     })
   }
 
   public dispatch = (action: Action) => {
+    if ((action.type as string) === '@@redux/INIT') {
+      return
+    }
+
+    if (this.isDirty) {
+      console.log('Is dirty, not dispatching', action)
+      return
+    }
+
     console.log('Pushing action to remote messageQueue', action)
     console.log(this)
     this.queueRef().push(action)
+
+    this.isDirty = true
   }
 
   //

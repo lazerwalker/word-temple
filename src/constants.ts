@@ -1,5 +1,5 @@
 import { State } from './state'
-import { BoardTile, Tile } from './Tile'
+import { BoardTile } from './Tile'
 
 export type Dispatch = (action: Action) => void
 
@@ -8,8 +8,6 @@ export enum DragTypes {
 }
 
 export enum ActionID {
-  SELECT_RACK_TILE = 'SELECT_RACK_TILE',
-  DESELECT_RACK_TILE = 'DESELECT_RACK_TILE',
   DRAW_TILES = 'DRAW_TILES',
   OVERWRITE_STATE = 'OVERWRITE_STATE',
   CREATE_NEW_RACK = 'CREATE_NEW_RACK',
@@ -22,16 +20,6 @@ export enum ActionID {
 // TODO
 // tslint:disable-next-line:no-namespace
 export namespace Action {
-  export interface SelectRackTile {
-    type: ActionID.SELECT_RACK_TILE
-    value: { tile: string; player: string }
-  }
-
-  export interface DeselectRackTile {
-    type: ActionID.DESELECT_RACK_TILE
-    value: string
-  }
-
   export interface DrawTiles {
     type: ActionID.DRAW_TILES
     value: { count: number; player: string }
@@ -54,23 +42,25 @@ export namespace Action {
 
   export interface PlayTile {
     type: ActionID.PLAY_TILE
-    value: { tile: Tile; player: string; position: { x: number; y: number } }
+    value: {
+      tileIndex: number
+      player: string
+      position: { x: number; y: number }
+    }
   }
 
   export interface SwapWithBoardTile {
     type: ActionID.SWAP_WITH_BOARD_TILE
-    value: { tile: Tile; player: string; boardTile: BoardTile }
+    value: { tileIndex: number; player: string; boardTile: BoardTile }
   }
 
   export interface SwapRackTiles {
     type: ActionID.SWAP_RACK_TILES
-    value: { player: string; tile1: string; tile2: string }
+    value: { player: string; tileIndex1: number; tileIndex2: number }
   }
 }
 
 export type Action =
-  | Action.SelectRackTile
-  | Action.DeselectRackTile
   | Action.DrawTiles
   | Action.OverwriteState
   | Action.CreateNewRack

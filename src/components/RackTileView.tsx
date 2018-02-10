@@ -16,13 +16,18 @@ import { DragTypes } from '../constants'
 import TileView from './TileView'
 
 interface Props {
+  index: number
   tile: Tile
-  onDragTile: (origin: Tile, destination?: Tile) => void
+  onDragTile: (tileIndex1: number, tileIndex2: number) => void
 }
 
 interface DNDProps {
   connectDragSource: ConnectDragSource
   connectDropTarget: ConnectDropTarget
+}
+
+export interface DragTile {
+  index: number
 }
 
 const RackTileView = (props: Props & DNDProps) => {
@@ -42,15 +47,15 @@ const RackTileView = (props: Props & DNDProps) => {
 }
 
 const tileSource = {
-  beginDrag(props: Props): Tile {
-    return { ...props.tile! }
+  beginDrag(props: Props): { index: number } {
+    return { index: props.index }
   },
 }
 
 const tileTarget = {
   drop(props: Props, monitor: DropTargetMonitor) {
-    const destination = props.tile
-    const origin = monitor.getItem() as Tile
+    const destination = props.index
+    const origin = (monitor.getItem() as DragTile).index
     if (props.onDragTile) {
       props.onDragTile(origin, destination)
     }

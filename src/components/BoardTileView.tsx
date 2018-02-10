@@ -7,15 +7,16 @@ import {
   DropTargetMonitor,
 } from 'react-dnd'
 import { DragTypes } from '../constants'
-import { BoardTile, Tile } from '../Tile'
+import { BoardTile } from '../Tile'
+import { DragTile } from './RackTileView'
 import TileView from './TileView'
 
 const tileTarget = {
   drop(props: Props & DNDProps, monitor: DropTargetMonitor) {
-    const tile = monitor.getItem() as Tile
+    const tileIndex = (monitor.getItem() as DragTile).index
     const boardTile = props.tile
     if (props.onDrag) {
-      props.onDrag(tile, boardTile)
+      props.onDrag(tileIndex, boardTile)
     }
   },
 }
@@ -31,7 +32,7 @@ interface Props {
   entrance?: string
   exit?: string
   exitIsComplete?: boolean
-  onDrag: (tile: Tile, boardTile?: BoardTile) => void
+  onDrag: (tileIndex: number, boardTile?: BoardTile) => void
 }
 
 interface DNDProps {
