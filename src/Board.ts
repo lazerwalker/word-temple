@@ -105,7 +105,7 @@ export function boardByAddingTile(
 
 export function boardWithoutTile(board: Board, tile: BoardTile) {
   const newBoard = { ...board }
-  newBoard.tiles = _.without(newBoard.tiles, tile)
+  newBoard.tiles = _.reject(newBoard.tiles, t => t.id === tile.id)
   return newBoard
 }
 
