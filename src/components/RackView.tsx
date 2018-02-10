@@ -36,9 +36,13 @@ const RackView = (props: StateProps & OwnProps & DispatchProps) => {
 }
 
 const mapStateToProps = (state: State, ownProps: OwnProps): StateProps => {
-  // TODO: This array stuff is a smell.
-  return {
-    tiles: [...state.racks[ownProps.player].tiles] || [],
+  const rack = state.racks[ownProps.player]
+  if (rack) {
+    return {
+      tiles: [...rack.tiles],
+    }
+  } else {
+    return { tiles: [] }
   }
 }
 
