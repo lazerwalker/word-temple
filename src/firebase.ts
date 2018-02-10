@@ -12,45 +12,56 @@ const config = {
   projectId: 'word-temple',
   storageBucket: 'word-temple.appspot.com',
 }
-export function initializeFirebase() {
-  initializeApp(config)
-}
 
-export function sendNewState(state: State) {
-  console.log('Sending new state', state)
-  database()
-    .ref('game')
-    .set(state)
-}
+export default class Firebase {
+  protected room: string
 
-export function wireQueueToDispatch(dispatch: Dispatch) {
-  const ref = database().ref('/messageQueue')
-  ref.on('child_added', snapshot => {
-    if (snapshot) {
-      // TODO: Whitelist actions
-      const val: Action = snapshot.val()
-      console.log('Received message', val)
-      dispatch(val)
-      snapshot.ref.remove()
-    }
-  })
-}
+  constructor(room: string = 'default') {
+    this.room = room
+    initializeApp(config)
+  }
 
-export function subscribeToState(dispatch: Dispatch) {
-  console.log('Subscribing to state')
-  const ref = database().ref('game/')
-  ref.on('value', snapshot => {
-    if (snapshot) {
-      const val: State = snapshot.val()
-      console.log('New state', val)
-      dispatch(overwriteState(val))
-    }
-  })
-}
+  public sendNewState(state: State) {
+    console.log('Sending new state', state)
+    this.gameRef().set(state)
+  }
 
-export function dispatch(action: Action) {
-  console.log('Pushing action to remote messageQueue', action)
-  database()
-    .ref('/messageQueue')
-    .push(action)
+  public wireQueueToDispatch(dispatch: Dispatch, room: string = 'default') {
+    this.queueRef().remove()
+    this.queueRef().on('child_added', snapshot => {
+      if (snapshot) {
+        // TODO: Whitelist actions
+        const val: Action = snapshot.val()
+        console.log('Received message', val)
+        dispatch(val)
+        snapshot.ref.remove()
+      }
+    })
+  }
+
+  public subscribeToState(dispatch: Dispatch) {
+    this.gameRef().on('value', snapshot => {
+      if (snapshot) {
+        const val: State = snapshot.val()
+        console.log('New state', val)
+        dispatch(overwriteState(val))
+      }
+    })
+  }
+
+  public dispatch = (action: Action) => {
+    console.log('Pushing action to remote messageQueue', action)
+    console.log(this)
+    this.queueRef().push(action)
+  }
+
+  //
+
+  private gameRef(): database.Reference {
+    return database().ref(`/rooms/${this.room}/game`)
+  }
+
+  private queueRef(): database.Reference {
+    return database().ref(`/rooms/${this.room}/messageQueue`)
+  }
 }

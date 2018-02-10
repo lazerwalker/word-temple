@@ -32,6 +32,7 @@ export default function createReducer(
   networkDispatch: Dispatch
 ) {
   return (state: State, action: Action) => {
+    console.log('In dispatch', action)
     if (!isHost && action.type !== ActionID.OVERWRITE_STATE) {
       networkDispatch(action)
     }

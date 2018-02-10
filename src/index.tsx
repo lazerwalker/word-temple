@@ -12,8 +12,8 @@ import registerServiceWorker from './registerServiceWorker'
 import { createNewRack, generateBoard } from './actions'
 import TileBag from './TileBag'
 
-import * as firebase from './firebase'
-firebase.initializeFirebase()
+import Firebase from './firebase'
+const firebase = new Firebase()
 
 document.ontouchmove = e => {
   e.preventDefault()
