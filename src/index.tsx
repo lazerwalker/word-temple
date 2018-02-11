@@ -39,7 +39,10 @@ const store = createStore(
   applyMiddleware(thunk)
 )
 
+let name
+
 if (isHost) {
+  name = 'host'
   firebase.wireQueueToDispatch(store.dispatch)
   store.subscribe(() => {
     const state = store.getState()
@@ -52,13 +55,13 @@ if (isHost) {
   store.dispatch(generateBoard(7))
 } else {
   console.log('Is client')
-  firebase.dispatch(createNewRack('client'))
-  firebase.subscribeToState(store.dispatch)
+  name = firebase.registerAsClient(store.dispatch)
+  firebase.dispatch(createNewRack(name))
 }
 
 ReactDOM.render(
   <Provider store={store}>
-    <App rackName={isHost ? 'host' : 'client'} />
+    <App rackName={name} />
   </Provider>,
   document.getElementById('root') as HTMLElement
 )

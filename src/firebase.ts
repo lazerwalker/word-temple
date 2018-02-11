@@ -41,7 +41,11 @@ export default class Firebase {
     })
   }
 
-  public subscribeToState(dispatch: Dispatch) {
+  // Returns username
+  public registerAsClient(dispatch: Dispatch): string {
+    const userRef = database()
+      .ref(`/rooms/${this.room}/users`)
+      .push(true)
     this.gameRef().on('value', snapshot => {
       if (snapshot) {
         const val: State = snapshot.val()
@@ -50,6 +54,12 @@ export default class Firebase {
         dispatch(overwriteState(val))
       }
     })
+    if (userRef.key) {
+      return userRef.key
+    } else {
+      // TODO: lol
+      return '' + Math.floor(Math.random() * 10000)
+    }
   }
 
   public dispatch = (action: Action) => {
