@@ -13,7 +13,9 @@ import { createNewRack, generateBoard } from './actions'
 import TileBag from './TileBag'
 
 import Firebase from './firebase'
-const firebase = new Firebase()
+
+const room = window.location.hash === '' ? undefined : window.location.hash
+const firebase = new Firebase(room)
 
 document.ontouchmove = e => {
   e.preventDefault()
@@ -25,7 +27,7 @@ initReactFastclick()
 
 const bag = new TileBag()
 
-const isHost = !window.location.hash
+const isHost = false
 const reducer = createReducer(isHost, firebase.dispatch)
 
 // TODO: Time to make a constructor?
