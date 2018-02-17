@@ -1,4 +1,9 @@
-import { boardByAddingTile, boardWithoutTile, generateNewBoard } from '../Board'
+import {
+  Board,
+  boardByAddingTile,
+  boardWithoutTile,
+  generateNewBoard,
+} from '../Board'
 import { Action, ActionID, Dispatch } from '../constants'
 import { Rack, RackList, State } from '../state'
 
@@ -10,6 +15,7 @@ import { BoardTile, Tile } from '../Tile'
 // Remove this, and probably change tslint?
 let rack: Rack
 let racks: RackList
+let board: Board
 let tile: Tile
 let tileIndex: number
 let boardTile: BoardTile
@@ -20,7 +26,7 @@ let player: string
 export default function createReducer(
   isHost: boolean,
   networkDispatch?: Dispatch
-) {
+): ((state: State, action: Action) => State) {
   return (state: State, action: Action) => {
     console.log('In dispatch', action)
     if (
@@ -44,7 +50,7 @@ export default function createReducer(
 
         racks = { ...state.racks }
 
-        let board = state.board
+        board = state.board
         if (Object.keys(racks).length === 0) {
           board = generateNewBoard(7)
         }

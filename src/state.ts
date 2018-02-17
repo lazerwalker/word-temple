@@ -17,4 +17,15 @@ export interface State {
   bag: TileBag
 }
 
+export function createState(props?: State) {
+  const board = {
+    size: 7,
+    tiles: [],
+  }
+  const bag = new TileBag()
+  const racks = {}
+
+  return { racks, board, bag, ...props }
+}
+
 export default State

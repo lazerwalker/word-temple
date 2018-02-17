@@ -74,7 +74,10 @@ export function generateNewBoard(size: number = 7, entrance?: Portal) {
 
 export function boardByAddingBoardTile(board: Board, tile: BoardTile): Board {
   const newBoard = { ...board }
-  newBoard.tiles = board.tiles.slice(0)
+  if (!newBoard.tiles) {
+    newBoard.tiles = []
+  }
+  newBoard.tiles = newBoard.tiles.slice(0)
   newBoard.tiles.push(tile)
 
   const validity = checkBoard(newBoard)

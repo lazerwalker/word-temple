@@ -10,9 +10,9 @@ import createReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker'
 
 import { createNewRack, generateBoard } from './actions'
-import TileBag from './TileBag'
 
 import Firebase from './firebase'
+import { createState } from './state'
 
 const room =
   window.location.hash === '' ? undefined : window.location.hash.slice(1)
@@ -27,21 +27,10 @@ document.ontouchmove = e => {
 const initReactFastclick = require('react-fastclick')
 initReactFastclick()
 
-const bag = new TileBag()
-
 const isHost = false
 const reducer = createReducer(isHost, firebase.dispatch)
 
-// TODO: Time to make a constructor?
-const board = {
-  size: 7,
-  tiles: [],
-}
-const store = createStore(
-  reducer,
-  { racks: {}, board, bag },
-  applyMiddleware(thunk)
-)
+const store = createStore(reducer, createState(), applyMiddleware(thunk))
 
 let name
 
