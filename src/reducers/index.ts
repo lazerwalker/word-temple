@@ -34,7 +34,7 @@ export default function createReducer(
     switch (action.type) {
       case ActionID.OVERWRITE_STATE:
         if (isHost) {
-          return
+          return state
         }
         // TODO: Be smart about multiple tile racks
         return { ...state, ...action.value }

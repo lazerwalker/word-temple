@@ -13,7 +13,7 @@ export const handleAction = functions.database.ref('/rooms/{room}/messageQueue')
   .onWrite(event => {
     const action = event.data.val() as Action
     console.log(action)
-    return event.data!.ref!.parent!.child('game').once('value').then((snapshot) => {
+    return event.data.ref.parent.child('game').once('value').then((snapshot) => {
       const state = snapshot.val()
       if (state) {
         const newState = createReducer(true)(state, action)
