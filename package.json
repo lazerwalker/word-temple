@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^4.9.0",
+    "firebase": "^4.10.0",
     "lodash": "^4.17.4",
     "react": "^16.2.0",
     "react-dnd": "^2.5.4",
@@ -20,7 +20,8 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "deploy": "yarn build && firebase deploy"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css,ts,tsx}": [

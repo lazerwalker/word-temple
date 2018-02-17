@@ -14,7 +14,9 @@ import TileBag from './TileBag'
 
 import Firebase from './firebase'
 
-const room = window.location.hash === '' ? undefined : window.location.hash
+const room =
+  window.location.hash === '' ? undefined : window.location.hash.slice(1)
+
 const firebase = new Firebase(room)
 
 document.ontouchmove = e => {

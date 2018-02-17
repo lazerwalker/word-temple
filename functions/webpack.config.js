@@ -18,6 +18,7 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     filename: 'bundle.js',
+    libraryTarget: 'this',
     path: path.resolve(__dirname, 'dist')
   },
   target: "node",
