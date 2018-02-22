@@ -10,9 +10,8 @@ import {
   DropTargetConnector,
   DropTargetMonitor,
 } from 'react-dnd'
-import { DragTypes } from '../constants'
+import { DragBoardTile, DragTile, DragTypes } from '../constants'
 import { BoardTile } from '../Tile'
-import { DragTile } from './RackTileView'
 import TileView from './TileView'
 
 interface Props {
@@ -26,11 +25,6 @@ interface Props {
 interface DNDProps {
   connectDragSource: ConnectDragSource
   connectDropTarget: ConnectDropTarget
-}
-
-export interface DragBoardTile {
-  x: number
-  y: number
 }
 
 const BoardTileView = (props: Props & DNDProps) => {
@@ -104,7 +98,8 @@ const tileTarget = {
 
 const tileSource = {
   beginDrag(props: Props): DragBoardTile {
-    return { x: props.tile!.x, y: props.tile!.y }
+    const { x, y, letter, value } = props.tile!
+    return { x, y, letter, value }
   },
 }
 

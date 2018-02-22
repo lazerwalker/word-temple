@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 
 import { moveBoardTile, playTile, swapWithBoardTile } from '../actions'
 import State from '../state'
+import BoardTileView from './BoardTileView'
 
 import { Dispatch } from 'redux'
 import { Portal, Side } from '../Board'
+import { DragBoardTile } from '../constants'
 import { BoardTile } from '../Tile'
-import BoardTileView, { DragBoardTile } from './BoardTileView'
 
 interface OwnProps {
   player: string

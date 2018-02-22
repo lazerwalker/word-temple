@@ -8,6 +8,19 @@ export enum DragTypes {
   BoardTile = 'board-tile',
 }
 
+export interface DragBoardTile {
+  x: number
+  y: number
+  letter: string
+  value: number
+}
+
+export interface DragTile {
+  index: number
+  letter: string
+  value: number
+}
+
 export enum ActionID {
   DRAW_TILES = 'DRAW_TILES',
   OVERWRITE_STATE = 'OVERWRITE_STATE',
