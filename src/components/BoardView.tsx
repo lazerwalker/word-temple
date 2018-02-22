@@ -2,13 +2,13 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { playTile, swapWithBoardTile } from '../actions'
+import { moveBoardTile, playTile, swapWithBoardTile } from '../actions'
 import State from '../state'
 
 import { Dispatch } from 'redux'
 import { Portal, Side } from '../Board'
 import { BoardTile } from '../Tile'
-import BoardTileView from './BoardTileView'
+import BoardTileView, { DragBoardTile } from './BoardTileView'
 
 interface OwnProps {
   player: string
@@ -23,8 +23,15 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  onEmptyTileDrag: (tileIndex: number, x: number, y: number) => void
-  onExistingTileDrag: (tileIndex: number, boardTile: BoardTile) => void
+  onEmptyTileDrag: (
+    tileIndex: number | DragBoardTile,
+    x: number,
+    y: number
+  ) => void
+  onExistingTileDrag: (
+    tileIndex: number | DragBoardTile,
+    boardTile: BoardTile
+  ) => void
 }
 
 const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
@@ -94,13 +101,13 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
 
       const tile = _(props.tiles).find(t => t.x === x && t.y === y)
       if (tile) {
-        dragFn = (tileIndex: number, boardTile: BoardTile) => {
+        dragFn = (tileIndex: number | DragBoardTile, boardTile: BoardTile) => {
           if (props.onExistingTileDrag) {
             props.onExistingTileDrag(tileIndex, boardTile)
           }
         }
       } else {
-        dragFn = (tileIndex: number) => {
+        dragFn = (tileIndex: number | DragBoardTile) => {
           if (props.onEmptyTileDrag) {
             props.onEmptyTileDrag(tileIndex, x, y)
           }
@@ -138,16 +145,32 @@ const mapStateToProps = (state: State, ownProps: OwnProps): StateProps => {
   }
 }
 
+// TODO: There should really be a separate board drag fn threaded through :/
 const mapDispatchToProps = (
   dispatch: Dispatch<State>,
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    onEmptyTileDrag: (tileIndex: number, x: number, y: number) => {
-      dispatch(playTile(tileIndex, x, y, ownProps.player))
+    onEmptyTileDrag: (
+      tileIndex: number | DragBoardTile,
+      x: number,
+      y: number
+    ) => {
+      if (_.isNumber(tileIndex)) {
+        dispatch(playTile(tileIndex, x, y, ownProps.player))
+      } else {
+        dispatch(moveBoardTile(tileIndex, { x, y }))
+      }
     },
-    onExistingTileDrag: (tileIndex: number, boardTile: BoardTile) => {
-      dispatch(swapWithBoardTile(tileIndex, boardTile, ownProps.player))
+    onExistingTileDrag: (
+      tileIndex: number | DragBoardTile,
+      boardTile: BoardTile
+    ) => {
+      if (_.isNumber(tileIndex)) {
+        dispatch(swapWithBoardTile(tileIndex, boardTile, ownProps.player))
+      } else {
+        dispatch(moveBoardTile(tileIndex, { x: boardTile.x, y: boardTile.y }))
+      }
     },
   }
 }

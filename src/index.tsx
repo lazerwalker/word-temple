@@ -27,7 +27,7 @@ document.ontouchmove = e => {
 const initReactFastclick = require('react-fastclick')
 initReactFastclick()
 
-const isHost = false
+const isHost = window.location.hash === ''
 const reducer = createReducer(isHost, firebase.dispatch)
 
 const store = createStore(reducer, createState(), applyMiddleware(thunk))

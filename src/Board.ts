@@ -72,6 +72,14 @@ export function generateNewBoard(size: number = 7, entrance?: Portal) {
   }
 }
 
+export function boardTileAtPosition(
+  board: Board,
+  x: number,
+  y: number
+): BoardTile | undefined {
+  return _.find(board.tiles, { x, y })
+}
+
 export function boardByAddingBoardTile(board: Board, tile: BoardTile): Board {
   const newBoard = { ...board }
   if (!newBoard.tiles) {

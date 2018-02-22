@@ -1,6 +1,7 @@
 import {
   Board,
   boardByAddingTile,
+  boardTileAtPosition,
   boardWithoutTile,
   generateNewBoard,
 } from '../Board'
@@ -146,6 +147,25 @@ export default function createReducer(
 
         racks[player] = rack
         return { ...state, racks }
+      case ActionID.MOVE_BOARD_TILE:
+        const { from, to } = action.value
+        const fromTile = boardTileAtPosition(state.board, from.x, from.y)
+        const toTile = boardTileAtPosition(state.board, to.x, to.y)
+
+        if (!fromTile) {
+          return state
+        }
+
+        board = { ...state.board }
+        board = boardWithoutTile(board, fromTile)
+        board = boardByAddingTile(board, fromTile, to)
+
+        if (toTile) {
+          board = boardWithoutTile(board, toTile)
+          board = boardByAddingTile(board, toTile, from)
+        }
+
+        return { ...state, board }
       default:
         return state
     }

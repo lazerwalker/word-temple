@@ -5,6 +5,7 @@ export type Dispatch = (action: Action) => void
 
 export enum DragTypes {
   Tile = 'tile',
+  BoardTile = 'board-tile',
 }
 
 export enum ActionID {
@@ -15,6 +16,7 @@ export enum ActionID {
   PLAY_TILE = 'PLAY_TILE',
   SWAP_WITH_BOARD_TILE = 'SWAP_WITH_BOARD_TILE',
   SWAP_RACK_TILES = 'SWAP_RACK_TILES',
+  MOVE_BOARD_TILE = 'MOVE_BOARD_TILE',
 }
 
 // TODO
@@ -58,6 +60,11 @@ export namespace Action {
     type: ActionID.SWAP_RACK_TILES
     value: { player: string; tileIndex1: number; tileIndex2: number }
   }
+
+  export interface MoveBoardTile {
+    type: ActionID.MOVE_BOARD_TILE
+    value: { from: { x: number; y: number }; to: { x: number; y: number } }
+  }
 }
 
 export type Action =
@@ -68,3 +75,4 @@ export type Action =
   | Action.PlayTile
   | Action.SwapWithBoardTile
   | Action.SwapRackTiles
+  | Action.MoveBoardTile

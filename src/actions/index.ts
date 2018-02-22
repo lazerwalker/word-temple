@@ -70,3 +70,13 @@ export const swapRackTiles = (
     value: { player, tileIndex1, tileIndex2 },
   }
 }
+
+export const moveBoardTile = (
+  from: { x: number; y: number },
+  to: { x: number; y: number }
+): Action.MoveBoardTile => {
+  return {
+    type: ActionID.MOVE_BOARD_TILE,
+    value: { from, to },
+  }
+}

@@ -1,7 +1,11 @@
 import * as React from 'react'
 
 import {
+  ConnectDragSource,
   ConnectDropTarget,
+  DragSource,
+  DragSourceConnector,
+  DragSourceMonitor,
   DropTarget,
   DropTargetConnector,
   DropTargetMonitor,
@@ -11,38 +15,35 @@ import { BoardTile } from '../Tile'
 import { DragTile } from './RackTileView'
 import TileView from './TileView'
 
-const tileTarget = {
-  drop(props: Props & DNDProps, monitor: DropTargetMonitor) {
-    const tileIndex = (monitor.getItem() as DragTile).index
-    const boardTile = props.tile
-    if (props.onDrag) {
-      props.onDrag(tileIndex, boardTile)
-    }
-  },
-}
-
-function collect(connect: DropTargetConnector, monitor: DropTargetMonitor) {
-  return {
-    connectDropTarget: connect.dropTarget(),
-  }
-}
-
 interface Props {
   tile?: BoardTile
   entrance?: string
   exit?: string
   exitIsComplete?: boolean
-  onDrag: (tileIndex: number, boardTile?: BoardTile) => void
+  onDrag: (tileIndex: number | DragBoardTile, boardTile?: BoardTile) => void
 }
 
 interface DNDProps {
+  connectDragSource: ConnectDragSource
   connectDropTarget: ConnectDropTarget
+}
+
+export interface DragBoardTile {
+  x: number
+  y: number
 }
 
 const BoardTileView = (props: Props & DNDProps) => {
   const classNames = ['board-tile']
 
-  const { connectDropTarget, entrance, exit, exitIsComplete, tile } = props
+  const {
+    connectDropTarget,
+    connectDragSource,
+    entrance,
+    exit,
+    exitIsComplete,
+    tile,
+  } = props
 
   if (entrance) {
     classNames.push(`entrance-${entrance}`)
@@ -56,7 +57,7 @@ const BoardTileView = (props: Props & DNDProps) => {
   }
 
   if (tile) {
-    return connectDropTarget(
+    let tileView = connectDropTarget(
       <div className={classNames.join(' ')}>
         <TileView
           letter={tile.letter}
@@ -66,6 +67,12 @@ const BoardTileView = (props: Props & DNDProps) => {
         />
       </div>
     )
+
+    if (tile.movable) {
+      tileView = connectDragSource(tileView)
+    }
+
+    return tileView
   } else {
     classNames.push('empty')
     return connectDropTarget(
@@ -76,6 +83,45 @@ const BoardTileView = (props: Props & DNDProps) => {
   }
 }
 
-export default DropTarget<Props>(DragTypes.Tile, tileTarget, collect)(
-  BoardTileView
-)
+const tileTarget = {
+  drop(props: Props & DNDProps, monitor: DropTargetMonitor) {
+    const itemType = monitor.getItemType()
+    if (itemType === DragTypes.Tile) {
+      const tileIndex = (monitor.getItem() as DragTile).index
+      const boardTile = props.tile
+      if (props.onDrag) {
+        props.onDrag(tileIndex, boardTile)
+      }
+    } else if (itemType === DragTypes.BoardTile) {
+      const position = monitor.getItem() as DragBoardTile
+      const boardTile = props.tile
+      if (props.onDrag) {
+        props.onDrag(position, boardTile)
+      }
+    }
+  },
+}
+
+const tileSource = {
+  beginDrag(props: Props): DragBoardTile {
+    return { x: props.tile!.x, y: props.tile!.y }
+  },
+}
+
+function collectDrop(connect: DropTargetConnector, monitor: DropTargetMonitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+  }
+}
+
+function collectDrag(connect: DragSourceConnector, monitor: DragSourceMonitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+  }
+}
+
+export default DropTarget<Props>(
+  [DragTypes.Tile, DragTypes.BoardTile],
+  tileTarget,
+  collectDrop
+)(DragSource(DragTypes.BoardTile, tileSource, collectDrag)(BoardTileView))

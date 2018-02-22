@@ -21,7 +21,6 @@ interface DispatchProps {
 }
 
 const RackView = (props: StateProps & OwnProps & DispatchProps) => {
-  console.log(props.tiles)
   const tiles = props.tiles.map((tile, idx) => {
     return (
       <RackTileView
