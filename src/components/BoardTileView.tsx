@@ -13,6 +13,7 @@ import {
 import { DragBoardTile, DragTile, DragTypes } from '../constants'
 import { BoardTile } from '../Tile'
 import TileView from './TileView'
+import * as classNames from 'classnames'
 
 interface Props {
   tile?: BoardTile
@@ -25,11 +26,10 @@ interface Props {
 interface DNDProps {
   connectDragSource: ConnectDragSource
   connectDropTarget: ConnectDropTarget
+  isDragging: boolean
 }
 
 const BoardTileView = (props: Props & DNDProps) => {
-  const classNames = ['board-tile']
-
   const {
     connectDropTarget,
     connectDragSource,
@@ -39,25 +39,22 @@ const BoardTileView = (props: Props & DNDProps) => {
     tile,
   } = props
 
-  if (entrance) {
-    classNames.push(`entrance-${entrance}`)
-  }
-
-  if (exit) {
-    classNames.push(`exit-${exit}`)
-    if (exitIsComplete) {
-      classNames.push('exit-complete')
-    }
-  }
+  const classes = classNames('board-tile', {
+    [`entrance-${entrance}`]: entrance !== undefined,
+    [`exit-${exit}`]: exit !== undefined,
+    empty: tile === undefined,
+    'exit-complete': exitIsComplete,
+  })
 
   if (tile) {
     let tileView = connectDropTarget(
-      <div className={classNames.join(' ')}>
+      <div className={classes}>
         <TileView
           letter={tile.letter}
           value={tile.value}
           validity={tile.validity}
           movable={tile.movable}
+          isDragging={props.isDragging}
         />
       </div>
     )
@@ -68,9 +65,8 @@ const BoardTileView = (props: Props & DNDProps) => {
 
     return tileView
   } else {
-    classNames.push('empty')
     return connectDropTarget(
-      <div className={classNames.join(' ')}>
+      <div className={classes}>
         <TileView />
       </div>
     )
@@ -112,6 +108,7 @@ function collectDrop(connect: DropTargetConnector, monitor: DropTargetMonitor) {
 function collectDrag(connect: DragSourceConnector, monitor: DragSourceMonitor) {
   return {
     connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
   }
 }
 

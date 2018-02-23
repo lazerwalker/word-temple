@@ -24,16 +24,21 @@ interface Props {
 interface DNDProps {
   connectDragSource: ConnectDragSource
   connectDropTarget: ConnectDropTarget
+  isDragging: boolean
 }
 
 const RackTileView = (props: Props & DNDProps) => {
-  const { connectDragSource, connectDropTarget, tile } = props
+  const { connectDragSource, connectDropTarget, tile, isDragging } = props
 
   if (tile) {
     return connectDropTarget!(
       connectDragSource!(
         <div className="rack-tile">
-          <TileView letter={tile.letter} value={tile.value} />
+          <TileView
+            letter={tile.letter}
+            value={tile.value}
+            isDragging={isDragging}
+          />
         </div>
       )
     )
@@ -65,6 +70,7 @@ const tileTarget = {
 function collectDrag(connect: DragSourceConnector, monitor: DragSourceMonitor) {
   return {
     connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
   }
 }
 

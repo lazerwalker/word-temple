@@ -40,6 +40,10 @@ body {
   background-color: #fbb;
 }
 
+.tile.dragging {
+  opacity: 0;
+}
+
 .immovable {
   background-color: #ddd;
   color: #777;
