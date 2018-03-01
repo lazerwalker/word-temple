@@ -4,7 +4,10 @@ import { hasCompletePath } from './pathfinding'
 import { BoardTile, BoardTileState, Tile } from './Tile'
 import { sampleAbstractTile } from './TileBag'
 // tslint:disable-next-line:no-var-requires
-const Dictionary = require('./dictionary')
+// const Dictionary: string[] = require('./dictionary')
+
+// tslint:disable-next-line:no-submodule-imports no-var-requires
+const Animals: string[] = require('corpora/data/animals/common').animals
 
 export interface Board {
   tiles: BoardTile[]
@@ -182,8 +185,9 @@ export function checkWord(tiles: BoardTile[]): boolean {
     .map(tile => tile.letter)
     .value()
     .join('')
+    .toLowerCase()
 
-  return _.includes(Dictionary, word.toLowerCase())
+  return _.includes(Animals, word)
 }
 
 export interface BoardValidity {

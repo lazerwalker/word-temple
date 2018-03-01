@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "corpora": "dariusk/corpora",
     "classnames": "^2.2.5",
     "firebase": "^4.10.0",
     "lodash": "^4.17.4",
