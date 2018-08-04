@@ -26,7 +26,7 @@ export enum Side {
   Bottom = 'bottom',
 }
 
-export function generateNewBoard(size: number = 7, entrance?: Portal) {
+export function generateNewBoard(size: number = 7, entrance?: Portal): Board {
   let availableSides: string[] = _.shuffle(Object.keys(Side))
 
   // TODO: This is a hack to stop it so that we don't end up with an
@@ -183,7 +183,15 @@ export function checkWord(tiles: BoardTile[]): boolean {
     .value()
     .join('')
 
-  return _.includes(Dictionary, word.toLowerCase())
+  const reversed = word
+    .split('')
+    .reverse()
+    .join('')
+
+  return (
+    _.includes(Dictionary, word.toLowerCase()) ||
+    _.includes(Dictionary, reversed.toLowerCase())
+  )
 }
 
 export interface BoardValidity {
