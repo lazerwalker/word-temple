@@ -1,8 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { applyMiddleware, createStore } from 'redux'
-import thunk from 'redux-thunk'
+import { createStore } from 'redux'
 
 import App from './App'
 import './index.css'
@@ -30,7 +29,7 @@ initReactFastclick()
 const isHost = window.location.hash === ''
 const reducer = createReducer(isHost, firebase.dispatch)
 
-const store = createStore(reducer, createState(), applyMiddleware(thunk))
+const store = createStore(reducer, createState())
 
 let name
 
