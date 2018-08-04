@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import * as classNames from 'classnames'
 import {
   ConnectDragSource,
   ConnectDropTarget,
@@ -13,7 +14,6 @@ import {
 import { DragBoardTile, DragTile, DragTypes } from '../constants'
 import { BoardTile } from '../Tile'
 import TileView from './TileView'
-import * as classNames from 'classnames'
 
 interface Props {
   tile?: BoardTile
