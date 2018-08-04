@@ -23,17 +23,13 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "deploy": "yarn build && firebase deploy"
+    "deploy": "yarn build && firebase deploy --only hosting"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css,ts,tsx}": [
-      "prettier --write",
-      "git add"
-    ]
+    "src/**/*.{js,jsx,json,css,ts,tsx}": ["prettier --write", "git add"]
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
-    "@types/firebase": "^3.2.1",
     "@types/jest": "^22.0.1",
     "@types/lodash": "^4.14.92",
     "@types/node": "^8.5.7",
@@ -41,7 +37,7 @@
     "@types/react-dnd": "^2.0.34",
     "@types/react-dnd-html5-backend": "^2.1.8",
     "@types/react-dnd-multi-backend": "^3.0.0",
-    "@types/react-dom": "^16.0.3",
+    "@types/react-dom": "^16.0.6",
     "@types/react-redux": "^5.0.14",
     "@types/ws": "^4.0.0",
     "firebase-tools": "^4.0.2",
