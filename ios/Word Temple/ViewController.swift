@@ -40,8 +40,10 @@ class ViewController: UIViewController {
     }
 
     private func loadLocal() {
-        guard let url = URL(string: "http://word-temple.firebaseapp.com") else { return }
-        loadURL(url: url)
+        let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "build")!
+        webView.loadFileURL(url, allowingReadAccessTo: url)
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
 
     private func loadURL(url: URL) {

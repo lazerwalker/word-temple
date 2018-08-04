@@ -32,7 +32,7 @@
                                 <items>
                                     <tabBarItem title="Firebase" id="eod-F6-5oy"/>
                                     <tabBarItem tag="1" title="MacBook Pro" id="uFb-AT-YlA"/>
-                                    <tabBarItem tag="2" enabled="NO" title="Embedded" id="RH9-Ip-eT7"/>
+                                    <tabBarItem tag="2" title="Embedded" id="RH9-Ip-eT7"/>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Qsw-db-Wrd"/>
