@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C6FABB3F211656D90089A509 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FABB3E211656D90089A509 /* AppDelegate.swift */; };
+		C6FABB41211656D90089A509 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FABB40211656D90089A509 /* ViewController.swift */; };
+		C6FABB44211656D90089A509 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6FABB42211656D90089A509 /* Main.storyboard */; };
+		C6FABB46211656DB0089A509 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6FABB45211656DB0089A509 /* Assets.xcassets */; };
+		C6FABB49211656DB0089A509 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6FABB47211656DB0089A509 /* LaunchScreen.storyboard */; };
+		C6FABB54211656DB0089A509 /* Word_TempleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FABB53211656DB0089A509 /* Word_TempleTests.swift */; };
+		C6FABB5F211656DB0089A509 /* Word_TempleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FABB5E211656DB0089A509 /* Word_TempleUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C6FABB50211656DB0089A509 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6FABB33211656D90089A509 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6FABB3A211656D90089A509;
+			remoteInfo = "Word Temple";
+		};
+		C6FABB5B211656DB0089A509 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6FABB33211656D90089A509 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6FABB3A211656D90089A509;
+			remoteInfo = "Word Temple";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C6FABB3B211656D90089A509 /* Word Temple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Word Temple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6FABB3E211656D90089A509 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C6FABB40211656D90089A509 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C6FABB43211656D90089A509 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C6FABB45211656DB0089A509 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C6FABB48211656DB0089A509 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C6FABB4A211656DB0089A509 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6FABB4F211656DB0089A509 /* Word TempleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word TempleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6FABB53211656DB0089A509 /* Word_TempleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_TempleTests.swift; sourceTree = "<group>"; };
+		C6FABB55211656DB0089A509 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6FABB5A211656DB0089A509 /* Word TempleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word TempleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6FABB5E211656DB0089A509 /* Word_TempleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_TempleUITests.swift; sourceTree = "<group>"; };
+		C6FABB60211656DB0089A509 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C6FABB38211656D90089A509 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6FABB4C211656DB0089A509 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6FABB57211656DB0089A509 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C6FABB32211656D90089A509 = {
+			isa = PBXGroup;
+			children = (
+				C6FABB3D211656D90089A509 /* Word Temple */,
+				C6FABB52211656DB0089A509 /* Word TempleTests */,
+				C6FABB5D211656DB0089A509 /* Word TempleUITests */,
+				C6FABB3C211656D90089A509 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C6FABB3C211656D90089A509 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C6FABB3B211656D90089A509 /* Word Temple.app */,
+				C6FABB4F211656DB0089A509 /* Word TempleTests.xctest */,
+				C6FABB5A211656DB0089A509 /* Word TempleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6FABB3D211656D90089A509 /* Word Temple */ = {
+			isa = PBXGroup;
+			children = (
+				C6FABB3E211656D90089A509 /* AppDelegate.swift */,
+				C6FABB40211656D90089A509 /* ViewController.swift */,
+				C6FABB42211656D90089A509 /* Main.storyboard */,
+				C6FABB45211656DB0089A509 /* Assets.xcassets */,
+				C6FABB47211656DB0089A509 /* LaunchScreen.storyboard */,
+				C6FABB4A211656DB0089A509 /* Info.plist */,
+			);
+			path = "Word Temple";
+			sourceTree = "<group>";
+		};
+		C6FABB52211656DB0089A509 /* Word TempleTests */ = {
+			isa = PBXGroup;
+			children = (
+				C6FABB53211656DB0089A509 /* Word_TempleTests.swift */,
+				C6FABB55211656DB0089A509 /* Info.plist */,
+			);
+			path = "Word TempleTests";
+			sourceTree = "<group>";
+		};
+		C6FABB5D211656DB0089A509 /* Word TempleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C6FABB5E211656DB0089A509 /* Word_TempleUITests.swift */,
+				C6FABB60211656DB0089A509 /* Info.plist */,
+			);
+			path = "Word TempleUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C6FABB3A211656D90089A509 /* Word Temple */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6FABB63211656DB0089A509 /* Build configuration list for PBXNativeTarget "Word Temple" */;
+			buildPhases = (
+				C6FABB37211656D90089A509 /* Sources */,
+				C6FABB38211656D90089A509 /* Frameworks */,
+				C6FABB39211656D90089A509 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Word Temple";
+			productName = "Word Temple";
+			productReference = C6FABB3B211656D90089A509 /* Word Temple.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C6FABB4E211656DB0089A509 /* Word TempleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6FABB66211656DB0089A509 /* Build configuration list for PBXNativeTarget "Word TempleTests" */;
+			buildPhases = (
+				C6FABB4B211656DB0089A509 /* Sources */,
+				C6FABB4C211656DB0089A509 /* Frameworks */,
+				C6FABB4D211656DB0089A509 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C6FABB51211656DB0089A509 /* PBXTargetDependency */,
+			);
+			name = "Word TempleTests";
+			productName = "Word TempleTests";
+			productReference = C6FABB4F211656DB0089A509 /* Word TempleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C6FABB59211656DB0089A509 /* Word TempleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6FABB69211656DB0089A509 /* Build configuration list for PBXNativeTarget "Word TempleUITests" */;
+			buildPhases = (
+				C6FABB56211656DB0089A509 /* Sources */,
+				C6FABB57211656DB0089A509 /* Frameworks */,
+				C6FABB58211656DB0089A509 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C6FABB5C211656DB0089A509 /* PBXTargetDependency */,
+			);
+			name = "Word TempleUITests";
+			productName = "Word TempleUITests";
+			productReference = C6FABB5A211656DB0089A509 /* Word TempleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C6FABB33211656D90089A509 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Mike Lazer-Walker";
+				TargetAttributes = {
+					C6FABB3A211656D90089A509 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					C6FABB4E211656DB0089A509 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = C6FABB3A211656D90089A509;
+					};
+					C6FABB59211656DB0089A509 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = C6FABB3A211656D90089A509;
+					};
+				};
+			};
+			buildConfigurationList = C6FABB36211656D90089A509 /* Build configuration list for PBXProject "Word Temple" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C6FABB32211656D90089A509;
+			productRefGroup = C6FABB3C211656D90089A509 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C6FABB3A211656D90089A509 /* Word Temple */,
+				C6FABB4E211656DB0089A509 /* Word TempleTests */,
+				C6FABB59211656DB0089A509 /* Word TempleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C6FABB39211656D90089A509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6FABB49211656DB0089A509 /* LaunchScreen.storyboard in Resources */,
+				C6FABB46211656DB0089A509 /* Assets.xcassets in Resources */,
+				C6FABB44211656D90089A509 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6FABB4D211656DB0089A509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6FABB58211656DB0089A509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C6FABB37211656D90089A509 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6FABB41211656D90089A509 /* ViewController.swift in Sources */,
+				C6FABB3F211656D90089A509 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6FABB4B211656DB0089A509 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6FABB54211656DB0089A509 /* Word_TempleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6FABB56211656DB0089A509 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6FABB5F211656DB0089A509 /* Word_TempleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C6FABB51211656DB0089A509 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C6FABB3A211656D90089A509 /* Word Temple */;
+			targetProxy = C6FABB50211656DB0089A509 /* PBXContainerItemProxy */;
+		};
+		C6FABB5C211656DB0089A509 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C6FABB3A211656D90089A509 /* Word Temple */;
+			targetProxy = C6FABB5B211656DB0089A509 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C6FABB42211656D90089A509 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6FABB43211656D90089A509 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C6FABB47211656DB0089A509 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6FABB48211656DB0089A509 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C6FABB61211656DB0089A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C6FABB62211656DB0089A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C6FABB64211656DB0089A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 48WB56AE4K;
+				INFOPLIST_FILE = "Word Temple/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "lazerwalker.Word-Temple";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C6FABB65211656DB0089A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 48WB56AE4K;
+				INFOPLIST_FILE = "Word Temple/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "lazerwalker.Word-Temple";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C6FABB67211656DB0089A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 48WB56AE4K;
+				INFOPLIST_FILE = "Word TempleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "lazerwalker.Word-TempleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Temple.app/Word Temple";
+			};
+			name = Debug;
+		};
+		C6FABB68211656DB0089A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 48WB56AE4K;
+				INFOPLIST_FILE = "Word TempleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "lazerwalker.Word-TempleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Temple.app/Word Temple";
+			};
+			name = Release;
+		};
+		C6FABB6A211656DB0089A509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 48WB56AE4K;
+				INFOPLIST_FILE = "Word TempleUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "lazerwalker.Word-TempleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Word Temple";
+			};
+			name = Debug;
+		};
+		C6FABB6B211656DB0089A509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 48WB56AE4K;
+				INFOPLIST_FILE = "Word TempleUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "lazerwalker.Word-TempleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Word Temple";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C6FABB36211656D90089A509 /* Build configuration list for PBXProject "Word Temple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6FABB61211656DB0089A509 /* Debug */,
+				C6FABB62211656DB0089A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6FABB63211656DB0089A509 /* Build configuration list for PBXNativeTarget "Word Temple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6FABB64211656DB0089A509 /* Debug */,
+				C6FABB65211656DB0089A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6FABB66211656DB0089A509 /* Build configuration list for PBXNativeTarget "Word TempleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6FABB67211656DB0089A509 /* Debug */,
+				C6FABB68211656DB0089A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6FABB69211656DB0089A509 /* Build configuration list for PBXNativeTarget "Word TempleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6FABB6A211656DB0089A509 /* Debug */,
+				C6FABB6B211656DB0089A509 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C6FABB33211656D90089A509 /* Project object */;
+}
