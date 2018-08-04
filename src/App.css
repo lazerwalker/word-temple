@@ -99,11 +99,6 @@ body {
   .tile-row {
     height: 14vw;
   }
-
-  .rack {
-    width: 60vw;
-    float: right;
-  }
 }
 
 .entrance-left,
