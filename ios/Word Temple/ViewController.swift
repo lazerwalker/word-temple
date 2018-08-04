@@ -11,6 +11,7 @@ import WebKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var tabBar: UITabBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +19,9 @@ class ViewController: UIViewController {
         webView.uiDelegate = self
         webView.navigationDelegate = self
 
-        guard let myURL = URL(string: "http://ono-sendai.local:3000") else { return }
-        let myRequest = URLRequest(url: myURL)
-        webView.load(myRequest)
-
         webView.scrollView.isScrollEnabled = false
+
+        loadFirebase()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,7 +29,38 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    private func loadFirebase() {
+        guard let url = URL(string: "http://word-temple.firebaseapp.com") else { return }
+        loadURL(url: url)
+    }
 
+    private func loadMacBook() {
+        guard let url = URL(string: "http://ono-sendai.local:3000") else { return }
+        loadURL(url: url)
+    }
+
+    private func loadLocal() {
+        guard let url = URL(string: "http://word-temple.firebaseapp.com") else { return }
+        loadURL(url: url)
+    }
+
+    private func loadURL(url: URL) {
+        let myRequest = URLRequest(url: url)
+        webView.load(myRequest)
+    }
+}
+
+extension ViewController: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        // TODO: Hah. See Storyboard for hardcoded tags.
+        if (item.tag == 0) {
+            loadFirebase()
+        } else if (item.tag == 1) {
+            loadMacBook()
+        } else if (item.tag == 2) {
+            loadLocal()
+        }
+    }
 }
 
 extension ViewController: WKUIDelegate {
