@@ -14,6 +14,7 @@ body {
 
 .board {
   margin-top: 20px;
+  margin-bottom: 60px;
 }
 
 .tile {
@@ -76,7 +77,11 @@ body {
 }
 
 .rack {
-  margin-top: 20px;
+  position: absolute;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .rack-tile {
@@ -92,13 +97,21 @@ body {
   .board-tile,
   .rack-tile,
   .letter {
-    width: 14vw;
-    height: 14vw;
-    line-height: 14vw;
+    width: 13vw;
+    height: 13vw;
+    line-height: 13vw;
   }
 
   .tile-row {
-    height: 14vw;
+    height: 13vw;
+  }
+
+  .board {
+    margin-top: 20%;
+  }
+
+  .rack {
+    bottom: 20px;
   }
 }
 
