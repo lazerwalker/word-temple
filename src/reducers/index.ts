@@ -98,7 +98,8 @@ export default function createReducer(
         racks[player] = rack
 
         if (board.exitIsComplete) {
-          board = generateNewBoard(board.size, board.exit)
+          // TODO
+          board = generateNewBoard(board.size, board.exits![0])
         }
 
         return { ...state, board, racks, bag }
@@ -127,7 +128,8 @@ export default function createReducer(
         racks[player] = rack
 
         if (board.exitIsComplete) {
-          board = generateNewBoard(board.size, board.exit)
+          // TODO
+          board = generateNewBoard(board.size, board.exits![0])
         }
 
         return { ...state, board, racks }

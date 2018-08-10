@@ -9,14 +9,15 @@ const Dictionary = require('./dictionary')
 export interface Board {
   tiles: BoardTile[]
   size: number
-  entrance?: Portal
-  exit?: Portal
+  entrance: Portal
+  exits: Portal[]
   exitIsComplete?: boolean // TODO: Wrap into exit?
 }
 
 export interface Portal {
   side: Side
-  position: number
+  x: number
+  y: number
 }
 
 export enum Side {
@@ -43,9 +44,29 @@ function generatePortal(
     return undefined
   }
 
+  let x: number
+  let y: number
+
+  if (side === Side.Left) {
+    x = 0
+    y = _.random(1, size - 2)
+  } else if (side === Side.Right) {
+    x = size - 1
+    y = _.random(1, size - 2)
+  } else if (side === Side.Top) {
+    x = _.random(1, size - 2)
+    y = 0
+  } else if (side === Side.Bottom) {
+    x = _.random(1, size - 2)
+    y = size - 1
+  } else {
+    return undefined
+  }
+
   return {
-    position: _.random(1, size - 2),
     side,
+    x,
+    y,
   }
 }
 
@@ -54,7 +75,10 @@ export function generateNewBoard(size: number = 7, entrance?: Portal): Board {
     entrance = generatePortal(size)!
   }
 
-  const exit = generatePortal(size, [entrance])
+  const exits: Portal[] = []
+  for (let i = 0; i < _.random(1, 3); i++) {
+    exits.push(generatePortal(size, exits.concat(entrance))!)
+  }
 
   const tiles: BoardTile[] = []
 
@@ -69,8 +93,8 @@ export function generateNewBoard(size: number = 7, entrance?: Portal): Board {
 
   return {
     entrance,
-    exit,
     exitIsComplete: false,
+    exits,
     size,
     tiles,
   }

@@ -1,4 +1,4 @@
-import { Board } from './Board'
+import { Board, generateNewBoard } from './Board'
 import { Tile } from './Tile'
 import TileBag from './TileBag'
 
@@ -18,10 +18,7 @@ export interface State {
 }
 
 export function createState(props?: State) {
-  const board = {
-    size: 7,
-    tiles: [],
-  }
+  const board = generateNewBoard()
   const bag = new TileBag()
   const racks = {}
 

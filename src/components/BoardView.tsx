@@ -7,7 +7,7 @@ import State from '../state'
 import BoardTileView from './BoardTileView'
 
 import { Dispatch } from 'redux'
-import { Portal, Side } from '../Board'
+import { Portal } from '../Board'
 import { DragBoardTile } from '../constants'
 import { BoardTile } from '../Tile'
 
@@ -18,8 +18,8 @@ interface OwnProps {
 interface StateProps {
   size: number
   tiles: BoardTile[]
-  entrance?: Portal
-  exit?: Portal
+  entrance: Portal
+  exits: Portal[]
   exitIsComplete: boolean
 }
 
@@ -36,54 +36,6 @@ interface DispatchProps {
 }
 
 const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
-  let entrancePos: { x: number; y: number }
-  let exitPos: { x: number; y: number }
-
-  // TODO: Move this into mapStateToProps?
-  if (props.entrance) {
-    switch (props.entrance.side) {
-      case Side.Left:
-        entrancePos = { x: 0, y: props.entrance.position }
-        break
-      case Side.Right:
-        entrancePos = {
-          x: props.size - 1,
-          y: props.entrance.position,
-        }
-        break
-      case Side.Bottom:
-        entrancePos = {
-          x: props.entrance.position,
-          y: props.size - 1,
-        }
-        break
-      case Side.Top:
-        entrancePos = { x: props.entrance.position, y: 0 }
-        break
-      default:
-        break
-    }
-  }
-
-  if (props.exit) {
-    switch (props.exit.side) {
-      case Side.Left:
-        exitPos = { x: 0, y: props.exit.position }
-        break
-      case Side.Right:
-        exitPos = { x: props.size - 1, y: props.exit.position }
-        break
-      case Side.Bottom:
-        exitPos = { x: props.exit.position, y: props.size - 1 }
-        break
-      case Side.Top:
-        exitPos = { x: props.exit.position, y: 0 }
-        break
-      default:
-        break
-    }
-  }
-
   const tiles = _.range(props.size).map(y => {
     return _.range(props.size).map(x => {
       let dragFn:
@@ -92,12 +44,13 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
       let exit: string | undefined
       let entrance: string | undefined
 
-      if (props.entrance && entrancePos.x === x && entrancePos.y === y) {
+      if (props.entrance.x === x && props.entrance.y === y) {
         entrance = props.entrance.side
       }
 
-      if (props.exit && exitPos.x === x && exitPos.y === y) {
-        exit = props.exit.side
+      const potentialExit = _.find(props.exits, p => p.x === x && p.y === y)
+      if (potentialExit) {
+        exit = potentialExit.side
       }
 
       const tile = _(props.tiles).find(t => t.x === x && t.y === y)
