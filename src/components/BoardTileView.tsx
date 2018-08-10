@@ -14,6 +14,7 @@ import {
 import { Portal } from '../Board'
 import { DragBoardTile, DragTile, DragTypes } from '../constants'
 import { BoardTile } from '../Tile'
+import PortalView from './PortalView'
 import TileView from './TileView'
 
 interface Props {
@@ -21,6 +22,7 @@ interface Props {
   entrance?: Portal
   exit?: Portal
   onDrag: (tileIndex: number | DragBoardTile, boardTile?: BoardTile) => void
+  onPortalSelect: (x: number, y: number) => void
 }
 
 interface DNDProps {
@@ -30,7 +32,14 @@ interface DNDProps {
 }
 
 const BoardTileView = (props: Props & DNDProps) => {
-  const { connectDropTarget, connectDragSource, entrance, exit, tile } = props
+  const {
+    connectDropTarget,
+    connectDragSource,
+    entrance,
+    exit,
+    tile,
+    onPortalSelect,
+  } = props
 
   const classes = classNames('board-tile', {
     empty: tile === undefined,
@@ -38,22 +47,19 @@ const BoardTileView = (props: Props & DNDProps) => {
 
   // TODO: `Portal` should probably encapsulate whether it's an entrance or exit? Does it matter?
   // TODO: We should have a PortalView component?
-  let portal
-  if (entrance) {
-    console.log(`ENTRANCE ${entrance.x}, ${entrance.y}`)
-    const classes = classNames(
-      'portal',
-      'entrance',
-      `portal-${entrance.side}`,
-      'portal-open'
+  const portal = entrance || exit || undefined
+
+  let portalView
+  if (portal) {
+    portalView = (
+      <PortalView
+        side={portal.side}
+        open={portal.open}
+        x={portal.x}
+        y={portal.y}
+        onSelect={onPortalSelect}
+      />
     )
-    portal = <div className={classes} />
-  } else if (exit) {
-    console.log(`EXIT ${exit.x}, ${exit.y}`)
-    const classes = classNames('portal', 'exit', `portal-${exit.side}`, {
-      'portal-open': exit.open,
-    })
-    portal = <div className={classes} />
   }
 
   if (tile) {
@@ -66,7 +72,7 @@ const BoardTileView = (props: Props & DNDProps) => {
           movable={tile.movable}
           isDragging={props.isDragging}
         />
-        {portal}
+        {portalView}
       </div>
     )
 
@@ -79,7 +85,7 @@ const BoardTileView = (props: Props & DNDProps) => {
     return connectDropTarget(
       <div className={classes}>
         <TileView />
-        {portal}
+        {portalView}
       </div>
     )
   }

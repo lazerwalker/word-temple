@@ -12,6 +12,8 @@ import { sampleN } from '../TileBag'
 
 import { BoardTile, Tile } from '../Tile'
 
+import * as _ from 'lodash'
+
 // TODO: This blob of definitions has led me to errors that the type system should have caught.
 // Remove this, and probably change tslint?
 let rack: Rack
@@ -157,6 +159,19 @@ export default function createReducer(
           board = boardByAddingTile(board, toTile, from)
         }
 
+        return { ...state, board }
+      case ActionID.PORTAL_SELECT:
+        const { x, y } = action.value
+        const portal = _.find(
+          state.board.exits.concat(state.board.entrance),
+          p => p.x === x && p.y === y
+        )
+
+        if (!portal) {
+          return state
+        }
+
+        board = generateNewBoard(board.size, portal)
         return { ...state, board }
       default:
         return state

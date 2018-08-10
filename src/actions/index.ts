@@ -80,3 +80,10 @@ export const moveBoardTile = (
     value: { from, to },
   }
 }
+
+export const selectPortal = (x: number, y: number): Action.PortalSelect => {
+  return {
+    type: ActionID.PORTAL_SELECT,
+    value: { x, y },
+  }
+}

@@ -2,7 +2,12 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { moveBoardTile, playTile, swapWithBoardTile } from '../actions'
+import {
+  moveBoardTile,
+  playTile,
+  selectPortal,
+  swapWithBoardTile,
+} from '../actions'
 import State from '../state'
 import BoardTileView from './BoardTileView'
 
@@ -32,6 +37,7 @@ interface DispatchProps {
     tileIndex: number | DragBoardTile,
     boardTile: BoardTile
   ) => void
+  onPortalSelect: (x: number, y: number) => void
 }
 
 const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
@@ -73,6 +79,7 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
           onDrag={dragFn}
           entrance={entrance}
           exit={exit}
+          onPortalSelect={props.onPortalSelect}
           tile={tile}
           key={`tile-${x}-${y}`}
         />
@@ -123,6 +130,9 @@ const mapDispatchToProps = (
       } else {
         dispatch(moveBoardTile(tileIndex, { x: boardTile.x, y: boardTile.y }))
       }
+    },
+    onPortalSelect: (x: number, y: number) => {
+      dispatch(selectPortal(x, y))
     },
   }
 }
