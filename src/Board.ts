@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 
-import { hasCompletePath } from './pathfinding'
+import { pathIsComplete } from './pathfinding'
 import { BoardTile, BoardTileState, Tile } from './Tile'
 import { sampleAbstractTile } from './TileBag'
 // tslint:disable-next-line:no-var-requires
@@ -11,13 +11,13 @@ export interface Board {
   size: number
   entrance: Portal
   exits: Portal[]
-  exitIsComplete?: boolean // TODO: Wrap into exit?
 }
 
 export interface Portal {
   side: Side
   x: number
   y: number
+  complete: boolean
 }
 
 export enum Side {
@@ -64,6 +64,7 @@ function generatePortal(
   }
 
   return {
+    complete: false,
     side,
     x,
     y,
@@ -93,7 +94,6 @@ export function generateNewBoard(size: number = 7, entrance?: Portal): Board {
 
   return {
     entrance,
-    exitIsComplete: false,
     exits,
     size,
     tiles,
@@ -128,7 +128,10 @@ export function boardByAddingBoardTile(board: Board, tile: BoardTile): Board {
     }
   })
 
-  newBoard.exitIsComplete = hasCompletePath(newBoard)
+  newBoard.exits = newBoard.exits.map(e => {
+    e.complete = pathIsComplete(newBoard, newBoard.entrance, e)
+    return e
+  })
 
   return newBoard
 }

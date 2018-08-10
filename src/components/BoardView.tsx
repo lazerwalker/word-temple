@@ -20,7 +20,6 @@ interface StateProps {
   tiles: BoardTile[]
   entrance: Portal
   exits: Portal[]
-  exitIsComplete: boolean
 }
 
 interface DispatchProps {
@@ -41,16 +40,19 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
       let dragFn:
         | ((tileIndex: number, boardTile?: BoardTile) => void)
         | undefined
-      let exit: string | undefined
       let entrance: string | undefined
 
       if (props.entrance.x === x && props.entrance.y === y) {
         entrance = props.entrance.side
       }
 
-      const potentialExit = _.find(props.exits, p => p.x === x && p.y === y)
+      let exitSide: string | undefined
+      let exitIsComplete = false
+
+      const potentialExit = _.find(props.exits, p => p.x === x && p.y === y)!
       if (potentialExit) {
-        exit = potentialExit.side
+        exitSide = potentialExit.side
+        exitIsComplete = potentialExit.complete
       }
 
       const tile = _(props.tiles).find(t => t.x === x && t.y === y)
@@ -72,8 +74,8 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
         <BoardTileView
           onDrag={dragFn}
           entrance={entrance}
-          exit={exit}
-          exitIsComplete={props.exitIsComplete}
+          exit={exitSide}
+          exitIsComplete={exitIsComplete}
           tile={tile}
           key={`tile-${x}-${y}`}
         />
@@ -95,7 +97,6 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
 const mapStateToProps = (state: State, ownProps: OwnProps): StateProps => {
   return {
     ...state.board,
-    exitIsComplete: state.board.exitIsComplete || false,
   }
 }
 

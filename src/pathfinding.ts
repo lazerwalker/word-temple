@@ -1,4 +1,4 @@
-import { Board } from './Board'
+import { Board, Portal } from './Board'
 import { BoardTile, BoardTileState } from './Tile'
 
 import * as _ from 'lodash'
@@ -8,46 +8,36 @@ interface Pos {
   y: number
 }
 
-export function hasCompletePath(board: Board): boolean {
-  for (const exit of board.exits) {
-    if (checkPath(board.entrance, exit)) {
+export function pathIsComplete(board: Board, start: Pos, end: Pos): boolean {
+  const visited: boolean[][] = []
+
+  return visitNode(start.x, start.y)
+
+  function visitNode(x: number, y: number): boolean {
+    if (visited[y] && visited[y][x]) {
+      return false
+    }
+
+    const tile = findTile(x, y)
+    if (!(tile && tile.validity === BoardTileState.Valid)) {
+      return false
+    }
+
+    if (x === end.x && y === end.y) {
       return true
     }
-  }
 
-  return false
-
-  function checkPath(start: Pos, end: Pos): boolean {
-    const visited: boolean[][] = []
-
-    return visitNode(start.x, start.y)
-
-    function visitNode(x: number, y: number): boolean {
-      if (visited[y] && visited[y][x]) {
-        return false
-      }
-
-      const tile = findTile(x, y)
-      if (!(tile && tile.validity === BoardTileState.Valid)) {
-        return false
-      }
-
-      if (x === end.x && y === end.y) {
-        return true
-      }
-
-      if (!visited[y]) {
-        visited[y] = []
-      }
-      visited[y][x] = true
-
-      return (
-        visitNode(x + 1, y) ||
-        visitNode(x - 1, y) ||
-        visitNode(x, y + 1) ||
-        visitNode(x, y - 1)
-      )
+    if (!visited[y]) {
+      visited[y] = []
     }
+    visited[y][x] = true
+
+    return (
+      visitNode(x + 1, y) ||
+      visitNode(x - 1, y) ||
+      visitNode(x, y + 1) ||
+      visitNode(x, y - 1)
+    )
   }
 
   function findTile(x: number, y: number): BoardTile | undefined {
@@ -56,4 +46,14 @@ export function hasCompletePath(board: Board): boolean {
     }
     return _.find(board.tiles, tile => tile.x === x && tile.y === y)
   }
+}
+
+export function hasCompletePath(board: Board): Portal | undefined {
+  for (const exit of board.exits) {
+    if (pathIsComplete(board, board.entrance, exit)) {
+      return exit
+    }
+  }
+
+  return undefined
 }
