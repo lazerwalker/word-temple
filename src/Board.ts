@@ -17,7 +17,7 @@ export interface Portal {
   side: Side
   x: number
   y: number
-  complete: boolean
+  open: boolean
 }
 
 export enum Side {
@@ -64,7 +64,7 @@ function generatePortal(
   }
 
   return {
-    complete: false,
+    open: false,
     side,
     x,
     y,
@@ -74,6 +74,7 @@ function generatePortal(
 export function generateNewBoard(size: number = 7, entrance?: Portal): Board {
   if (!entrance) {
     entrance = generatePortal(size)!
+    entrance.open = true
   }
 
   const exits: Portal[] = []
@@ -129,7 +130,7 @@ export function boardByAddingBoardTile(board: Board, tile: BoardTile): Board {
   })
 
   newBoard.exits = newBoard.exits.map(e => {
-    e.complete = pathIsComplete(newBoard, newBoard.entrance, e)
+    e.open = pathIsComplete(newBoard, newBoard.entrance, e)
     return e
   })
 

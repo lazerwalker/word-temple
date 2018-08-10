@@ -40,19 +40,17 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
       let dragFn:
         | ((tileIndex: number, boardTile?: BoardTile) => void)
         | undefined
-      let entrance: string | undefined
+      let entrance: Portal | undefined
 
       if (props.entrance.x === x && props.entrance.y === y) {
-        entrance = props.entrance.side
+        entrance = props.entrance
       }
 
-      let exitSide: string | undefined
-      let exitIsComplete = false
+      let exit: Portal | undefined
 
       const potentialExit = _.find(props.exits, p => p.x === x && p.y === y)!
       if (potentialExit) {
-        exitSide = potentialExit.side
-        exitIsComplete = potentialExit.complete
+        exit = potentialExit
       }
 
       const tile = _(props.tiles).find(t => t.x === x && t.y === y)
@@ -74,8 +72,7 @@ const BoardView = (props: OwnProps & StateProps & DispatchProps) => {
         <BoardTileView
           onDrag={dragFn}
           entrance={entrance}
-          exit={exitSide}
-          exitIsComplete={exitIsComplete}
+          exit={exit}
           tile={tile}
           key={`tile-${x}-${y}`}
         />

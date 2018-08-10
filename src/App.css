@@ -70,6 +70,7 @@ body {
 
 .board-tile {
   display: inline-block;
+  position: relative;
   width: 80px;
   height: 80px;
 }
@@ -101,46 +102,41 @@ body {
   }
 }
 
-.entrance-left,
-.exit-left.exit-complete {
-  border-left: 5px solid #0a0;
-  margin-left: -5px;
+.portal {
+  background-color: #a00;
+  position: absolute;
 }
 
-.entrance-right,
-.exit-right.exit-complete {
-  border-right: 5px solid #0a0;
-  margin-right: -5px;
+.portal-left,
+.portal-right {
+  height: 100%;
+  top: 0;
+  width: 30px;
 }
 
-.entrance-top,
-.exit-top.exit-complete {
-  border-top: 5px solid #0a0;
-  margin-top: -5px;
+.portal-top,
+.portal-bottom {
+  height: 30px;
+  left: 0;
+  width: 100%;
 }
 
-.entrance-bottom,
-.exit-bottom.exit-complete {
-  border-bottom: 5px solid #0a0;
-  margin-bottom: -5px;
+.portal-left {
+  left: -30px;
 }
 
-.exit-left {
-  border-left: 5px solid #a00;
-  margin-left: -5px;
+.portal-right {
+  right: -32px;
 }
 
-.exit-right {
-  border-right: 5px solid #a00;
-  margin-right: -5px;
+.portal-top {
+  top: -32px;
 }
 
-.exit-top {
-  border-top: 5px solid #a00;
-  margin-top: -5px;
+.portal-bottom {
+  bottom: -32px;
 }
 
-.exit-bottom {
-  border-bottom: 5px solid #a00;
-  margin-bottom: -5px;
+.portal-open {
+  background-color: #0a0;
 }

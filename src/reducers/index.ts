@@ -97,12 +97,6 @@ export default function createReducer(
         rack.tiles[tileIndex] = newTile[0]
         racks[player] = rack
 
-        // TODO: This happens on tap
-        // if (board.exitIsComplete) {
-        //   // TODO
-        //   board = generateNewBoard(board.size, board.exits![0])
-        // }
-
         return { ...state, board, racks, bag }
       case ActionID.SWAP_WITH_BOARD_TILE:
         player = action.value.player
@@ -127,12 +121,6 @@ export default function createReducer(
         }
 
         racks[player] = rack
-
-        // TODO: On tap
-        // if (board.exitIsComplete) {
-        //   // TODO
-        //   board = generateNewBoard(board.size, board.exits![0])
-        // }
 
         return { ...state, board, racks }
       case ActionID.SWAP_RACK_TILES:
