@@ -10,13 +10,8 @@ import registerServiceWorker from './registerServiceWorker'
 
 import { createNewRack, generateBoard } from './actions'
 
-import FirebaseAdapter from './networkAdapters/firebase'
+import WebsocketAdapter from './networkAdapters/websocket'
 import { createState } from './state'
-
-const room =
-  window.location.hash === '' ? undefined : window.location.hash.slice(1)
-
-const firebase = new FirebaseAdapter(room)
 
 document.ontouchmove = e => {
   e.preventDefault()
@@ -27,7 +22,8 @@ const initReactFastclick = require('react-fastclick')
 initReactFastclick()
 
 const isHost = window.location.hash === ''
-const reducer = createReducer(isHost, firebase.dispatch)
+const adapter = new WebsocketAdapter(isHost) // new FirebaseAdapter(room)
+const reducer = createReducer(isHost, adapter.dispatch)
 
 const store = createStore(reducer, createState())
 
@@ -35,11 +31,11 @@ let name
 
 if (isHost) {
   name = 'host'
-  firebase.wireQueueToDispatch(store.dispatch)
+  adapter.registerAsHost(store.dispatch)
   store.subscribe(() => {
     const state = store.getState()
     if (state) {
-      firebase.sendNewState(state)
+      adapter.sendNewState(state)
     }
   })
 
@@ -47,8 +43,8 @@ if (isHost) {
   store.dispatch(generateBoard(7))
 } else {
   console.log('Is client')
-  name = firebase.registerAsClient(store.dispatch)
-  firebase.dispatch(createNewRack(name))
+  name = adapter.registerAsClient(store.dispatch)
+  adapter.dispatch(createNewRack(name))
 }
 
 ReactDOM.render(

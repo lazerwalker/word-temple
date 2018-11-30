@@ -28,7 +28,7 @@ export default class FirebaseAdapter {
     this.gameRef().set(state)
   }
 
-  public wireQueueToDispatch(dispatch: Dispatch, room: string = 'default') {
+  public registerAsHost(dispatch: Dispatch, room: string = 'default') {
     this.queueRef().remove()
     this.queueRef().on('child_added', snapshot => {
       if (snapshot) {
