@@ -10,13 +10,13 @@ import registerServiceWorker from './registerServiceWorker'
 
 import { createNewRack, generateBoard } from './actions'
 
-import Firebase from './firebase'
+import FirebaseAdapter from './networkAdapters/firebase'
 import { createState } from './state'
 
 const room =
   window.location.hash === '' ? undefined : window.location.hash.slice(1)
 
-const firebase = new Firebase(room)
+const firebase = new FirebaseAdapter(room)
 
 document.ontouchmove = e => {
   e.preventDefault()

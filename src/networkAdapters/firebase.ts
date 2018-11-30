@@ -1,8 +1,8 @@
 import { database, initializeApp } from 'firebase'
 
-import { overwriteState } from './actions'
-import { Action, Dispatch } from './constants'
-import { State } from './state'
+import { overwriteState } from '../actions'
+import { Action, Dispatch } from '../constants'
+import { State } from '../state'
 
 const config = {
   apiKey: 'AIzaSyBCYsA0yLwjhayv7NUQ5llqUB9IEQQmPEo',
@@ -13,7 +13,7 @@ const config = {
   storageBucket: 'word-temple.appspot.com',
 }
 
-export default class Firebase {
+export default class FirebaseAdapter {
   protected room: string
 
   public isDirty: boolean
