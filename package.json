@@ -5,7 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "firebase": "^4.10.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "react": "^16.2.0",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^5.0.1",
